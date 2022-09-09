@@ -17,14 +17,14 @@
             <div class="card mt-5" style="width: 24rem;">
                 <div class="card-body">
                     <h3 class="card-title">Faça seu login</h5>
-                    <form action="../index.php" method="post">
+                    <form action="../login.php" method="post">
                         <div class="mb-1 mt-4">
                           <label for="usuario_email" class="form-label">E-mail</label>
-                          <input type="email" class="form-control" id="usuario_email" aria-describedby="emailHelp">
+                          <input type="email" class="form-control" name="ADM_EMAIL" id="ADM_EMAIL">
                         </div>
                         <div class="mb-5">
                           <label for="usuario_senha" class="form-label">Senha</label>
-                          <input type="password" class="form-control" id="usuario_senha">
+                          <input type="password" class="form-control" name="ADM_SENHA" id="ADM_SENHA">
                         </div>
                         <button type="submit" class="btn btn-primary">Entrar</button>
                     </form>
