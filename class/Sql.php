@@ -2,10 +2,14 @@
 
 class Sql extends PDO{
     private $conn;
+    private $server = "144.22.231.213:3306";
+    private $user = "usuarios";
+    private $password = "Senac@1976";
+    private $db = "meubanco";
 
     // Método construtor para criar atributo de conexão da classe
     public function __construct(){
-        $this->conn = new PDO ("mysql:dbname=Bravo4Fun;host=144.22.244.104:3306", "Bravo4Fun", "Bravo4Fun");
+        $this->conn = new PDO ("mysql:dbname={$this->db};host={$this->server}r", $this->user, $this->password);
     }
 
     // Define um parâmetro da query com o bindValue
@@ -38,5 +42,9 @@ class Sql extends PDO{
         $stmt = $this->executeQuery($query, $parameters);
 
         return ($stmt->fetchAll(PDO::FETCH_ASSOC));
+    }
+
+    public function returnLastId(){
+        return($this->conn->lastInsertId());
     }
 }
