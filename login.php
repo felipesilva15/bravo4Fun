@@ -9,6 +9,6 @@ $usuario->setSenha($_POST["ADM_SENHA"]);
 
 $response = $usuario->login();
 
-echo $usuario;
+echo $response;
 
 
