@@ -12,3 +12,5 @@ spl_autoload_register(function($className){
         require_once($filename);
     }
 });
+
+require_once("sysFuncoes.php");

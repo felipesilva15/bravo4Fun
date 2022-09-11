@@ -1,5 +1,7 @@
 <?php
 
+require_once("sysFuncoes.php");
+
 class Usuario{
     private $id = 0, $nome = "", $email = "", $senha = ""; 
 
@@ -24,7 +26,7 @@ class Usuario{
     }
 
     public function setSenha($senha){
-        $this->senha = $senha;
+        $this->senha = sha1($senha);
     }
 
     public function getEmail():string{
@@ -36,10 +38,10 @@ class Usuario{
     }
 
     public function setData($data = []){
-        $this->setId($data["ADM_ID"]);
-        $this->setNome($data["ADM_NOME"]);
-        $this->setEmail($data["ADM_EMAIL"]);
-        $this->setSenha($data["ADM_SENHA"]);
+        $this->setId(isset($data["ADM_ID"]) ? $data["ADM_ID"] : 0);
+        $this->setNome(isset($data["ADM_NOME"]) ? $data["ADM_NOME"] : "");
+        $this->setEmail(isset($data["ADM_EMAIL"]) ? $data["ADM_EMAIL"] : "");
+        $this->setSenha(isset($data["ADM_SENHA"]) ? $data["ADM_SENHA"] : "");
     }
 
     public function unsetData(){
@@ -70,11 +72,11 @@ class Usuario{
         $data = $sql->select($query, $params);
 
         if(count($data) == 0){
-            $response = json_encode(["msg"=>"Usuário inválido!"]);
+            $response = json_encode(["status"=> 500, "message"=>"Usuário inválido!"]);
         }else{
             $this->setData($data[0]);
 
-            $response = json_encode(["msg"=>"OK!"]);
+            $response = json_encode(["status"=> 200, "message"=>"OK!"]);
         }
 
         return($response);
@@ -92,12 +94,12 @@ class Usuario{
         $data = $sql->select($query, $params);
 
         if(count($data) == 0){
-            $response = json_encode(["msg"=>"Usuário inválido!"]);
+            $response = json_encode(["status"=> 500, "message"=>"Usuário e/ou senha inválido!"]);
         }else{
             $this->setId($data[0]["ADM_ID"]);
             $this->loadById();
 
-            $response = json_encode(["msg"=>"Conectado com sucesso!"]);
+            $response = json_encode(["status"=> 200, "message"=>"Conectado com sucesso!"]);
         }
 
         return($response);
@@ -107,7 +109,6 @@ class Usuario{
         $sql = new Sql();
 
         $query = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA) VALUES (:NOME, :EMAIL, :SENHA)";
-
         $params = [
             ":NOME"=>$this->getNome(),
             ":EMAIL"=>$this->getEmail(),
@@ -118,11 +119,11 @@ class Usuario{
         $this->setId($sql->returnLastId());
 
         if($this->getId() == 0){
-            $response = json_encode(["msg"=>"Erro ao cadastrar usuário!"]);
+            $response = json_encode(["status"=> 500, "message"=>"Erro ao cadastrar o usuário!"]);
         }else{
             $this->loadById();
 
-            $response = json_encode(["msg"=>"OK!"]);
+            $response = json_encode(["status"=> 200, "message"=>"OK!"]);
         }
 
         return($response);
@@ -132,7 +133,6 @@ class Usuario{
         $sql = new Sql();
 
         $query = "UPDATE ADMINISTRADOR SET ADM_NOME = :NOME, ADM_EMAIL = :EMAIL, ADM_SENHA = :SENHA WHERE ADM_ID = :ID";
-
         $params = [
             ":ID"=>$this->getId(),
             ":NOME"=>$this->getNome(),
@@ -141,10 +141,9 @@ class Usuario{
         ];
 
         $sql->executeQuery($query, $params);
-
         $this->loadById();
 
-        $response = json_encode(["msg"=>"OK!"]);
+        $response = json_encode(["status"=> 200, "message"=>"OK!"]);
 
         return($response);
     }
@@ -153,7 +152,6 @@ class Usuario{
         $sql = new Sql();
 
         $query = "DELETE FROM ADMINISTRADOR WHERE ADM_ID = :ID";
-
         $params = [
             ":ID"=>$this->getId()
         ];
@@ -161,7 +159,7 @@ class Usuario{
         $sql->executeQuery($query, $params);
 
         $this->unsetData();
-        $response = json_encode(["msg"=>"OK!"]);
+        $response = json_encode(["status"=> 200, "message"=>"OK!"]);
 
         return($response);
     }
