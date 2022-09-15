@@ -1,6 +1,6 @@
 <?php
 
-require_once("sysFuncoes.php");
+//require_once("sysFuncoes.php");
 
 class Usuario{
     private $id = 0, $nome = "", $email = "", $senha = ""; 
@@ -76,7 +76,7 @@ class Usuario{
         }else{
             $this->setData($data[0]);
 
-            $response = json_encode(["status"=> 200, "message"=>"OK!"]);
+            $response = json_encode(["status"=> 200, "message"=>"OK"]);
         }
 
         return($response);
@@ -108,6 +108,12 @@ class Usuario{
     public function insert(){
         $sql = new Sql();
 
+        $resValidar = $this->validarUsuario();
+
+        if($resValidar["status"] != 200){
+            return(json_encode($resValidar));
+        }
+
         $query = "INSERT INTO ADMINISTRADOR (ADM_NOME, ADM_EMAIL, ADM_SENHA) VALUES (:NOME, :EMAIL, :SENHA)";
         $params = [
             ":NOME"=>$this->getNome(),
@@ -123,7 +129,7 @@ class Usuario{
         }else{
             $this->loadById();
 
-            $response = json_encode(["status"=> 200, "message"=>"OK!"]);
+            $response = json_encode(["status"=> 200, "message"=>"OK"]);
         }
 
         return($response);
@@ -131,6 +137,12 @@ class Usuario{
 
     public function update(){
         $sql = new Sql();
+
+        $resValidar = $this->validarUsuario();
+
+        if($resValidar["status"] != 200){
+            return(json_encode($resValidar));
+        }
 
         $query = "UPDATE ADMINISTRADOR SET ADM_NOME = :NOME, ADM_EMAIL = :EMAIL, ADM_SENHA = :SENHA WHERE ADM_ID = :ID";
         $params = [
@@ -143,8 +155,8 @@ class Usuario{
         $sql->executeQuery($query, $params);
         $this->loadById();
 
-        $response = json_encode(["status"=> 200, "message"=>"OK!"]);
-
+        $response = json_encode(["status"=> 200, "message"=>"OK"]);
+        
         return($response);
     }
 
@@ -159,17 +171,33 @@ class Usuario{
         $sql->executeQuery($query, $params);
 
         $this->unsetData();
-        $response = json_encode(["status"=> 200, "message"=>"OK!"]);
+        $response = json_encode(["status"=> 200, "message"=>"OK"]);
+
+        return($response);
+    }
+
+    public function validarUsuario(){
+        $response = "";
+
+        if(!isset($this->nome) || $this->nome == ""){
+            $response = ["status"=> 400, "message"=>"Nome não informado!"];
+        } elseif (!isset($this->email) || $this->email == "") {
+            $response = ["status"=> 400, "message"=>"E-mail não informado!"];
+        } elseif (!isset($this->senha) || $this->senha == ""){
+            $response = ["status"=> 400, "message"=>"Senha não informada!"];
+        } else{
+            $response = ["status"=> 200, "message"=>"Ok"];
+        }
 
         return($response);
     }
 
     public function __toString():string{
         return(json_encode([
-            "id"=>$this->getId(),
-            "nome"=>$this->getNome(),
-            "email"=>$this->getEmail(),
-            "senha"=>$this->getSenha()
+            "ADM_ID"=>$this->getId(),
+            "ADM_NOME"=>$this->getNome(),
+            "ADM_EMAIL"=>$this->getEmail(),
+            "ADM_SENHA"=>$this->getSenha()
         ]));
     }
 }
