@@ -2,10 +2,12 @@
 
 class Sql extends PDO{
     private $conn;
-    private $server = "144.22.231.213:3306";
-    private $user = "usuarios";
-    private $password = "Senac@1976";
-    private $db = "meubanco";
+
+    // BD Senac
+    private $server = "144.22.244.104:3306";
+    private $user = "Bravo4Fun";
+    private $password = "Bravo4Fun";
+    private $db = "Bravo4Fun";
 
     // Método construtor para criar atributo de conexão da classe
     public function __construct(){
