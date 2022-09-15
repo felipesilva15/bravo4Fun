@@ -11,4 +11,5 @@ $response = $usuario->login();
 
 echo $response;
 
+header('refresh: 3; url=views/login.html');
 

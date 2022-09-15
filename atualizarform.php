@@ -9,6 +9,8 @@ $usuario->setNome($_POST["ADM_NOME"]);
 $usuario->setEmail($_POST["ADM_EMAIL"]);
 $usuario->setSenha($_POST["ADM_SENHA"]);
 
-$usuario->update();
+$response = $usuario->update();
 
-echo $usuario;
+echo $response;
+
+header('refresh: 3; url=listarAdmin.php');
