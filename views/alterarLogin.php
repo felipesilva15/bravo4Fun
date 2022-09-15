@@ -24,8 +24,10 @@ $usuario->loadById();
     <link rel="stylesheet" href="../res/css/global.css">
 </head>
 <body class="default-height-body">
-    <header>
-
+    <header class="login-header">
+        <div class="full-height d-flex justify-content-center align-items-center">
+            <h4>BRAVO 4 FUN</h4>
+        </div>
     </header>
     <main class="full-height">
         <div class="full-height d-flex justify-content-center align-items-center">
@@ -34,9 +36,9 @@ $usuario->loadById();
                     <div class="d-flex justify-content-center align-items-center">
                         <h3 class="mb-3 card-title">Atualize sua conta</h5>
                     </div>
-                    <form action="../atualizarform.php" method="post">
+                    <form action="../alterarLogin.php" method="post">
                         <div class="mb-1 mt-4 div-inline-input">
-                            <input type="text" class="inline-input" name="ADM_ID" id="ADM_ID" autocomplete="off" readonly required value="<?php echo $usuario->getId();?>">
+                            <input type="text" class="inline-input" name="ADM_ID" id="ADM_ID" autocomplete="off" required value="<?php echo $usuario->getId();?>">
                             <label for="ADM_ID" class="form-label">ID</label>
                         </div>
                         <div class="mb-1 div-inline-input">

@@ -13,4 +13,4 @@ $response = $usuario->update();
 
 echo $response;
 
-header('refresh: 3; url=listarAdmin.php');
+header('refresh: 3; url=consultarAdmin.php');
