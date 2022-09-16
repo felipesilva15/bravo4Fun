@@ -7,9 +7,11 @@ $usuario = new Usuario();
 $usuario->setEmail($_POST["ADM_EMAIL"]);
 $usuario->setSenha($_POST["ADM_SENHA"]);
 
-$response = $usuario->login();
+$response = json_decode($usuario->login(), true);
 
-echo $response;
-
-header('refresh: 3; url=views/login.html');
-
+if (isset($response["status"]) && $response["status"] == 200){
+    header('Location: views/menu.html');
+} else{
+    echo $response["message"];
+    header('refresh: 3; url=views/login.html');
+}
