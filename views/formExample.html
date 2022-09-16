@@ -19,6 +19,12 @@
                 <div class="mx-2 my-4">
                     <form action="../categoriaIncluir" method="post">
                         <div class="row g-3">
+                            <div class="col-12">
+                                <div class="col-6 col-md-2">
+                                    <label class="form-label-custom" for="ID">ID</label>
+                                    <input name="ID" maxlength="500" required type="text" class="form-control" placeholder="" value="" disabled>
+                                </div>
+                            </div>
                             <div class="col-md-6">
                                 <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
@@ -43,8 +49,21 @@
                                 <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
                             </div>
-                            <div class="col-12 mt-4">
-                                <button type="submit" class="btn btn-success">Cadastrar</button>
+                            <div class="col-12">
+                                <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
+                                <textarea name="NOME" maxlength="500" rows="4" required type="text" class="form-control" placeholder="Digite..."></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label-custom" for="QTD">Qtd. <span class="required">*</span></label>
+                                <input name="QTD" maxlength="500" required type="text" class="form-control inputNumber" placeholder="Digite...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label-custom" for="QTD">Qtd. <span class="required">*</span></label>
+                                <input name="QTD" maxlength="500" required type="text" class="form-control inputNumber" placeholder="Digite...">
+                            </div>
+                            <div class="col-12 mt-5">
+                                    <button type="submit" class="btn btn-success mx-1">Cadastrar</button>
+                                    <button type="submit" class="btn btn-light mx-1">Cancelar</button>
                             </div>
                         </div>
                     </form>
