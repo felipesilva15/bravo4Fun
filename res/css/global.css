@@ -2,7 +2,7 @@ footer, .login-header{
     box-sizing: border-box;
     background-color: #1d2124;
     height: 50px;
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .login-footer, .login-header{
@@ -57,4 +57,33 @@ form div.div-inline-input .inline-input:valid ~ label{
     transform: translateY(-24px);
     font-size: 12px;
     color: #6495ed;
+}
+
+.box{
+    width: 100%;
+    border-radius: 3px;
+    border-top: 3px solid #cccccc;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.box-dig{
+    border-top-color: #198754;
+}
+
+.box-read{
+    border-top-color: #0d6efd;
+}
+
+.required{
+    color: #ff0000;
+    font-weight: 600;
+}
+
+.form-label-custom{
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.pull-right{
+    float: right;
 }
