@@ -16,7 +16,7 @@
                 <div class="my-3">
                     <h3>Categoria - Incluir</h3>
                 </div>
-                <div class="mx-2 my-4">
+                <div class="m-2 mt-4">
                     <form action="../categoriaIncluir" method="post">
                         <div class="row g-3">
                             <div class="col-12">
@@ -26,11 +26,11 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
+                                <label class="form-label-custom" for="NOME">Nome<span class="required">*</span></label>
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
+                                <label class="form-label-custom" for="NOME">Nome<span class="required">*</span></label>
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12">
@@ -38,28 +38,41 @@
                                 <input name="NOME" maxlength="500" type="text" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
+                                <label class="form-label-custom" for="NOME">Nome<span class="required">*</span></label>
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
+                                <label class="form-label-custom" for="NOME">Nome<span class="required">*</span></label>
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
+                                <label class="form-label-custom" for="NOME">Nome<span class="required">*</span></label>
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12">
-                                <label class="form-label-custom" for="NOME">Nome <span class="required">*</span></label>
+                                <label class="form-label-custom" for="NOME">Nome<span class="required">*</span></label>
                                 <textarea name="NOME" maxlength="500" rows="4" required type="text" class="form-control" placeholder="Digite..."></textarea>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label-custom" for="QTD">Qtd. <span class="required">*</span></label>
-                                <input name="QTD" maxlength="500" required type="text" class="form-control inputNumber" placeholder="Digite...">
+                                <label class="form-label-custom" for="VALOR">Valor<span class="required">*</span></label>
+                                <input name="VALOR" maxlength="500" required type="text" class="form-control inputNumber" placeholder="Digite...">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label-custom" for="QTD">Qtd. <span class="required">*</span></label>
-                                <input name="QTD" maxlength="500" required type="text" class="form-control inputNumber" placeholder="Digite...">
+                                <label class="form-label-custom" for="VALOR">Valor<span class="required">*</span></label>
+                                <input name="VALOR" maxlength="500" required type="text" class="form-control inputNumber" placeholder="Digite...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label-custom" for="SELECT">Select<span class="required">*</span></label>
+                                <select class="form-select" aria-label="Default select example" name="SELECT">
+                                    <option value="0" selected>Selecione...</option>
+                                    <option value="1">Valor 1</option>
+                                    <option value="2">Valor 2</option>
+                                    <option value="3">Valor 3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label-custom" for="QTD">Qtd.<span class="required">*</span></label>
+                                <input name="QTD" maxlength="500" required type="number" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12 mt-5">
                                     <button type="submit" class="btn btn-success mx-1">Cadastrar</button>
@@ -74,6 +87,7 @@
 </body>
 <script src="../res/bootstrap/js/bootstrap.min.js"></script>
 <script src="../res/plugins/jQuery/jquery-3.6.1.min.js"></script>
+<script src="../res/plugins/input/jquery.maskMoney.js"></script>
 <script src="../res/js/utils.js"></script>
 <script src="../res/js/mask.js"></script>
 <script src="../res/js/modal.js"></script>
