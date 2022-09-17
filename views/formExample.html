@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Formulário exemplo</title>
     <link rel="shortcut icon" href="../res/images/logo.ico">
     <link rel="stylesheet" href="../res/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../res/css/global.css">
 </head>
 <body class="default-height-body">
     <main class="full-height">
+        <!-- Inicio do formulário de digitar -->
         <div class="m-3">
             <div class="box box-dig p-2 margin-0">
                 <div class="my-3">
@@ -19,12 +20,13 @@
                 <div class="m-2 mt-4">
                     <form action="../categoriaIncluir" method="post">
                         <div class="row g-3">
-                            <div class="col-12">
+                            <!-- <div class="col-12">
                                 <div class="col-6 col-md-2">
                                     <label class="form-label-custom" for="ID">ID</label>
                                     <input name="ID" maxlength="500" required type="text" class="form-control" placeholder="" value="" disabled>
                                 </div>
-                            </div>
+                            </div> -->
+                            <input name="ID" maxlength="500" required type="hidden" class="form-control" placeholder="" value="" disabled>
                             <div class="col-md-6">
                                 <label class="form-label-custom" for="NOME">Nome<span class="required">*</span></label>
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
@@ -50,7 +52,7 @@
                                 <input name="NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12">
-                                <label class="form-label-custom" for="NOME">Nome<span class="required">*</span></label>
+                                <label class="form-label-custom" for="NOME">Texto<span class="required">*</span></label>
                                 <textarea name="NOME" maxlength="500" rows="4" required type="text" class="form-control" placeholder="Digite..."></textarea>
                             </div>
                             <div class="col-md-6">
@@ -82,6 +84,77 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <!-- Fim do formulário de digitar -->
+        <!-- Inicio do formulário de consultar -->
+        <div class="m-3 mt-5">
+            <div class="box box-read p-2 margin-0">
+                <div class="my-3">
+                    <h3>Categoria - Consultar</h3>
+                </div>
+                <div class="m-2 mt-5 pb-1">
+                    <form action="../categoriaConsultar.php" method="get">
+                        <div class="row g-3">
+                            <div class="row col-auto me-auto col-md-6">
+                                <div class="col-md-4">
+                                    <label class="form-label-custom" for="ID">ID</label>
+                                    <input name="ID" maxlength="500" type="number" class="form-control" placeholder="Digite..." value="">
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="form-label-custom" for="NOME">Nome</label>
+                                    <input name="NOME" maxlength="500" type="text" class="form-control" placeholder="Digite..." value="">
+                                </div>
+                            </div>
+                             <div class="col-auto align-self-end">
+                                    <button type="submit" class="btn btn-primary mx-1">Consultar</button>
+                             </div>
+                        </div>
+                    </form>
+                    <table class="mt-4 table table-striped table-hover table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th><button class="btn btn-success btn-sm p-0 px-1 fw-bold">+ Incluir</button></th>           
+                            </tr>    
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr>
+                                <td>1</td>
+                                <td>Cinema</td>
+                                <td>Ingressos para filmes do cinema</td>
+                                <td>
+                                    <button class="btn btn-success btn-sm p-0 px-1">A</button>
+                                    <button class="btn btn-danger btn-sm p-0 px-1">D</button>
+                                </td>
+                            </tr> 
+                            <tr>
+                                <td>1</td>
+                                <td>Cinema</td>
+                                <td>Ingressos para filmes do cinema</td>
+                                <td>
+                                    <button class="btn btn-success btn-sm p-0 px-1">A</button>
+                                    <button class="btn btn-danger btn-sm p-0 px-1">D</button>
+                                </td>
+                            </tr>   
+                            <tr>
+                                <td>1</td>
+                                <td>Cinema</td>
+                                <td>Ingressos para filmes do cinema</td>
+                                <td>
+                                    <button class="btn btn-success btn-sm p-0 px-1">A</button>
+                                    <button class="btn btn-danger btn-sm p-0 px-1">D</button>
+                                </td>
+                            </tr>    
+                        </tbody>   
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Fim do formulário de consultar -->
+        <div class="mt-5">
+            Fim do arquivo
         </div>
     </main>
 </body>
