@@ -77,8 +77,8 @@
                                 <input name="QTD" maxlength="500" required type="number" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12 mt-5">
-                                    <button type="submit" class="btn btn-success mx-1">Cadastrar</button>
-                                    <button type="submit" class="btn btn-light mx-1">Cancelar</button>
+                                <button type="submit" class="btn btn-success mx-1">Cadastrar</button>
+                                <a href="categoriaConsultar.php" class="btn btn-light mx-1">Cancelar</a>
                             </div>
                         </div>
                     </form>
@@ -110,45 +110,103 @@
                              </div>
                         </div>
                     </form>
-                    <table class="mt-4 table table-striped table-hover table-responsive-md">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Descrição</th>
-                                <th><button class="btn btn-success btn-sm p-0 px-1 fw-bold">+ Incluir</button></th>           
-                            </tr>    
-                        </thead>
-                        <tbody class="table-group-divider">
-                            <tr>
-                                <td>1</td>
-                                <td>Cinema</td>
-                                <td>Ingressos para filmes do cinema</td>
-                                <td>
-                                    <button class="btn btn-success btn-sm p-0 px-1">A</button>
-                                    <button class="btn btn-danger btn-sm p-0 px-1">D</button>
-                                </td>
-                            </tr> 
-                            <tr>
-                                <td>1</td>
-                                <td>Cinema</td>
-                                <td>Ingressos para filmes do cinema</td>
-                                <td>
-                                    <button class="btn btn-success btn-sm p-0 px-1">A</button>
-                                    <button class="btn btn-danger btn-sm p-0 px-1">D</button>
-                                </td>
-                            </tr>   
-                            <tr>
-                                <td>1</td>
-                                <td>Cinema</td>
-                                <td>Ingressos para filmes do cinema</td>
-                                <td>
-                                    <button class="btn btn-success btn-sm p-0 px-1">A</button>
-                                    <button class="btn btn-danger btn-sm p-0 px-1">D</button>
-                                </td>
-                            </tr>    
-                        </tbody>   
-                    </table>
+                    <div class="mt-4 table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>
+                                        <a href="digitarCategoria.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
+                                    </th>           
+                                </tr>    
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr>
+                                    <td>1</td>
+                                    <td>Cinema</td>
+                                    <td>Ingressos para filmes do cinema</td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <div>
+                                                <a href="categoriaDigitar.php?id=1" class="btn  btn-sm-custom p-0">
+                                                    <img src="../res/images/edit.png" alt="" width="17px" height="17px">
+                                                </a>
+                                            </div>
+                                            <div class="ps-1">
+                                                <a class="btn btn-sm-custom p-0">
+                                                    <img src="../res/images/delete.png" alt="" width="18px" height="18px">
+                                                </a>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                                    <img src="../res/images/more.png" alt="" width="16px" height="16px">
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Ativar / Detativar</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr> 
+                                <tr>
+                                    <td>2</td>
+                                    <td>Show</td>
+                                    <td>Ingressos para shows em geral</td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <div>
+                                                <a href="categoriaDigitar.php?id=2" class="btn  btn-sm-custom p-0">
+                                                    <img src="../res/images/edit.png" alt="" width="17px" height="17px">
+                                                </a>
+                                            </div>
+                                            <div class="ps-1">
+                                                <a class="btn btn-sm-custom p-0">
+                                                    <img src="../res/images/delete.png" alt="" width="18px" height="18px">
+                                                </a>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                                    <img src="../res/images/more.png" alt="" width="16px" height="16px">
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Ativar / Detativar</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>   
+                                <tr>
+                                    <td>3</td>
+                                    <td>Games</td>
+                                    <td>Ingressos para eventos de games</td>
+                                    <td>
+                                        <div class="d-flex flex-row">
+                                            <div>
+                                                <a href="categoriaDigitar.php?id=3" class="btn  btn-sm-custom p-0">
+                                                    <img src="../res/images/edit.png" alt="" width="17px" height="17px">
+                                                </a>
+                                            </div>
+                                            <div class="ps-1">
+                                                <a class="btn btn-sm-custom p-0">
+                                                    <img src="../res/images/delete.png" alt="" width="18px" height="18px">
+                                                </a>
+                                            </div>
+                                            <div class="dropdown">
+                                                <button class="btn btn-sm-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">
+                                                    <img src="../res/images/more.png" alt="" width="16px" height="16px">
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#">Ativar / Detativar</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>    
+                            </tbody>   
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,6 +219,8 @@
 <script src="../res/bootstrap/js/bootstrap.min.js"></script>
 <script src="../res/plugins/jQuery/jquery-3.6.1.min.js"></script>
 <script src="../res/plugins/input/jquery.maskMoney.js"></script>
+<script src="../res/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../res/bootstrap/js/bootstrap.esm.min.js"></script>
 <script src="../res/js/utils.js"></script>
 <script src="../res/js/mask.js"></script>
 <script src="../res/js/modal.js"></script>

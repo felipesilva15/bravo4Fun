@@ -87,3 +87,9 @@ form div.div-inline-input .inline-input:valid ~ label{
 .pull-right{
     float: right;
 }
+
+.btn-sm-custom{
+    padding: 1px 5px; 
+    font-size: 14px; 
+    border-radius: 0.25rem;
+}
