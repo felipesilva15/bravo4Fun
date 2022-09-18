@@ -54,9 +54,32 @@ class Usuario{
     public function getUsuarios(){
         $sql = new Sql();
 
-        $query = "SELECT * FROM ADMINISTRADOR";
+        $sqlWhere = "";
+        $params = [];
 
-        $data = $sql->select($query);
+        if($this->getId() !== 0){
+            $sqlWhere .= " AND ADM_ID = :ID";
+            $params[":ID"] = $this->getId();
+        }
+        if($this->getNome() !== ""){
+            $sqlWhere .= " AND ADM_NOME LIKE :NOME";
+            $params[":NOME"] = "{$this->getNome()}%";
+        }
+        if($this->getEmail() !== ""){
+            $sqlWhere .= " AND ADM_EMAIL LIKE :EMAIL";
+            $params[":EMAIL"] = "{$this->getEmail()}%";
+        }
+
+        if($sqlWhere !== ""){
+            $sqlWhere = " WHERE " . substr($sqlWhere, 5);
+        }
+
+        // var_dump($sqlWhere);
+        // var_dump($params);
+
+        $query = "SELECT * FROM ADMINISTRADOR $sqlWhere";
+
+        $data = $sql->select($query, $params);
 
         return($data);
     }
