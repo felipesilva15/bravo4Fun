@@ -7,11 +7,10 @@ $admin = new Usuario();
 $admin->setId($_GET["id"]);
 
 try {
-    $response = $admin->delete();
+    $response = $admin->desativar();
 } catch (Exception $e) {
     $response = json_encode([
-        "status"=>500,
-        "errorCode"=>$e->getCode(),
+        "status"=>$e->getCode(),
         "message"=>$e->getMessage(),
         "file"=>$e->getFile(),
         "line"=>$e->getLine()
