@@ -66,8 +66,11 @@
                                     $data = $admin->getUsuarios();
 
                                     foreach ($data as $row) {
+                                        $row["ADM_ATIVO"] = $row["ADM_ATIVO"] ?? 1;
+                                        $styleInativo = $row["ADM_ATIVO"] == 0 ? 'style="text-decoration: line-through;"' : "";
+
                                         echo "
-                                        <tr>
+                                        <tr {$styleInativo}>
                                             <td>{$row["ADM_ID"]}</td>
                                             <td>{$row["ADM_NOME"]}</td>
                                             <td>{$row["ADM_EMAIL"]}</td>
@@ -79,7 +82,7 @@
                                                         </a>
                                                     </div>
                                                     <div class=\"ps-1\">
-                                                        <a class=\"btn btn-sm-custom p-0\">
+                                                        <a class=\"btn btn-sm-custom p-0\" onclick=\"adminExcluir({$row["ADM_ID"]})\">
                                                             <img src=\"res/images/delete.png\" width=\"18px\" height=\"18px\">
                                                         </a>
                                                     </div>
@@ -88,7 +91,7 @@
                                                             <img src=\"res/images/more.png\" width=\"16px\" height=\"16px\">
                                                         </button>
                                                         <ul class=\"dropdown-menu\">
-                                                            <li><a class=\"dropdown-item\" href=\"#\">Ativar / Detativar</a></li>
+                                                            <li><a class=\"dropdown-item\" onclick=\"adminDesativar({$row["ADM_ID"]})\">Ativar / Detativar</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -105,7 +108,7 @@
         </div>
     </main>
     <footer>
-
+        
     </footer>
 </body>
 <script src="res/bootstrap/js/bootstrap.min.js"></script>
@@ -117,4 +120,33 @@
 <script src="res/js/mask.js"></script>
 <script src="res/js/modal.js"></script>
 <script src="res/js/api.js"></script>
+<script>
+    function adminExcluir(id){
+        cfgModal = modal.config();
+
+        cfgModal.type = "CONFIRM";
+        cfgModal.title = "Atenção";
+        cfgModal.extra1 = id;
+        cfgModal.extra2 = "EXCLUIR";
+        cfgModal.callback = () => {
+            window.location.href = `adminExcluir.php?id=${id}`
+        }
+
+        modal.show(cfgModal);
+    }
+
+    function adminDesativar(id){
+        cfgModal = modal.config();
+
+        cfgModal.type = "CONFIRM";
+        cfgModal.title = "Atenção";
+        cfgModal.extra1 = id;
+        cfgModal.extra2 = "DESATIVAR";
+        cfgModal.callback = () => {
+            window.location.href = `adminDesativar.php?id=${id}`
+        };
+
+        modal.show(cfgModal);
+    }
+</script>
 </html>
