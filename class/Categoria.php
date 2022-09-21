@@ -74,7 +74,7 @@ class Categoria{
 
         $query = "SELECT * FROM CATEGORIA WHERE CATEGORIA_ID = :ID";
         $params = [
-            ":ID"=>$this->getId();
+            ":ID"=>$this->getId()
         ];
 
         $data = $sql->select($query, $params);
@@ -107,7 +107,7 @@ class Categoria{
             }else{
                 $this->loadById();
 
-                $response = json_encode(["status"=> 200, "message"=>"Categoria Inclusa"])
+                $response = json_encode(["status"=> 200, "message"=>"Categoria Inclusa"]);
             }
 
         return($response); 

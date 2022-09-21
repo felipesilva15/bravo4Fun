@@ -4,7 +4,7 @@ require_once("config.php");
 
 $categoria = new Categoria();
 
-$categoria >setId($_GET["id"]);
+$categoria->setId($_GET["id"]);
 
 $response = $categoria->delete();
 

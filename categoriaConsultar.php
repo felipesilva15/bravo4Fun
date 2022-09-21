@@ -52,12 +52,12 @@
                                 <?php
                                     require_once("config.php");
 
-                                    $categ = new Categoria();
+                                    $categoria = new Categoria();
 
-                                    $categ->setId(isset($_GET["id"]) && $_GET["id"] !== "" ? $_GET["id"] : 0);
-                                    $categ->setNome(isset($_GET["nome"]) ? $_GET["nome"] : "");
+                                    $categoria->setId(isset($_GET["id"]) && $_GET["id"] !== "" ? $_GET["id"] : 0);
+                                    $categoria->setNome(isset($_GET["nome"]) ? $_GET["nome"] : "");
 
-                                    $data = $categ->getCategorias();
+                                    $data = $categoria->getCategorias();
 
                                     foreach ($data as $row) {
                                         echo "
@@ -75,14 +75,10 @@
                                                         <a class=\"btn btn-sm-custom p-0\">
                                                             <img src=\"res/images/delete.png\" width=\"18px\" height=\"18px\">
                                                         </a>
-                                                    </div>
-                                                    <div class=\"dropdown\">
+                                                        <div class=\"dropdown\">
                                                         <button class=\"btn btn-sm-custom dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
                                                             <img src=\"res/images/more.png\" width=\"16px\" height=\"16px\">
                                                         </button>
-                                                        <ul class=\"dropdown-menu\">
-                                                            <li><a class=\"dropdown-item\" href=\"#\">Ativar / Detativar</a></li>
-                                                        </ul>
                                                     </div>
                                                 </div>
                                             </td>
@@ -110,4 +106,19 @@
 <script src="res/js/mask.js"></script>
 <script src="res/js/modal.js"></script>
 <script src="res/js/api.js"></script>
+<script>
+    function categoriaExcluir(id){
+        cfgModal = modal.config();
+
+        cfgModal.type = "CONFIRM";
+        cfgModal.title = "Atenção";
+        cfgModal.extra1 = id;
+        cfgModal.extra2 = "EXCLUIR";
+        cfgModal.callback = () => {
+            window.location.href = `categoriaExcluir.php?id=${id}`
+        }
+
+        modal.show(cfgModal);
+    }
+</script>
 </html>
