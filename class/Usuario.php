@@ -61,7 +61,7 @@ class Usuario{
         $this->setAtivo(0);
     }
 
-    public function getUsuarios(){
+    public function getUsuarios($exibirInativo = 0){
         $sql = new Sql();
 
         $sqlWhere = "";
@@ -79,13 +79,13 @@ class Usuario{
             $sqlWhere .= " AND ADM_EMAIL LIKE :EMAIL";
             $params[":EMAIL"] = "{$this->getEmail()}%";
         }
+        if($exibirInativo == 0){
+            $sqlWhere .= " AND ADM_ATIVO = 1";
+        }
 
         if($sqlWhere !== ""){
             $sqlWhere = " WHERE " . substr($sqlWhere, 5);
         }
-
-        // var_dump($sqlWhere);
-        // var_dump($params);
 
         $query = "SELECT * FROM ADMINISTRADOR $sqlWhere";
 
@@ -105,11 +105,11 @@ class Usuario{
         $data = $sql->select($query, $params);
 
         if(count($data) == 0){
-            $response = json_encode(["status"=> 500, "message"=>"Usuário inválido!"]);
+            $response = json_encode(["status"=> 500, "message"=>"Usuário inválido!", "items"=>[]]);
         }else{
             $this->setData($data[0]);
 
-            $response = json_encode(["status"=> 200, "message"=>"OK"]);
+            $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         }
 
         return($response);
@@ -127,12 +127,12 @@ class Usuario{
         $data = $sql->select($query, $params);
 
         if(count($data) == 0){
-            $response = json_encode(["status"=> 500, "message"=>"Usuário e/ou senha inválido!"]);
+            $response = json_encode(["status"=> 500, "message"=>"Usuário e/ou senha inválido!", "items"=>[]]);
         }else{
             $this->setId($data[0]["ADM_ID"]);
             $this->loadById();
 
-            $response = json_encode(["status"=> 200, "message"=>"Conectado com sucesso!"]);
+            $response = json_encode(["status"=> 200, "message"=>"Conectado com sucesso!", "items"=>[]]);
         }
 
         return($response);
@@ -162,7 +162,7 @@ class Usuario{
         }else{
             $this->loadById();
 
-            $response = json_encode(["status"=> 200, "message"=>"OK"]);
+            $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         }
 
         return($response);
@@ -186,9 +186,8 @@ class Usuario{
         ];
 
         $sql->executeQuery($query, $params);
-        $this->loadById();
 
-        $response = json_encode(["status"=> 200, "message"=>"OK"]);
+        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         
         return($response);
     }
@@ -204,7 +203,7 @@ class Usuario{
         $sql->executeQuery($query, $params);
 
         $this->unsetData();
-        $response = json_encode(["status"=> 200, "message"=>"OK"]);
+        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
 
         return($response);
     }
@@ -227,7 +226,7 @@ class Usuario{
 
         $sql->executeQuery($query, $params);
 
-        $response = json_encode(["status"=> 200, "message"=>"OK"]);
+        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         
         return($response);
     }

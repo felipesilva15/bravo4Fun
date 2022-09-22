@@ -32,7 +32,7 @@
                 <div class="m-2 mt-4">
                     <form action="<?php echo $acao == "C" ? "../adminIncluir.php" : "../adminAlterar.php" ?>" method="post">
                         <div class="row g-3">
-                            <input name="ID" maxlength="500" required type="hidden" class="form-control" placeholder="" value="" disabled>
+                            <input name="ADM_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0 ?>">
                             <div class="col-md-6">
                                 <label class="form-label-custom" for="ADM_NOME">Nome<span class="required">*</span></label>
                                 <input name="ADM_NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite..." value="<?php echo $admin->getNome() ?>">

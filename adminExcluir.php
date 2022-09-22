@@ -19,5 +19,3 @@ try {
 }
 
 echo $response;
-
-header('refresh: 3; url=adminConsultar.php');

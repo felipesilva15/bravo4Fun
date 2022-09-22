@@ -25,7 +25,7 @@
                             <div class="row col-auto me-auto col-md-9">
                                 <div class="col-md-2">
                                     <label class="form-label-custom" for="id">ID</label>
-                                    <input name="id" maxlength="500" type="number" class="form-control" placeholder="Digite..." value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "" ?>">
+                                    <input name="id" min="0" type="number" class="form-control" placeholder="Digite..." value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "" ?>">
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label-custom" for="nome">Nome</label>
@@ -37,7 +37,13 @@
                                 </div>
                             </div>
                              <div class="col-auto align-self-end">
+                                <div class="d-flex column align-itens-end">
+                                    <div class="form-check m-1 me-4">
+                                        <input class="form-check-input" type="checkbox" name="inativo" value="1" id="inativo" <?php echo isset($_GET["inativo"]) && $_GET["inativo"] == 1 ? "checked" : "" ?>>
+                                        <label class="form-check-label" for="inativo">Exibir inativos</label>
+                                    </div>
                                     <button type="submit" class="btn btn-primary mx-1">Consultar</button>
+                                </div>
                              </div>
                         </div>
                     </form>
@@ -62,8 +68,9 @@
                                     $admin->setId(isset($_GET["id"]) && $_GET["id"] !== "" ? $_GET["id"] : 0);
                                     $admin->setNome(isset($_GET["nome"]) ? $_GET["nome"] : "");
                                     $admin->setEmail(isset($_GET["email"]) ? $_GET["email"] : "");
+                                    $exibirInativo = isset($_GET["inativo"]) ? $_GET["inativo"] : 0;
 
-                                    $data = $admin->getUsuarios();
+                                    $data = $admin->getUsuarios($exibirInativo);
 
                                     foreach ($data as $row) {
                                         $row["ADM_ATIVO"] = $row["ADM_ATIVO"] ?? 1;
@@ -107,9 +114,6 @@
             </div>
         </div>
     </main>
-    <footer>
-        
-    </footer>
 </body>
 <script src="res/bootstrap/js/bootstrap.min.js"></script>
 <script src="res/plugins/jQuery/jquery-3.6.1.min.js"></script>
@@ -129,8 +133,27 @@
         cfgModal.extra1 = id;
         cfgModal.extra2 = "EXCLUIR";
         cfgModal.callback = () => {
-            window.location.href = `adminExcluir.php?id=${id}`
-        }
+            let request = api.request(`adminExcluir.php?id=${id}`, "GET");
+        
+            request
+                .then((res) => {
+                    window.location.reload()
+                })
+                .catch((err) => {
+                    modal.close()
+
+                    cfgModalError = modal.config();
+
+                    cfgModalError.type = "ERROR";
+                    cfgModalError.title = "Erro ao processar a solicitação";
+                    cfgModalError.body = `
+                        <b>Número do erro:</b> ${err.errorCode}<br>
+                        <b>Detalhes:</b> ${err.message}
+                    `;
+
+                    modal.show(cfgModalError);
+                });
+        };
 
         modal.show(cfgModal);
     }
@@ -143,7 +166,26 @@
         cfgModal.extra1 = id;
         cfgModal.extra2 = "DESATIVAR";
         cfgModal.callback = () => {
-            window.location.href = `adminDesativar.php?id=${id}`
+            let request = api.request(`adminDesativar.php?id=${id}`, "GET");
+        
+            request
+                .then((res) => {
+                    window.location.reload()
+                })
+                .catch((err) => {
+                    modal.close()
+
+                    cfgModalError = modal.config();
+
+                    cfgModalError.type = "ERROR";
+                    cfgModalError.title = "Erro ao processar a solicitação";
+                    cfgModalError.body = `
+                        <b>Número do erro:</b> ${err.errorCode}<br>
+                        <b>Detalhes:</b> ${err.message}
+                    `;
+
+                    modal.show(cfgModalError);
+                });
         };
 
         modal.show(cfgModal);

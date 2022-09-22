@@ -65,7 +65,7 @@ modal.show = (cfgModal) => {
             break;
 
         case "ERROR":
-            modalToDisplay.querySelector('.modal-body').innerHTML = `Ocorreu um erro ao realizar `;    
+            modalToDisplay.querySelector('.modal-body').innerHTML = cfgModal.body;    
             modalToDisplay.querySelector('.modal-footer').innerHTML = `<button type="button" class="btn btn-light" data-bs-dismiss="modal" id="modal-btn-ok">Ok</button>`;
 
             document.body.append(modalToDisplay);
@@ -80,6 +80,8 @@ modal.show = (cfgModal) => {
 }
 
 // Fecha o modal
-modal.close = (cfgModal) => {
-
+modal.close = () => {
+    if (modalToDisplay !== null){
+        modalToDisplay.remove();
+    }
 }

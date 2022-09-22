@@ -13,4 +13,4 @@ $response = $admin->update();
 
 echo $response;
 
-header('refresh: 3; url=adminConsultar.php');
+header('Location: adminConsultar.php');
