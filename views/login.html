@@ -22,9 +22,9 @@
                     <div class="d-flex justify-content-center align-items-center">
                         <h3 class="mb-3 card-title">Faça login</h5>
                     </div>
-                    <form action="../login.php" method="post">
+                    <form action="">
                         <div class="mb-1 mt-4 div-inline-input">
-                          <input type="email" class="inline-input" name="ADM_EMAIL" id="ADM_EMAIL"  required>
+                          <input type="email" class="inline-input" name="ADM_EMAIL" id="ADM_EMAIL" required>
                           <label for="usuario_email" class="form-label">E-mail</label>
                         </div>
                         <div class="mb-5 div-inline-input">
@@ -32,7 +32,7 @@
                           <label for="usuario_senha" class="form-label">Senha</label>
                         </div>
                         <div class="mb-3 d-grid gap-2">
-                            <button type="submit" class="btn btn-dark" style="width: 100%;" type="button">Entrar</button>
+                            <button type="submit" class="btn btn-dark" style="width: 100%;" type="button" id="btnLogin">Entrar</button>
                         </div>
                     </form>
                 </div>
@@ -47,8 +47,46 @@
 </body>
 <script src="../res/bootstrap/js/bootstrap.min.js"></script>
 <script src="../res/plugins/jQuery/jquery-3.6.1.min.js"></script>
+<script src="../res/plugins/input/jquery.maskMoney.js"></script>
+<script src="../res/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../res/bootstrap/js/bootstrap.esm.min.js"></script>
 <script src="../res/js/utils.js"></script>
 <script src="../res/js/mask.js"></script>
 <script src="../res/js/modal.js"></script>
 <script src="../res/js/api.js"></script>
+<script>
+    document.getElementById("btnLogin").addEventListener("click", (e) => {
+        e.preventDefault();
+
+        let email = document.getElementById("ADM_EMAIL").value;
+        let senha = document.getElementById("ADM_SENHA").value;
+        let data = {
+            "ADM_EMAIL": email,
+            "ADM_SENHA": senha
+        };
+
+        let request = api.request(`../login.php`, "POST", data);
+    
+        request
+            .then((res) => {
+                console.log(res);
+
+                window.location.href = "menu.html";
+            })
+            .catch((err) => {
+                console.log(err);
+
+                cfgModalError = modal.config();
+
+                cfgModalError.type = "ERROR";
+                cfgModalError.title = "Erro ao processar a solicitação";
+                cfgModalError.body = `
+                    <b>Número do erro:</b> ${err.status}<br>
+                    <b>Detalhes:</b> ${err.message}
+                `;
+
+                modal.show(cfgModalError);
+            });
+    })
+</script>
 </html>

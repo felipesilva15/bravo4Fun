@@ -127,7 +127,7 @@ class Usuario{
         $data = $sql->select($query, $params);
 
         if(count($data) == 0){
-            $response = json_encode(["status"=> 500, "message"=>"Usuário e/ou senha inválido!", "items"=>[]]);
+            $response = json_encode(["status"=> 403, "message"=>"Usuário e/ou senha inválido!", "items"=>[]]);
         }else{
             $this->setId($data[0]["ADM_ID"]);
             $this->loadById();
@@ -238,7 +238,7 @@ class Usuario{
             $response = ["status"=> 400, "message"=>"Nome não informado!"];
         } elseif (!isset($this->email) || $this->email == "") {
             $response = ["status"=> 400, "message"=>"E-mail não informado!"];
-        } elseif (!isset($this->senha) || $this->senha == ""){
+        } elseif (!isset($this->senha) || $this->senha == "" || $this->senha == sha1("")){
             $response = ["status"=> 400, "message"=>"Senha não informada!"];
         } else{
             $response = ["status"=> 200, "message"=>"Ok"];
