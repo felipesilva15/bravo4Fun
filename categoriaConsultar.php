@@ -75,10 +75,6 @@
                                                         <a class=\"btn btn-sm-custom p-0\">
                                                             <img src=\"res/images/delete.png\" width=\"18px\" height=\"18px\">
                                                         </a>
-                                                        <div class=\"dropdown\">
-                                                        <button class=\"btn btn-sm-custom dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
-                                                            <img src=\"res/images/more.png\" width=\"16px\" height=\"16px\">
-                                                        </button>
                                                     </div>
                                                 </div>
                                             </td>
@@ -93,9 +89,6 @@
             </div>
         </div>
     </main>
-    <footer>
-
-    </footer>
 </body>
 <script src="res/bootstrap/js/bootstrap.min.js"></script>
 <script src="res/plugins/jQuery/jquery-3.6.1.min.js"></script>
