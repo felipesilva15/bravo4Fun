@@ -28,7 +28,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #23232e;
+  background: #1d2124;
 }
 
 
@@ -55,7 +55,7 @@ a:hover {
     width: 25vw;
     top: 70px;
     right: 75%;
-    background: #23232e;
+    background: #1d2124;
     transition: 0.6s;
     z-index: 1000;
     height: 0px;

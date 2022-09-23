@@ -32,14 +32,14 @@
                 <div class="m-2 mt-4">
                     <form action="<?php echo $acao == "C" ? "../categoriaIncluir.php" : "../categoriaAlterar.php" ?>" method="post">
                         <div class="row g-3">
-                            <input name="ID" maxlength="500" required type="hidden" class="form-control" placeholder="" value="" disabled>
+                            <input name="CATEGORIA_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0?>">
                             <div class="col-md-12">
                                 <label class="form-label-custom" for="CATEGORIA_NOME">Nome<span class="required">*</span></label>
                                 <input name="CATEGORIA_NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite..." value="<?php echo $categoria->getNome() ?>">
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label-custom" for="CATEGORIA_DESC">Descrição<span class="required">*</span></label>
-                                <textarea name="CATEGORIA_DESC" maxlength="500" rows="6" required type="text" class="form-control" placeholder="Digite..." value="<?php echo $categoria->getDescricao() ?>"></textarea>
+                                <textarea name="CATEGORIA_DESC" maxlength="500" rows="6" required type="text" class="form-control" placeholder="Digite..."><?php echo $categoria->getDescricao() ?></textarea>
                             </div>
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1"><?php echo $acao == "C" ? "Criar" : "Alterar" ?></button>

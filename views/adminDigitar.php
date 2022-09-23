@@ -43,7 +43,7 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label-custom" for="ADM_SENHA">Senha<span class="required">*</span></label>
-                                <input name="ADM_SENHA" maxlength="500" type="password" class="form-control" <?php echo $acao == "C" ? 'placeholder="Digite..."' : "disabled" ?>>
+                                <input name="ADM_SENHA" maxlength="500" type="password" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>
