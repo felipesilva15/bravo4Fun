@@ -33,10 +33,7 @@ $("#btnOk").on("click", (e) => {
 
             cfgModalError.type = "ERROR";
             cfgModalError.title = "Atenção";
-            cfgModalError.body = `
-                <b>Número do erro:</b> ${err.status}<br>
-                <b>Detalhes:</b> ${err.message}
-            `;
+            cfgModalError.body = err;
 
             modal.show(cfgModalError);
         });

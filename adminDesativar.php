@@ -6,11 +6,12 @@ $admin = new Usuario();
 
 $admin->setId($_GET["id"]);
 
-try {
+try{
     $response = $admin->desativar();
 } catch (Exception $e) {
     $response = json_encode([
-        "status"=>$e->getCode(),
+        "status"=>500,
+        "errorCode"=>$e->getCode(),
         "message"=>$e->getMessage(),
         "file"=>$e->getFile(),
         "line"=>$e->getLine()

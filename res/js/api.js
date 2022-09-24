@@ -9,7 +9,7 @@ api.request = (url, method, data) => {
             data: data,
             success: (res) => {
                 if (res === undefined) {
-                    reject(JSON.parse(res));
+                    reject(res);
                     return;
                 }
 
@@ -29,6 +29,40 @@ api.request = (url, method, data) => {
                     req: request,
                     items: []
                 });
+            }
+        })
+    });
+
+    return promisse;
+};
+
+api.requestArchive = (url, method, data) => {
+    let errorModel = { 
+        status: 500, 
+        message: "Tente novamente mais tarde. Caso o erro persista, entre em contato com o administrador do seu sistema.", 
+        items: []
+    };
+
+    const promisse = new Promise((resolve, reject) => {
+        $.ajax({
+            url: url,
+            type: method,
+            data: data,
+            success: (res) => {
+                if (res === undefined) {
+                    reject(errorModel);
+                    return;
+                }
+
+                if (res !== "") {
+                    resolve(res);
+                    return;
+                }
+
+                reject(errorModel);
+            },
+            error: (request) => {
+                reject(errorModel);
             }
         })
     });

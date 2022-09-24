@@ -105,7 +105,7 @@ class Usuario{
         $data = $sql->select($query, $params);
 
         if(count($data) == 0){
-            $response = json_encode(["status"=> 500, "message"=>"Usuário inválido!", "items"=>[]]);
+            $response = json_encode(["status"=> 500, "title"=>"Administrador inválido", "message"=>"Não foi possível encontrar este administrador na base de dados", "items"=>[]]);
         }else{
             $this->setData($data[0]);
 
@@ -127,7 +127,7 @@ class Usuario{
         $data = $sql->select($query, $params);
 
         if(count($data) == 0){
-            $response = json_encode(["status"=> 403, "message"=>"Usuário e/ou senha inválido!", "items"=>[]]);
+            $response = json_encode(["status"=> 403, "title"=>"Falha na autenticação", "message"=>"E-mail e/ou senha inválido.", "items"=>[]]);
         }else{
             $this->setId($data[0]["ADM_ID"]);
             $this->loadById();
@@ -158,7 +158,7 @@ class Usuario{
         $this->setId($sql->returnLastId());
 
         if($this->getId() == 0){
-            $response = json_encode(["status"=> 500, "message"=>"Erro ao cadastrar o usuário!"]);
+            $response = json_encode(["status"=> 500, "title"=>"Erro inesperado", "message"=>"Ocorreu um erro ao cadastrar o usuário. Tente novamente mais tarde."]);
         }else{
             $this->loadById();
 
@@ -221,8 +221,9 @@ class Usuario{
         if($this->getAtivo() == 0){
             if($this->validarAdminExistente()){
                 $response = json_encode([
-                    "status"=>400, 
-                    "message"=>"Existe um administrador cadastrado com este e-mail. Não é possível desativar o mesmo.", 
+                    "status"=> 400, 
+                    "title"=>"Dado inválido", 
+                    "message"=>"Já existe um administrador cadastrado com este e-mail. Tente um e-mail diferente.",
                     "items"=>[]
                 ]);
             }
@@ -247,15 +248,15 @@ class Usuario{
         $response = "";
 
         if(!isset($this->nome) || $this->nome == ""){
-            $response = ["status"=> 400, "message"=>"Nome não informado!"];
+            $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome não foi preenchido."];
         } elseif (!isset($this->email) || $this->email == "") {
-            $response = ["status"=> 400, "message"=>"E-mail não informado!"];
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de e-mail não foi preenchido."];
         } elseif (!isset($this->senha) || $this->senha == "" || $this->senha == sha1("")){
-            $response = ["status"=> 400, "message"=>"Senha não informada!"];
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de senha não foi preenchido."];
         } elseif($this->validarAdminExistente()){
-            $response = ["status"=> 400, "message"=>"Já existe um administrador cadastrado com este e-mail!"];
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Já existe um administrador cadastrado com este e-mail. Tente um e-mail diferente."];
         } else{
-            $response = ["status"=> 200, "message"=>"Ok"];
+            $response = ["status"=> 200, "title"=>"Dado inválido", "message"=>"Ok"];
         }
 
         return($response);
