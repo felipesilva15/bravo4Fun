@@ -11,5 +11,3 @@ $admin->setSenha($_POST["ADM_SENHA"]);
 $response = $admin->insert();
 
 echo $response;
-
-header('Location: adminConsultar.php');

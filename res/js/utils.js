@@ -12,3 +12,15 @@ function stringToDate(date){
 function arredondar(value, decimalPlaces){
     
 }
+
+function validarCredenciais() {
+    let request = api.request("validarCredenciais.php", "GET");
+
+    request
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            window.location.href = "views/login.html";
+        });
+}

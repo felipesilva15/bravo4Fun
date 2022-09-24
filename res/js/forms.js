@@ -1,0 +1,43 @@
+// Para que o formulário funcione juntamente com a API, basta seguir os passos abaixo:
+// 1º Importe script "forms.js"
+// 2º Altere o id do botão para "btnOk"
+// 3º Altere o id do form para "form-js"
+// 4º Adicione o atributo "redirect" com o valor sendo o local para onde o JS deve redirecionar caso dê tudo certo
+$("#btnOk").on("click", (e) => {
+    e.preventDefault();
+
+    let form = $("#form-js");
+    let data;
+
+    if(form.attr("method").toUpperCase() == "POST"){
+        let unformattedData = form.serializeArray();
+        data = {};
+
+        unformattedData.forEach(item => {
+            data[item.name] = item.value;
+        });
+    } else{
+        data = form.serialize();
+    }
+    
+    let request = api.request(form.attr("action"), form.attr("method"), data);
+
+    request
+        .then((res) => {
+            window.location.href = form.attr("redirect");
+        })
+        .catch((err) => {
+            console.log(err);
+
+            cfgModalError = modal.config();
+
+            cfgModalError.type = "ERROR";
+            cfgModalError.title = "Atenção";
+            cfgModalError.body = `
+                <b>Número do erro:</b> ${err.status}<br>
+                <b>Detalhes:</b> ${err.message}
+            `;
+
+            modal.show(cfgModalError);
+        });
+})

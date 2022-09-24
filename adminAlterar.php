@@ -12,5 +12,3 @@ $admin->setSenha(isset($_POST["ADM_SENHA"]) ? $_POST["ADM_SENHA"] : "");
 $response = $admin->update();
 
 echo $response;
-
-header('Location: adminConsultar.php');

@@ -88,11 +88,6 @@
                                                             <img src=\"res/images/edit.png\" width=\"17px\" height=\"17px\">
                                                         </a>
                                                     </div>
-                                                    <div class=\"ps-1\">
-                                                        <a class=\"btn btn-sm-custom p-0\" onclick=\"adminExcluir({$row["ADM_ID"]})\">
-                                                            <img src=\"res/images/delete.png\" width=\"18px\" height=\"18px\">
-                                                        </a>
-                                                    </div>
                                                     <div class=\"dropdown\">
                                                         <button class=\"btn btn-sm-custom dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
                                                             <img src=\"res/images/more.png\" width=\"16px\" height=\"16px\">
@@ -125,39 +120,6 @@
 <script src="res/js/modal.js"></script>
 <script src="res/js/api.js"></script>
 <script>
-    function adminExcluir(id){
-        cfgModal = modal.config();
-
-        cfgModal.type = "CONFIRM";
-        cfgModal.title = "Atenção";
-        cfgModal.extra1 = id;
-        cfgModal.extra2 = "EXCLUIR";
-        cfgModal.callback = () => {
-            let request = api.request(`adminExcluir.php?id=${id}`, "GET");
-        
-            request
-                .then((res) => {
-                    window.location.reload()
-                })
-                .catch((err) => {
-                    modal.close()
-
-                    cfgModalError = modal.config();
-
-                    cfgModalError.type = "ERROR";
-                    cfgModalError.title = "Erro ao processar a solicitação";
-                    cfgModalError.body = `
-                        <b>Número do erro:</b> ${err.errorCode}<br>
-                        <b>Detalhes:</b> ${err.message}
-                    `;
-
-                    modal.show(cfgModalError);
-                });
-        };
-
-        modal.show(cfgModal);
-    }
-
     function adminDesativar(id){
         cfgModal = modal.config();
 
@@ -180,7 +142,7 @@
                     cfgModalError.type = "ERROR";
                     cfgModalError.title = "Erro ao processar a solicitação";
                     cfgModalError.body = `
-                        <b>Número do erro:</b> ${err.errorCode}<br>
+                        <b>Número do erro:</b> ${err.status}<br>
                         <b>Detalhes:</b> ${err.message}
                     `;
 

@@ -50,7 +50,7 @@ class Usuario{
         $this->setNome(isset($data["ADM_NOME"]) ? $data["ADM_NOME"] : "");
         $this->setEmail(isset($data["ADM_EMAIL"]) ? $data["ADM_EMAIL"] : "");
         $this->setSenha(isset($data["ADM_SENHA"]) ? $data["ADM_SENHA"] : "");
-        $this->setAtivo(isset($data["ADM_ATIVO"]) ? $data["ADM_ATIVO"] : 0);
+        $this->setAtivo(isset($data["ADM_ATIVO"]) ? $data["ADM_ATIVO"] : 1);
     }
 
     public function unsetData(){
@@ -80,14 +80,14 @@ class Usuario{
             $params[":EMAIL"] = "{$this->getEmail()}%";
         }
         if($exibirInativo == 0){
-            $sqlWhere .= " AND ADM_ATIVO = 1";
+            $sqlWhere .= " AND COALESCE(ADM_ATIVO, 1) = 1";
         }
 
         if($sqlWhere !== ""){
             $sqlWhere = " WHERE " . substr($sqlWhere, 5);
         }
 
-        $query = "SELECT * FROM ADMINISTRADOR $sqlWhere";
+        $query = "SELECT * FROM ADMINISTRADOR $sqlWhere ORDER BY ADM_ID DESC";
 
         $data = $sql->select($query, $params);
 
@@ -219,6 +219,18 @@ class Usuario{
         ];
 
         if($this->getAtivo() == 0){
+            if($this->validarAdminExistente()){
+                $response = json_encode([
+                    "status"=>400, 
+                    "message"=>"Existe um administrador cadastrado com este e-mail. Não é possível desativar o mesmo.", 
+                    "items"=>[]
+                ]);
+            }
+
+            if(isset($response) && $response !== ""){
+                return($response);
+            }
+
             $params[":ATIVO"] = 1;
         } else{
             $params[":ATIVO"] = 0;
@@ -240,11 +252,28 @@ class Usuario{
             $response = ["status"=> 400, "message"=>"E-mail não informado!"];
         } elseif (!isset($this->senha) || $this->senha == "" || $this->senha == sha1("")){
             $response = ["status"=> 400, "message"=>"Senha não informada!"];
+        } elseif($this->validarAdminExistente()){
+            $response = ["status"=> 400, "message"=>"Já existe um administrador cadastrado com este e-mail!"];
         } else{
             $response = ["status"=> 200, "message"=>"Ok"];
         }
 
         return($response);
+    }
+
+    private function validarAdminExistente(){
+        $sql = new Sql();
+
+        $query = "SELECT * FROM ADMINISTRADOR WHERE ADM_EMAIL = :EMAIL AND COALESCE(ADM_ATIVO, 1) = 1";
+        $params = [
+            ":EMAIL"=>$this->getEmail()
+        ];
+
+        $data = $sql->select($query, $params);
+
+        $adminRepetido = count($data) > 0 ? true : false; 
+
+        return($adminRepetido);
     }
 
     public function __toString():string{

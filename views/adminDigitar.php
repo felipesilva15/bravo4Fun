@@ -30,7 +30,7 @@
                     <h3>Administrador - <?php echo $acao == "C" ? "Incluir" : "Alterar" ?></h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form action="<?php echo $acao == "C" ? "../adminIncluir.php" : "../adminAlterar.php" ?>" method="post">
+                    <form id="form-js" action="<?php echo $acao == "C" ? "../adminIncluir.php" : "../adminAlterar.php" ?>" method="post" redirect="../adminConsultar.php">
                         <div class="row g-3">
                             <input name="ADM_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0 ?>">
                             <div class="col-md-6">
@@ -46,7 +46,7 @@
                                 <input name="ADM_SENHA" maxlength="500" type="password" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12 mt-5">
-                                <button type="submit" class="btn btn-success mx-1"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>
+                                <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>
                                 <a href="../adminConsultar.php" class="btn btn-light mx-1">Cancelar</a>
                             </div>
                         </div>
@@ -65,4 +65,5 @@
 <script src="../res/js/mask.js"></script>
 <script src="../res/js/modal.js"></script>
 <script src="../res/js/api.js"></script>
+<script src="../res/js/forms.js"></script>
 </html>
