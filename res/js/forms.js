@@ -24,7 +24,7 @@ $("#btnOk").on("click", (e) => {
 
     request
         .then((res) => {
-            window.location.href = form.attr("redirect");
+            window.location.href = `/bravo4Fun/${form.attr("redirect")}`;
         })
         .catch((err) => {
             console.log(err);

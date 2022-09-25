@@ -1,10 +1,11 @@
 <?php
 
-// Extrai os dados do cookie do usuário
-$userData = isset($_COOKIE["usrData"]) ? json_decode($_COOKIE["usrData"], true) : [];
+require_once("config.php");
+
+$data = json_decode(validarCredenciais(), true); 
 
 // Define qual o destino do login
-if(isset($userData["id"]) && $userData["id"] != 0 && $userData["id"] != null){
+if($data["status"] < 400){
     header('Location: views/menu.html');
 } else{
     header('Location: views/login.html');

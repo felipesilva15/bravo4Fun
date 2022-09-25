@@ -23,9 +23,9 @@ modal.show = (cfgModal) => {
     let url = ""
 
     if(cfgModal.type !== "CUSTOM"){
-        url = `/bravo4Fun/res/modals/${cfgModal.type.toLowerCase()}.html`;
+        url = `res/modals/${cfgModal.type.toLowerCase()}.html`;
     } else{
-        url = `/bravo4Fun/res/modals/${cfgModal.body.toLowerCase()}.html`
+        url = `res/modals/${cfgModal.body.toLowerCase()}.html`
     }
     
     let request = api.requestArchive(url, "GET");

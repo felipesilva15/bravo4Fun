@@ -30,7 +30,7 @@
                     <h3>Categoria - <?php echo $acao == "C" ? "Incluir" : "Alterar" ?></h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form action="<?php echo $acao == "C" ? "../categoriaIncluir.php" : "../categoriaAlterar.php" ?>" method="post">
+                    <form action="<?php echo $acao == "C" ? "categoriaIncluir.php" : "categoriaAlterar.php" ?>" method="post">
                         <div class="row g-3">
                             <input name="CATEGORIA_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0?>">
                             <div class="col-md-12">
@@ -61,4 +61,5 @@
 <script src="../res/js/mask.js"></script>
 <script src="../res/js/modal.js"></script>
 <script src="../res/js/api.js"></script>
+<script src="../res/js/init.js"></script>
 </html>

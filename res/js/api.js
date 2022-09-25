@@ -1,10 +1,11 @@
 const api = {};
+let urlBase = "/bravo4Fun/"
 
 // Realiza uma requisição de um arquivo do projeto sem retornar um conjunto de dados
 api.request = (url, method, data) => {
     const promisse = new Promise((resolve, reject) => {
         $.ajax({
-            url: url,
+            url: `${urlBase}${url}`,
             type: method,
             data: data,
             success: (res) => {
@@ -25,6 +26,7 @@ api.request = (url, method, data) => {
             error: (request) => {
                 reject({ 
                     status: 500, 
+                    title: "Erro inesperado",
                     message: "Tente novamente mais tarde. Caso o erro persista, entre em contato com o administrador do seu sistema.", 
                     req: request,
                     items: []
@@ -39,13 +41,14 @@ api.request = (url, method, data) => {
 api.requestArchive = (url, method, data) => {
     let errorModel = { 
         status: 500, 
+        title: "Erro inesperado",
         message: "Tente novamente mais tarde. Caso o erro persista, entre em contato com o administrador do seu sistema.", 
         items: []
     };
 
     const promisse = new Promise((resolve, reject) => {
         $.ajax({
-            url: url,
+            url: `${urlBase}${url}`,
             type: method,
             data: data,
             success: (res) => {

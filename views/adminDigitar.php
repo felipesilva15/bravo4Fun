@@ -30,7 +30,7 @@
                     <h3>Administrador - <?php echo $acao == "C" ? "Incluir" : "Alterar" ?></h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form id="form-js" action="<?php echo $acao == "C" ? "../adminIncluir.php" : "../adminAlterar.php" ?>" method="post" redirect="../adminConsultar.php">
+                    <form id="form-js" action="<?php echo $acao == "C" ? "adminIncluir.php" : "adminAlterar.php" ?>" method="post" redirect="adminConsultar.php">
                         <div class="row g-3">
                             <input name="ADM_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0 ?>">
                             <div class="col-md-6">
@@ -60,10 +60,10 @@
 <script src="../res/plugins/jQuery/jquery-3.6.1.min.js"></script>
 <script src="../res/plugins/input/jquery.maskMoney.js"></script>
 <script src="../res/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../res/bootstrap/js/bootstrap.esm.min.js"></script>
 <script src="../res/js/utils.js"></script>
 <script src="../res/js/mask.js"></script>
 <script src="../res/js/modal.js"></script>
 <script src="../res/js/api.js"></script>
 <script src="../res/js/forms.js"></script>
+<script src="../res/js/init.js"></script>
 </html>

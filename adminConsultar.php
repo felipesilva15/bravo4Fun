@@ -114,11 +114,11 @@
 <script src="res/plugins/jQuery/jquery-3.6.1.min.js"></script>
 <script src="res/plugins/input/jquery.maskMoney.js"></script>
 <script src="res/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="res/bootstrap/js/bootstrap.esm.min.js"></script>
 <script src="res/js/utils.js"></script>
 <script src="res/js/mask.js"></script>
 <script src="res/js/modal.js"></script>
 <script src="res/js/api.js"></script>
+<script src="res/js/init.js"></script>
 <script>
     function adminDesativar(id){
         cfgModal = modal.config();

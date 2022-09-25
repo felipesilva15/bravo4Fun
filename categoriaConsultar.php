@@ -99,6 +99,7 @@
 <script src="res/js/mask.js"></script>
 <script src="res/js/modal.js"></script>
 <script src="res/js/api.js"></script>
+<script src="res/js/init.js"></script>
 <script>
     function categoriaExcluir(id){
         cfgModal = modal.config();
@@ -108,7 +109,7 @@
         cfgModal.extra1 = id;
         cfgModal.extra2 = "EXCLUIR";
         cfgModal.callback = () => {
-            window.location.href = `categoriaExcluir.php?id=${id}`
+            window.location.href = `/bravo4Fun/categoriaExcluir.php?id=${id}`
         }
 
         modal.show(cfgModal);

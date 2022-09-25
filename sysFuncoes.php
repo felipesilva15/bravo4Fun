@@ -34,21 +34,21 @@ function trataValor($valor, $tipo){
     return($retorno);
 }
 
-function validarCredenciais(){
+function validarCredenciais():string{
     // Extrai os dados do cookie do usuário
     $userData = isset($_COOKIE["usrData"]) ? json_decode($_COOKIE["usrData"], true) : [];
 
     // Define qual o destino do login
     if(isset($userData["id"]) && $userData["id"] != 0 && $userData["id"] != null){
-        echo (json_encode([
-            "status"=>403,
-            "message"=>"Usuário não autenticado! Faça login novamente.",
+        return (json_encode([
+            "status"=>200,
+            "message"=>"Ok",
             "items"=>[]
         ]));
     } else{
-        echo (json_encode([
-            "status"=>200,
-            "message"=>"Ok",
+        return (json_encode([
+            "status"=>403,
+            "message"=>"Usuário não autenticado! Faça login novamente.",
             "items"=>[]
         ]));
     }

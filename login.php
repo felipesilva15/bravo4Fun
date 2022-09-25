@@ -15,8 +15,8 @@ if (isset($response["status"]) && $response["status"] == 200){
         "nome"=>$usuario->getNome()
     ];
 
-    // Define cookie do usuário com vencimento em 1 hora
-    setcookie("usrData", json_encode($userData), time() + 3600);
+    // Define cookie do usuário com vencimento em 24 horas
+    setcookie("usrData", json_encode($userData), time() + 86400);
 } 
 
 echo json_encode($response);
