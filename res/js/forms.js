@@ -4,10 +4,20 @@
 // 3º Altere o id do form para "form-js"
 // 4º Adicione o atributo "redirect" com o valor sendo o local para onde o JS deve redirecionar caso dê tudo certo
 $("#btnOk").on("click", (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    let form = $("#form-js");
-    let data;
+    let form, data;
+
+    form = document.querySelector("#form-js");
+
+    if (!form.checkValidity()) {
+        e.stopPropagation();
+
+        form.classList.add('was-validated');
+        return;
+    }
+
+    form = $("#form-js");
 
     if(form.attr("method").toUpperCase() == "POST"){
         let unformattedData = form.serializeArray();
@@ -37,4 +47,4 @@ $("#btnOk").on("click", (e) => {
 
             modal.show(cfgModalError);
         });
-})
+});

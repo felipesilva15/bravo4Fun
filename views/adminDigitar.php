@@ -34,16 +34,20 @@
                         <div class="row g-3">
                             <input name="ADM_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0 ?>">
                             <div class="col-md-6">
-                                <label class="form-label-custom" for="ADM_NOME">Nome<span class="required">*</span></label>
+                                <label class="form-label-custom" for="ADM_NOME">Nome <span class="required">*</span></label>
                                 <input name="ADM_NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite..." value="<?php echo $admin->getNome() ?>">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label-custom" for="ADM_EMAIL">E-mail<span class="required">*</span></label>
+                                <label class="form-label-custom" for="ADM_EMAIL">E-mail <span class="required">*</span></label>
                                 <input name="ADM_EMAIL" maxlength="500" required type="text" class="form-control" placeholder="Digite..." value="<?php echo $admin->getEmail() ?>">
                             </div>
                             <div class="col-12">
-                                <label class="form-label-custom" for="ADM_SENHA">Senha<span class="required">*</span></label>
-                                <input name="ADM_SENHA" maxlength="500" type="password" class="form-control" placeholder="Digite...">
+                                <label class="form-label-custom" for="ADM_SENHA">Senha <span class="required">*</span></label>
+                                <input name="ADM_SENHA" id="ADM_SENHA" maxlength="500" required type="password" class="form-control" placeholder="Digite...">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label-custom" for="ADM_SENHACONF">Confirme sua senha <span class="required">*</span></label>
+                                <input name="ADM_SENHACONF" id="ADM_SENHACONF" maxlength="500" required type="password" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>
