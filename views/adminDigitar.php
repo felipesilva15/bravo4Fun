@@ -48,6 +48,9 @@
                             <div class="col-12">
                                 <label class="form-label-custom" for="ADM_SENHACONF">Confirme sua senha <span class="required">*</span></label>
                                 <input name="ADM_SENHACONF" id="ADM_SENHACONF" maxlength="500" required type="password" class="form-control" placeholder="Digite..." onChange="validarSenha()">
+                                <div id="feedback-senha" class="invalid-feedback">
+                                    As senhas não condizem!
+                                </div>
                             </div>
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>
@@ -75,16 +78,12 @@
         let senha = $("#ADM_SENHA");
         let senhaConf = $("#ADM_SENHACONF");
 
-        let feedback = $("#validacao-senha");
-
-        if(feedback.empty()){
-            feedback = $("<div></div>").text("As senhas não condizem!").attr("id", "feedback-senha").addClass("invalid-feedback");
-        }
+        let feedback = $("#feedback-senha");
 
         if(senha.val() && senhaConf.val() && senha.val() !== senhaConf.val()){
-            senhaConf.parent().append("<div id=\"feed\" class=\"invalid-feedback\">As senhas não condizem!</div>");
+            feedback.css("display", "block");
         } else{
-            feedback.remove();
+            feedback.css("display", "none");
         }
     }
 </script>
