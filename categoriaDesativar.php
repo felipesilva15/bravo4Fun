@@ -6,8 +6,8 @@ $categoria = new Categoria();
 
 $categoria->setId($_GET["id"]);
 
-try {
-$response = $categoria->delete();
+try{
+    $response = $categoria->desativar();
 } catch (Exception $e) {
     $response = json_encode([
         "status"=>500,

@@ -7,8 +7,16 @@ $categoria = new Categoria();
 $categoria->setNome($_POST["CATEGORIA_NOME"]);
 $categoria->setDescricao($_POST["CATEGORIA_DESC"]);
 
-$response = $categoria->insert();
+try{
+    $response = $categoria->insert();
+} catch (Exception $e) {
+    $response = json_encode([
+        "status"=>500,
+        "errorCode"=>$e->getCode(),
+        "message"=>$e->getMessage(),
+        "file"=>$e->getFile(),
+        "line"=>$e->getLine()
+    ]);
+}
 
 echo $response;
-
-header('refresh: 3; url=categoriaConsultar.php');

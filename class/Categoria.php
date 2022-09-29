@@ -3,7 +3,7 @@
 //require_once(".php");
 
 class Categoria{
-    private $id = 0, $nome = "", $descricao = "";
+    private $id = 0, $nome = "", $descricao = "", $ativo = 0;
 
     public function getId():int{
         return($this->id);
@@ -29,19 +29,29 @@ class Categoria{
         $this->descricao = $descricao;
     }
 
+    public function getAtivo():int{
+        return($this->ativo);
+    }
+
+    public function setAtivo($ativo){
+        $this->ativo = $ativo ?? 1;
+    }
+
     public function setData($data = []){
         $this->setId(isset($data["CATEGORIA_ID"]) ? $data["CATEGORIA_ID"] : 0);
         $this->setNome(isset($data["CATEGORIA_NOME"]) ? $data["CATEGORIA_NOME"] : "");
         $this->setDescricao(isset($data["CATEGORIA_DESC"]) ? $data["CATEGORIA_DESC"] : "");
+        $this->setAtivo(isset($data["CATEGORIA_ATIVO"]) ? $data["CATEGORIA_ATIVO"] : 1);
     }
 
     public function unsetData(){
         $this->setId(0);
         $this->setNome("");
         $this->setDescricao("");
+        $this->setAtivo(0);
     }
 
-    public function getCategorias(){
+    public function getCategorias($exibirInativo = 0){
         $sql = new Sql();
 
         $sqlWhere = "";
@@ -51,18 +61,20 @@ class Categoria{
             $sqlWhere .= " AND CATEGORIA_ID = :ID";
             $params[":ID"] = $this->getId();
         }
-        
         if($this->getNome() !== ""){
             $sqlWhere .= " AND CATEGORIA_NOME LIKE :NOME";
             $params[":NOME"] = "{$this->getNome()}%";
         }
+        if($exibirInativo == 0){
+            $sqlWhere .= " AND COALESCE(CATEGORIA_ATIVO, 1) = 1";
+        }
         
-        //Esse bloco aqui é para limitar a quantidades de dados a ser digitado pelo usuário?
+        //Esse bloco é para limitar a quantidades de dados a ser digitado pelo usuário?
         if($sqlWhere !== ""){
             $sqlWhere = " WHERE " . substr($sqlWhere, 5);
         }
 
-        $query = "SELECT * FROM CATEGORIA $sqlWhere";
+        $query = "SELECT * FROM CATEGORIA $sqlWhere ORDER BY CATEGORIA_ID DESC";
 
         $data = $sql->select($query, $params);
 
@@ -84,7 +96,7 @@ class Categoria{
         }else{
             $this->setData($data[0]);
 
-            $response = json_encode(["status"=> 200, "message"=>"OK"]);
+            $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         }
 
         return($response);
@@ -93,10 +105,16 @@ class Categoria{
     public function insert(){
         $sql = new Sql();
 
+        $resValidar = $this->validarCategoria();
+
+        if($resValidar["status"] != 200){
+            return(json_encode($resValidar));
+        }
+
         $query = "INSERT INTO CATEGORIA (CATEGORIA_NOME, CATEGORIA_DESC) VALUES (:NOME, :DESCRICAO)";
         $params = [
             ":NOME"=>$this->getNome(),
-            ":DESCRICAO"=>$this->getDescricao()
+            ":DESCRICAO"=>$this->getDescricao(),
         ];
 
         $sql->executeQuery($query, $params);
@@ -107,43 +125,127 @@ class Categoria{
             }else{
                 $this->loadById();
 
-                $response = json_encode(["status"=> 200, "message"=>"Categoria Inclusa"]);
+                $response = json_encode(["status"=> 200, "message"=>"Categoria Inclusa", "items"=>[]]);
             }
 
         return($response); 
     }
 
-        public function update(){
-            $sql = new Sql();
-    
-            $query = "UPDATE CATEGORIA SET CATEGORIA_NOME = :NOME, CATEGORIA_DESC = :DESCRICAO WHERE CATEGORIA_ID = :ID";
-            $params = [
-                ":ID"=>$this->getId(),
-                ":NOME"=>$this->getNome(),
-                ":DESCRICAO"=>$this->getDescricao(),
-            ];
-    
-            $sql->executeQuery($query, $params);
-            $this->loadById();
-    
-            $response = json_encode(["status"=> 200, "message"=>"OK"]);
-            
-            return($response);
+    public function update(){
+        $sql = new Sql();
+
+        $resValidar = $this->validarCategoria();
+
+        if($resValidar["status"] != 200){
+            return(json_encode($resValidar));
         }
 
-        public function delete(){
-            $sql = new Sql();
-    
-            $query = "DELETE FROM CATEGORIA WHERE CATEGORIA_ID = :ID";
-            $params = [
-                ":ID"=>$this->getId()
-            ];
-    
-            $sql->executeQuery($query, $params);
-    
-            $this->unsetData();
-            $response = json_encode(["status"=> 200, "message"=>"OK"]);
-    
-            return($response);
+        $query = "UPDATE CATEGORIA SET CATEGORIA_NOME = :NOME, CATEGORIA_DESC = :DESCRICAO WHERE CATEGORIA_ID = :ID";
+        $params = [
+            ":ID"=>$this->getId(),
+            ":NOME"=>$this->getNome(),
+            ":DESCRICAO"=>$this->getDescricao(),
+        ];
+
+        $sql->executeQuery($query, $params);
+        $this->loadById();
+
+        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
+        
+        return($response);
+    }
+
+    public function delete(){
+        $sql = new Sql();
+
+        $query = "DELETE FROM CATEGORIA WHERE CATEGORIA_ID = :ID";
+        $params = [
+            ":ID"=>$this->getId()
+        ];
+
+        $sql->executeQuery($query, $params);
+
+        $this->unsetData();
+        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
+
+        return($response);
+    }
+
+    public function desativar(){
+        $sql = new Sql();
+
+        $this->loadById();
+
+        $query = "UPDATE CATEGORIA SET CATEGORIA_ATIVO = :ATIVO WHERE CATEGORIA_ID = :ID";
+        $params = [
+            ":ID"=>$this->getId()
+        ];
+
+        if($this->getAtivo() == 0){
+            if($this->validarCategoriaExistente()){
+                $response = json_encode([
+                    "status"=> 400, 
+                    "title"=>"Dado inválido", 
+                    "message"=>"Já existe uma Categoria cadastrada com este nome.",
+                    "items"=>[]
+                ]);
+            }
+
+            if(isset($response) && $response !== ""){
+                return($response);
+            }
+
+            $params[":ATIVO"] = 1;
+        } else{
+            $params[":ATIVO"] = 0;
         }
+        
+        var_dump($params);
+        
+        $sql->executeQuery($query, $params);
+
+        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
+        
+        return($response);
+    }
+
+    public function validarCategoria(){
+        $response = "";
+
+        if(!isset($this->nome) || $this->nome == ""){
+            $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome da Categoria não foi preenchido."];
+        } elseif (!isset($this->descricao) || $this->descricao == "") {
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Para cadastrar uma categoria você precisa inserir uma Descrição."];
+        } elseif($this->validarCategoriaExistente()){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Já existe uma Categoria cadastrada com este nome."];
+        } else{
+            $response = ["status"=> 200, "title"=>"Dado inválido", "message"=>"Ok"];
+        }
+
+        return($response);
+    }
+
+    private function validarCategoriaExistente(){
+        $sql = new Sql();
+
+        $query = "SELECT * FROM CATEGORIA WHERE CATEGORIA_NOME = :NOME AND COALESCE(CATEGORIA_ATIVO, 1) = 1";
+        $params = [
+            ":NOME"=>$this->getNome()
+        ];
+
+        $data = $sql->select($query, $params);
+
+        $categoriaRepetida = count($data) > 0 ? true : false; 
+
+        return($categoriaRepetida);
+    }
+
+    public function __toString():string{
+        return(json_encode([
+            "CATEGORIA_ID"=>$this->getId(),
+            "CATEGORIA_NOME"=>$this->getNome(),
+            "CATEGORIA_DESC"=>$this->getDescricao(),
+            "CATEGORIA_ATIVO"=>$this->getAtivo()
+        ]));
+    }
 }

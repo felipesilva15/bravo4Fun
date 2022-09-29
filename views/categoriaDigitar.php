@@ -30,7 +30,7 @@
                     <h3>Categoria - <?php echo $acao == "C" ? "Incluir" : "Alterar" ?></h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form action="<?php echo $acao == "C" ? "categoriaIncluir.php" : "categoriaAlterar.php" ?>" method="post">
+                    <form id="form-js" action="<?php echo $acao == "C" ? "categoriaIncluir.php" : "categoriaAlterar.php" ?>" method="post" redirect="categoriaConsultar.php">
                         <div class="row g-3">
                             <input name="CATEGORIA_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0?>">
                             <div class="col-md-12">
@@ -42,7 +42,7 @@
                                 <textarea name="CATEGORIA_DESC" maxlength="500" rows="6" required type="text" class="form-control" placeholder="Digite..."><?php echo $categoria->getDescricao() ?></textarea>
                             </div>
                             <div class="col-12 mt-5">
-                                <button type="submit" class="btn btn-success mx-1"><?php echo $acao == "C" ? "Criar" : "Alterar" ?></button>
+                                <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>
                                 <a href="../categoriaConsultar.php" class="btn btn-light mx-1">Cancelar</a>
                             </div>
                         </div>
@@ -56,10 +56,10 @@
 <script src="../res/plugins/jQuery/jquery-3.6.1.min.js"></script>
 <script src="../res/plugins/input/jquery.maskMoney.js"></script>
 <script src="../res/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../res/bootstrap/js/bootstrap.esm.min.js"></script>
 <script src="../res/js/utils.js"></script>
 <script src="../res/js/mask.js"></script>
 <script src="../res/js/modal.js"></script>
 <script src="../res/js/api.js"></script>
 <script src="../res/js/init.js"></script>
+<script src="../res/js/forms.js"></script>
 </html>
