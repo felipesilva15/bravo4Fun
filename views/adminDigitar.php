@@ -43,11 +43,11 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label-custom" for="ADM_SENHA">Senha <span class="required">*</span></label>
-                                <input name="ADM_SENHA" id="ADM_SENHA" maxlength="500" required type="password" class="form-control" placeholder="Digite...">
+                                <input name="ADM_SENHA" id="ADM_SENHA" maxlength="500" required type="password" class="form-control" placeholder="Digite..." onChange="validarSenha()">
                             </div>
                             <div class="col-12">
                                 <label class="form-label-custom" for="ADM_SENHACONF">Confirme sua senha <span class="required">*</span></label>
-                                <input name="ADM_SENHACONF" id="ADM_SENHACONF" maxlength="500" required type="password" class="form-control" placeholder="Digite...">
+                                <input name="ADM_SENHACONF" id="ADM_SENHACONF" maxlength="500" required type="password" class="form-control" placeholder="Digite..." onChange="validarSenha()">
                             </div>
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>
@@ -70,4 +70,22 @@
 <script src="../res/js/api.js"></script>
 <script src="../res/js/forms.js"></script>
 <script src="../res/js/init.js"></script>
+<script>
+    function validarSenha(){
+        let senha = $("#ADM_SENHA");
+        let senhaConf = $("#ADM_SENHACONF");
+
+        let feedback = $("#validacao-senha");
+
+        if(feedback.empty()){
+            feedback = $("<div></div>").text("As senhas não condizem!").attr("id", "feedback-senha").addClass("invalid-feedback");
+        }
+
+        if(senha.val() && senhaConf.val() && senha.val() !== senhaConf.val()){
+            senhaConf.parent().append("<div id=\"feed\" class=\"invalid-feedback\">As senhas não condizem!</div>");
+        } else{
+            feedback.remove();
+        }
+    }
+</script>
 </html>
