@@ -7,7 +7,7 @@ class Files {
         if($dirFile){
             $this->dirFile = $dirFile;
         } else{
-            $this->dirFile = DIRECTORY_SEPARATOR."bravo4Fun".DIRECTORY_SEPARATOR."assets";
+            $this->dirFile = "assets";
         }
     }
 
@@ -27,39 +27,46 @@ class Files {
         return($this->file);
     }
 
+    public function setFilePath($filePath){
+        $this->filePath = $filePath;
+    }
+
+    public function getFilePath():string{
+        return($this->filePath);
+    }
+
     public function uploadFile(){
         $this->createDir($this->getDirFile());
 
         $file = $this->getFile();
-        $fullPath = $this->getDirFile().DIRECTORY_SEPARATOR.$this->$file["name"];
+        $fullPath = $this->getDirFile() . DIRECTORY_SEPARATOR . $file["name"];
 
-        if(move_uploaded_file($file["tmp_name"](), $fullPath)){
-            echo "Upload realizado com sucesso";
-        }else{
-            echo "Erro ao realizar o upload";
+        if(is_file($fullPath)){
+            return(json_encode(["status"=> 400, "message"=>"Já existe este arquivo no servidor", "items"=>[]]));
         }
+
+        if(move_uploaded_file($file["tmp_name"], $fullPath)){
+            $response = json_encode(["status"=> 200, "message"=>"Upload realizado com sucesso!", "items"=>[]]);
+        }else{
+            $response = json_encode(["status"=> 500, "message"=>"Falha ao realizar upload.", "items"=>[]]);
+        }
+
+        return($response);
     }
 
     public function downloadFile(){
-        // Pega o conteúdo do arquivo
-        $content = file_get_contents($this->filePath);
+        $content = file_get_contents($this->getFilePath());
 
-        // Pega as informações do arquivo
-        $parse = parse_url($this->filePath);
+        $parse = parse_url($this->getFilePath());
+        $basename = $this->getDirFile().DIRECTORY_SEPARATOR.basename($parse["path"]);
 
-        // Pega o nome do arquivo
-        $basename = basename($parse["path"]);
-
-        // Cria um arquivo com o nome original
         $file = fopen($basename, "w+");
 
-        // Escreve o conteúdo baixado no arquivo criado
         fwrite($file, $content);
 
         fclose($file);
 
-        // Exibe o arquivo baixado na tela
-        echo "<img src=\"$basename\" >";
+        echo "<a href=\"{$this->getFilePath()}\" download>Download</a>";
     }
 
     private function createDir($dir){
