@@ -20,12 +20,7 @@ $("#btnOk").on("click", (e) => {
     form = $("#form-js");
 
     if(form.attr("method").toUpperCase() == "POST"){
-        let unformattedData = form.serializeArray();
-        data = {};
-
-        unformattedData.forEach(item => {
-            data[item.name] = item.value;
-        });
+        data = new FormData(document.querySelector("#form-js"));
     } else{
         data = form.serialize();
     }

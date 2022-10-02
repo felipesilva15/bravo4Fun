@@ -5,9 +5,9 @@ class Files {
 
     public function __construct($dirFile = ""){
         if($dirFile){
-            $this->dirFile = $dirFile;
+            $this->setDirFile($dirFile);
         } else{
-            $this->dirFile = "assets";
+            $this->setDirFile("assets");
         }
     }
 
@@ -23,7 +23,7 @@ class Files {
         $this->file = $file;
     }
 
-    public function getFile(){
+    public function getFile():array{
         return($this->file);
     }
 
@@ -36,19 +36,37 @@ class Files {
     }
 
     public function uploadFile(){
-        $this->createDir($this->getDirFile());
+        $resValid = $this->validFile();
 
-        $file = $this->getFile();
-        $fullPath = $this->getDirFile() . DIRECTORY_SEPARATOR . $file["name"];
-
-        if(is_file($fullPath)){
-            return(json_encode(["status"=> 400, "message"=>"Já existe este arquivo no servidor", "items"=>[]]));
+        if($resValid["status"] >= 400){
+            return(json_encode($resValid));
         }
 
-        if(move_uploaded_file($file["tmp_name"], $fullPath)){
-            $response = json_encode(["status"=> 200, "message"=>"Upload realizado com sucesso!", "items"=>[]]);
-        }else{
-            $response = json_encode(["status"=> 500, "message"=>"Falha ao realizar upload.", "items"=>[]]);
+        $this->createDir();
+
+        do {
+            $filename = $this->makeFilename();
+            $fullPath = $this->getDirFile().DIRECTORY_SEPARATOR.$filename;
+        } while (is_file($fullPath));
+
+        $uploaded = move_uploaded_file($this->getFile()["tmp_name"], $fullPath);
+
+        if($uploaded){
+            $response = json_encode([
+                "status"=> 200, 
+                "message"=>"Upload realizado com sucesso.", 
+                "items"=>[
+                    "dirFile"=>$this->getDirFile(),
+                    "file"=>$this->getFile(),
+                    "filePath"=>$this->getFilePath(),
+                ]
+            ]);
+        }else {
+            $response = json_encode([
+                "status"=> 500, 
+                "message"=>"Falha ao realizar upload.", 
+                "items"=>[]
+            ]);
         }
 
         return($response);
@@ -69,9 +87,33 @@ class Files {
         echo "<a href=\"{$this->getFilePath()}\" download>Download</a>";
     }
 
-    private function createDir($dir){
-        if(!is_dir($dir)){
-            mkdir($dir);
+    private function createDir(){
+        if(!is_dir($this->getDirFile())){
+            mkdir($this->getDirFile());
         }
+    }
+
+    private function makeFilename():string{
+        $newFilename = sha1(uniqid());
+        $extension = pathinfo($this->getFile()["name"], PATHINFO_EXTENSION);
+
+        $newFilename = "{$newFilename}.{$extension}";
+
+        return($newFilename);
+    }
+
+    private function validFile():array{
+        $aprovedExtensions = ["png", "jpg", "jpeg", "jfif", "bmp"];
+        $fileExtension = pathinfo($this->getFile()["name"], PATHINFO_EXTENSION);
+
+        if(!in_array($fileExtension, $aprovedExtensions)){
+            $response = ["status"=> 400, "message"=>"Tipo de arquivo não permitido!", "items"=>[]];
+        } elseif($this->getFile()["size"] > 2097152) {
+            $response = ["status"=> 400, "message"=>"Só é permitido arquivos com tamanho máximo de 2MB!", "items"=>[]];            
+        } else{
+            $response = ["status"=> 200, "message"=>"Arquivo válido.", "items"=>[]];            
+        }
+
+        return($response);
     }
 }

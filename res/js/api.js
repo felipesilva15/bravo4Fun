@@ -8,6 +8,8 @@ api.request = (url, method, data) => {
             url: `${urlBase}${url}`,
             type: method,
             data: data,
+            processData: false,
+            contentType: false,
             success: (res) => {
                 if (res === undefined) {
                     reject(res);
