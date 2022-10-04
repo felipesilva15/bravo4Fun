@@ -75,6 +75,7 @@
                                     foreach ($data as $row) {
                                         $row["ADM_ATIVO"] = $row["ADM_ATIVO"] ?? 1;
                                         $styleInativo = $row["ADM_ATIVO"] == 0 ? 'style="text-decoration: line-through;"' : "";
+                                        $acaoAtivo = $row["ADM_ATIVO"] ?? 1 == 1 ? "DESATIVAR" : "ATIVAR";
 
                                         echo "
                                         <tr {$styleInativo}>
@@ -93,7 +94,7 @@
                                                             <img src=\"res/images/more.png\" width=\"16px\" height=\"16px\">
                                                         </button>
                                                         <ul class=\"dropdown-menu\">
-                                                            <li><a class=\"dropdown-item\" onclick=\"adminDesativar({$row["ADM_ID"]})\">Ativar / Detativar</a></li>
+                                                            <li><a class=\"dropdown-item\" onclick=\"adminDesativar({$row["ADM_ID"]}, '{$acaoAtivo}')\">Ativar / Detativar</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -120,13 +121,13 @@
 <script src="res/js/api.js"></script>
 <script src="res/js/init.js"></script>
 <script>
-    function adminDesativar(id){
+    function adminDesativar(id, acao){
         cfgModal = modal.config();
 
         cfgModal.type = "CONFIRM";
         cfgModal.title = "Atenção";
         cfgModal.extra1 = id;
-        cfgModal.extra2 = "DESATIVAR";
+        cfgModal.extra2 = acao;
         cfgModal.callback = () => {
             let request = api.request(`adminDesativar.php?id=${id}`, "GET");
         
