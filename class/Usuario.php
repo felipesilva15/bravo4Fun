@@ -265,9 +265,10 @@ class Usuario{
     private function validarAdminExistente(){
         $sql = new Sql();
 
-        $query = "SELECT * FROM ADMINISTRADOR WHERE ADM_EMAIL = :EMAIL AND COALESCE(ADM_ATIVO, 1) = 1";
+        $query = "SELECT * FROM ADMINISTRADOR WHERE ADM_EMAIL = :EMAIL AND ADM_ID <> :ID AND COALESCE(ADM_ATIVO, 1) = 1";
         $params = [
-            ":EMAIL"=>$this->getEmail()
+            ":EMAIL"=>$this->getEmail(),
+            ":ID"=>$this->getId()
         ];
 
         $data = $sql->select($query, $params);

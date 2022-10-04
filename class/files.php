@@ -46,10 +46,10 @@ class Files {
 
         do {
             $filename = $this->makeFilename();
-            $fullPath = $this->getDirFile().DIRECTORY_SEPARATOR.$filename;
-        } while (is_file($fullPath));
+            $this->setFilePath($this->getDirFile().DIRECTORY_SEPARATOR.$filename);
+        } while (is_file($this->getFilePath()));
 
-        $uploaded = move_uploaded_file($this->getFile()["tmp_name"], $fullPath);
+        $uploaded = move_uploaded_file($this->getFile()["tmp_name"], $this->getFilePath());
 
         if($uploaded){
             $response = json_encode([
@@ -94,7 +94,7 @@ class Files {
     }
 
     private function makeFilename():string{
-        $newFilename = sha1(uniqid());
+        $newFilename = md5(uniqid());
         $extension = pathinfo($this->getFile()["name"], PATHINFO_EXTENSION);
 
         $newFilename = "{$newFilename}.{$extension}";
@@ -107,11 +107,11 @@ class Files {
         $fileExtension = pathinfo($this->getFile()["name"], PATHINFO_EXTENSION);
 
         if(!in_array($fileExtension, $aprovedExtensions)){
-            $response = ["status"=> 400, "message"=>"Tipo de arquivo não permitido!", "items"=>[]];
+            $response = ["status"=> 400, "title"=>"Arquivo inválido", "message"=>"Extensão do arquivo não permitida!", "items"=>[]];
         } elseif($this->getFile()["size"] > 2097152) {
-            $response = ["status"=> 400, "message"=>"Só é permitido arquivos com tamanho máximo de 2MB!", "items"=>[]];            
+            $response = ["status"=> 400, "title"=>"Arquivo inválido", "message"=>"Só é permitido arquivos com tamanho máximo de 2MB!", "items"=>[]];            
         } else{
-            $response = ["status"=> 200, "message"=>"Arquivo válido.", "items"=>[]];            
+            $response = ["status"=> 200, "title"=>"OK", "message"=>"Arquivo válido.", "items"=>[]];            
         }
 
         return($response);
