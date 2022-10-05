@@ -81,11 +81,11 @@ class Usuario{
         }
         if($this->getNome() !== ""){
             $sqlWhere .= " AND ADM_NOME LIKE :NOME";
-            $params[":NOME"] = "{$this->getNome()}%";
+            $params[":NOME"] = "%{$this->getNome()}%";
         }
         if($this->getEmail() !== ""){
             $sqlWhere .= " AND ADM_EMAIL LIKE :EMAIL";
-            $params[":EMAIL"] = "{$this->getEmail()}%";
+            $params[":EMAIL"] = "%{$this->getEmail()}%";
         }
         if($exibirInativo == 0){
             $sqlWhere .= " AND COALESCE(ADM_ATIVO, 1) = 1";
