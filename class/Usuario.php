@@ -3,7 +3,7 @@
 //require_once("sysFuncoes.php");
 
 class Usuario{
-    private $id = 0, $nome = "", $email = "", $senha = "", $ativo = 0; 
+    private $id = 0, $nome = "", $email = "", $senha = "", $senhaConf = "", $ativo = 0; 
 
     public function getId():int{
         return($this->id);
@@ -27,6 +27,14 @@ class Usuario{
 
     public function setSenha($senha){
         $this->senha = sha1($senha ?? "");
+    }
+
+    public function getSenhaConf():string{
+        return($this->senhaConf);
+    }
+
+    public function setSenhaConf($senhaConf){
+        $this->senhaConf = sha1($senhaConf ?? "");
     }
 
     public function getEmail():string{
@@ -247,12 +255,14 @@ class Usuario{
     public function validarUsuario(){
         $response = "";
 
-        if(!isset($this->nome) || $this->nome == ""){
+        if($this->getNome() == ""){
             $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome não foi preenchido."];
-        } elseif (!isset($this->email) || $this->email == "") {
+        } elseif ($this->getEmail() == "") {
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de e-mail não foi preenchido."];
-        } elseif (!isset($this->senha) || $this->senha == "" || $this->senha == sha1("")){
+        } elseif ($this->getSenha() == "" || $this->getSenha() == sha1("")){
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de senha não foi preenchido."];
+        } elseif ($this->getSenha() != $this->getSenhaConf()){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"As senhas informadas não condizem."];
         } elseif($this->validarAdminExistente()){
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Já existe um administrador cadastrado com este e-mail. Tente um e-mail diferente."];
         } else{

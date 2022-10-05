@@ -48,8 +48,8 @@
                             <div class="col-12">
                                 <label class="form-label-custom" for="ADM_SENHACONF">Confirme sua senha <span class="required">*</span></label>
                                 <input name="ADM_SENHACONF" id="ADM_SENHACONF" maxlength="500" required type="password" class="form-control" placeholder="Digite..." onChange="validarSenha()">
-                                <div id="feedback-senha" class="invalid-feedback">
-                                    As senhas não condizem!
+                                <div id="feedback-senha" style="color: #dc3545; font-size: 0.875em; display: none;">
+                                    As senhas informadas não condizem!
                                 </div>
                             </div>
                             <div class="col-12 mt-5">
