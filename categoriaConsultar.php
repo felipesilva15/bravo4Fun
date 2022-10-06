@@ -8,10 +8,21 @@
     <link rel="shortcut icon" href="res/images/logo.ico">
     <link rel="stylesheet" href="res/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="res/css/global.css">
+    <link rel="stylesheet" href="res/css/menu.css">
 </head>
 <body class="default-height-body">
-    <header>
-
+    <header id="header">
+        <nav id="nav">
+            <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">
+            <span id="span"></span>
+            </button>
+            <ul id="menu">
+                <li><a id="produtomenu" onclick="montarMenu('produto')" href="#">Vendas</a></li>
+                <li><a  href="adminConsultar.php">Administradores</a></li>
+            </ul>
+        </nav>
+        <a id="logo" href="/bravo4Fun/views/menu.html">Bravo4 Fun</a>
+        <img id="semfoto" src="res/images/semfoto.png" width="50">
     </header>
     <main class="full-height">
         <div class="m-3">
@@ -111,6 +122,7 @@
 <script src="res/js/modal.js"></script>
 <script src="res/js/api.js"></script>
 <script src="res/js/init.js"></script>
+<script src="res/js/menu.js"></script>
 <script>
     function categoriaDesativar(id){
         cfgModal = modal.config();
