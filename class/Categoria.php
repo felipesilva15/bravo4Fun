@@ -182,6 +182,7 @@ class Categoria{
         ];
 
         if($this->getAtivo() == 0){
+            /*
             if($this->validarCategoriaExistente()){
                 $response = json_encode([
                     "status"=> 400, 
@@ -189,7 +190,7 @@ class Categoria{
                     "message"=>"Já existe uma Categoria cadastrada com este nome.",
                     "items"=>[]
                 ]);
-            }
+            }*/
 
             if(isset($response) && $response !== ""){
                 return($response);
@@ -199,8 +200,6 @@ class Categoria{
         } else{
             $params[":ATIVO"] = 0;
         }
-        
-        var_dump($params);
         
         $sql->executeQuery($query, $params);
 

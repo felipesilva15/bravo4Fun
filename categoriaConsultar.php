@@ -59,6 +59,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nome</th>
+                                    <th>Descrição</th>
                                     <th>
                                         <a href="views/categoriaDigitar.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
                                     </th>           
@@ -79,11 +80,16 @@
                                     foreach ($data as $row) {
                                         $row["CATEGORIA_ATIVO"] = $row["CATEGORIA_ATIVO"] ?? 1;
                                         $styleInativo = $row["CATEGORIA_ATIVO"] == 0 ? 'style="text-decoration: line-through;"' : "";
+                                        $acaoAtivo = $row["CATEGORIA_ATIVO"] ?? 1 == 1 ? "DESATIVAR" : "ATIVAR";
+
+                                        $desc = substr($row["CATEGORIA_DESC"], 0, 60);
+                                        $desc .= (strlen($row["CATEGORIA_DESC"]) > 60) ? "..." : "";
 
                                         echo "
                                         <tr {$styleInativo}>
                                             <td>{$row["CATEGORIA_ID"]}</td>
                                             <td>{$row["CATEGORIA_NOME"]}</td>
+                                            <td>{$desc}</td>
                                             <td>
                                                 <div class=\"d-flex flex-row\">
                                                     <div>
@@ -124,13 +130,13 @@
 <script src="res/js/init.js"></script>
 <script src="res/js/menu.js"></script>
 <script>
-    function categoriaDesativar(id){
+    function categoriaDesativar(id, acao){
         cfgModal = modal.config();
 
         cfgModal.type = "CONFIRM";
         cfgModal.title = "Atenção";
         cfgModal.extra1 = id;
-        cfgModal.extra2 = "DESATIVAR";
+        cfgModal.extra2 = acao;
         cfgModal.callback = () => {
             let request = api.request(`categoriaDesativar.php?id=${id}`, "GET");
         
