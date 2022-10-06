@@ -4,7 +4,7 @@ let modalToDisplay = null
 // Retorna um objeto com as propriedades do modal 
 modal.config = () => {
     return {
-        type: "", // INFO, CONFIRM, CUSTOM, ERROR
+        type: "", // INFO, CONFIRM, CUSTOM, ERROR, IMAGEZOOM
         title: "",
         body: "",
         extra1: "", 
@@ -56,6 +56,11 @@ modal.show = (cfgModal) => {
                 case "ERROR":
                     $("#error-title").append(cfgModal.body.title);  
                     $("#error-message").append(cfgModal.body.message);  
+
+                    break;
+                
+                case "IMAGEZOOM":
+                    $("#imgZoom").attr("src", cfgModal.extra1);
 
                     break;
             }
