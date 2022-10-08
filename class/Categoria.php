@@ -176,13 +176,12 @@ class Categoria{
 
         $this->loadById();
 
-        $query = "UPDATE CATEGORIA SET CATEGORIA_ATIVO = :ATIVO WHERE CATEGORIA_ID = :ID";
+        $query = "UPDATE CATEGORIA SET CATEGORIA_ATIVO = CAST(:ATIVO AS SIGNED) WHERE CATEGORIA_ID = :ID";
         $params = [
             ":ID"=>$this->getId()
         ];
 
         if($this->getAtivo() == 0){
-            /*
             if($this->validarCategoriaExistente()){
                 $response = json_encode([
                     "status"=> 400, 
@@ -190,7 +189,7 @@ class Categoria{
                     "message"=>"Já existe uma Categoria cadastrada com este nome.",
                     "items"=>[]
                 ]);
-            }*/
+            }
 
             if(isset($response) && $response !== ""){
                 return($response);
@@ -227,9 +226,10 @@ class Categoria{
     private function validarCategoriaExistente(){
         $sql = new Sql();
 
-        $query = "SELECT * FROM CATEGORIA WHERE CATEGORIA_NOME = :NOME AND COALESCE(CATEGORIA_ATIVO, 1) = 1";
+        $query = "SELECT * FROM CATEGORIA WHERE CATEGORIA_NOME = :NOME AND COALESCE(CATEGORIA_ATIVO, 1) = 1 AND CATEGORIA_ID <> :ID";
         $params = [
-            ":NOME"=>$this->getNome()
+            ":NOME"=>$this->getNome(),
+            ":ID"=>$this->getId()
         ];
 
         $data = $sql->select($query, $params);

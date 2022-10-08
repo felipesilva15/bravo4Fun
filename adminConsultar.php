@@ -17,8 +17,8 @@
         <span id="span"></span>
          </button>
         <ul id="menu">
-            <li><a id="produtomenu" onclick="montarMenu('produto')" href="#">Vendas</a></li>
-            <li><a  href="adminConsultar.php">Administradores</a></li>
+            <li><a  href="categoriaConsultar.php">Categoria</a></li>
+            <li><a  href="adminConsultar.php">Administrador</a></li>
          </ul>
          </nav>
          <a id="logo" href="/bravo4Fun/views/menu.html">Bravo4 Fun</a>
