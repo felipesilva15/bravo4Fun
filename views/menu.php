@@ -1,6 +1,20 @@
+<?php
+
+  require_once("../config.php");
+  //require_once("../class/Produto.php");
+  require_once("../class/Sql.php");
+
+  //$produto = new Produto();
+
+  $inventoryValue = 700000;
+  $inventoryItens = 1250000;
+  $totalProducts = 88;
+  $totalUsers = 26;
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +25,6 @@
   <link rel="stylesheet" href="/bravo4Fun/res/css/global.css">
   <link rel="stylesheet" href="../res/css/menu.css">
 </head>
-
 <body>
   <header id="header">
     <nav id="nav">
@@ -28,56 +41,56 @@
     <img id="semfoto" src="/bravo4Fun/res/images/semfoto.png" width="50">
   </header>
   <main class="full-height">
-    <div class="row g-3 mx-5 my-4">
+    <div class="row g-3 mx-4 my-4">
       <div class="row g-3">
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
-            <h5 class="card-title">Valor de estoque</h5>
+            <h4 class="card-title">Valor de estoque</h4>
             <div class="row g-3 align-items-center p-0">
               <div class="col-4">
                 <img src="../res/images/growth.png" alt="" width="70px">
               </div>
               <div class="col-8">
-                <h2 class="my-5">R$ 700K</h2> 
+                <h2 class="my-5 pe-2 text-end textNumberCompact textMoneySymbol"><?php echo $inventoryValue ?></h2> 
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
-            <h5 class="card-title">Quantidade de estoque</h5>
+            <h4 class="card-title">Itens em estoque</h4>
             <div class="row g-3 align-items-center">
               <div class="col-4">
                 <img src="../res/images/cubes.png" alt="" width="70px">
               </div>
               <div class="col-8">
-                <h2 class="my-5">1.25M</h2> 
+                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo $inventoryItens ?></h2> 
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
-            <h5 class="card-title">Produtos</h5>
+            <h4 class="card-title">Produtos</h4>
             <div class="row g-3 align-items-center">
               <div class="col-4">
                 <img src="../res/images/trolley.png" alt="" width="70px">
               </div>
               <div class="col-8">
-                <h2 class="my-5">88</h2> 
+                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo $totalProducts ?></h2> 
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
-            <h5 class="card-title">Usuários</h5>
+            <h4 class="card-title">Usuários</h4>
             <div class="row g-3 align-items-center">
               <div class="col-4">
                 <img src="../res/images/user.png" alt="" width="70px">
               </div>
               <div class="col-8">
-                <h2 class="my-5">26</h2> 
+                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo $totalUsers ?></h2> 
               </div>
             </div>
           </div>
@@ -121,5 +134,4 @@
   <script src="../res/js/menu.js"></script>
   <script src="../res/js/init.js"></script>
 </body>
-
 </html>

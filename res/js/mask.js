@@ -4,12 +4,28 @@ function loadMasks(){
     $(".inputNumber").each((i, singleElement) => {
         maskElementNumber(singleElement);
     })
+
+    // Formatação de números compactos
+    $(".textNumberCompact").each((i, singleElement) => {
+        maskElementNumberCompact(singleElement);
+    })
 }
 
 // Carrega máscara de números com casas decimais e pontos de milhar
 function maskElementNumber(element){
     $(element).maskMoney({thousands: ".", decimal: ","});
     element.value = element.value !== "" ? maskNumber(parseFloat(element.value)) : "";
+}
+
+// Carrega o compactamento dos números
+function maskElementNumberCompact(element){
+    let compactValue = formatCompact($(element).text());
+
+    if($(element).hasClass("textMoneySymbol")){
+        compactValue = "R$ " + compactValue;
+    }
+
+    $(element).text(compactValue);
 }
 
 // Retorna o número com as cadas decimais corretas

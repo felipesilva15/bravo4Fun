@@ -1,3 +1,7 @@
+const formater = Intl.NumberFormat("en", { 
+    notation: "compact"
+});
+
 // Pega uma data JS e a formata para uma string
 function dateToString(date){
 
@@ -23,4 +27,12 @@ function validarCredenciais() {
         .catch((err) => {
             window.location.href = "/bravo4Fun/views/login.html";
         });
+}
+
+function formatCompact(valueToFormat) {
+    if(typeof valueToFormat !== "number"){
+        valueToFormat = parseFloat(valueToFormat);
+    }
+
+    return(formater.format(valueToFormat));
 }
