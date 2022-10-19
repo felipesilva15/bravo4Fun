@@ -62,7 +62,7 @@ form div.div-inline-input .inline-input:valid ~ label{
 .box{
     width: 100%;
     border-radius: 3px;
-    border-top: 3px solid #cccccc;
+    border-top: 3px solid #FFF;
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 
