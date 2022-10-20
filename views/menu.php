@@ -1,16 +1,52 @@
 <?php
 
+  // TODO: Adicionar a lógica e funções na classe de produtos
   require_once("../config.php");
-  //require_once("../class/Produto.php");
   require_once("../class/Sql.php");
 
-  //$produto = new Produto();
+  $sql = new Sql();
 
-  $inventoryValue = 700000;
-  $inventoryItens = 1250000;
-  $totalProducts = 88;
-  $totalUsers = 26;
+  // Carrega dados dos cards de produtos
+  $dataProducts = $sql->select("SELECT
+                          COUNT(1) AS QT_PRODUTOS,
+                          SUM(COALESCE(PRO.PRODUTO_PRECO, 0) * COALESCE(EST.PRODUTO_QTD, 0)) AS VL_PRECOTOTAL,
+                          SUM(COALESCE(EST.PRODUTO_QTD, 0)) AS QT_ESTOQUETOTAL
+                        FROM PRODUTO AS PRO
+                        LEFT JOIN PRODUTO_ESTOQUE AS EST ON PRO.PRODUTO_ID = EST.PRODUTO_ID
+                        WHERE
+                          COALESCE(PRO.PRODUTO_ATIVO, 1) = 1");
 
+  // Carrega dados dos cards de usuários
+  $dataAdmins = $sql->select("SELECT 
+                                COUNT(1) AS QT_ADMINS 
+                              FROM ADMINISTRADOR ADM 
+                              WHERE 
+                                COALESCE(ADM.ADM_ATIVO, 1) = 1");
+                        
+  $dataTopProducts = $sql->select("SELECT
+                                    COALESCE(PRO.PRODUTO_ID, 0) AS ID,
+                                    COALESCE(PRO.PRODUTO_NOME, '') AS DS_PRODUTO,
+                                    COALESCE(CAT.CATEGORIA_NOME, '') AS DS_CATEGORIA,
+                                    COALESCE(PRO.PRODUTO_PRECO, 0) AS VL_PREUNI,
+                                    SUM(COALESCE(PRO.PRODUTO_PRECO, 0) * COALESCE(EST.PRODUTO_QTD, 0)) AS VL_PRECOTOTAL,
+                                    SUM(COALESCE(EST.PRODUTO_QTD, 0)) AS QT_ESTOQUETOTAL
+                                  FROM PRODUTO AS PRO
+                                  LEFT JOIN CATEGORIA CAT ON PRO.CATEGORIA_ID = CAT.CATEGORIA_ID
+                                  LEFT JOIN PRODUTO_ESTOQUE AS EST ON PRO.PRODUTO_ID = EST.PRODUTO_ID
+                                  WHERE
+                                    COALESCE(PRO.PRODUTO_ATIVO, 1) = 1
+                                  GROUP BY
+                                    COALESCE(PRO.PRODUTO_ID, 0),
+                                    COALESCE(PRO.PRODUTO_NOME, ''),
+                                    COALESCE(CAT.CATEGORIA_NOME, ''),
+                                    COALESCE(PRO.PRODUTO_PRECO, 0)
+                                  ORDER BY
+                                    SUM(COALESCE(PRO.PRODUTO_PRECO, 0) * COALESCE(EST.PRODUTO_QTD, 0)) DESC,
+                                    SUM(COALESCE(EST.PRODUTO_QTD, 0)) DESC
+                                  LIMIT 10");
+
+  $dataProducts = $dataProducts[0];
+  $dataAdmins = $dataAdmins[0];
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +73,7 @@
         <li><a  href="../adminConsultar.php">Administrador</a></li>
       </ul>
     </nav>
-    <a id="logo" href="/bravo4Fun/views/menu.html">Bravo4 Fun</a>
+    <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
     <img id="semfoto" src="/bravo4Fun/res/images/semfoto.png" width="50">
   </header>
   <main class="full-height">
@@ -45,13 +81,13 @@
       <div class="row g-3">
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
-            <h4 class="card-title">Valor de estoque</h4>
+            <h4 class="card-title">Valor do estoque</h4>
             <div class="row g-3 align-items-center p-0">
               <div class="col-4">
                 <img src="../res/images/growth.png" alt="" width="70px">
               </div>
               <div class="col-8">
-                <h2 class="my-5 pe-2 text-end textNumberCompact textMoneySymbol"><?php echo $inventoryValue ?></h2> 
+                <h2 class="my-5 pe-2 text-end textNumberCompact textMoneySymbol"><?php echo isset($dataProducts["VL_PRECOTOTAL"]) ? $dataProducts["VL_PRECOTOTAL"] ?? 0 : 0 ?></h2> 
               </div>
             </div>
           </div>
@@ -64,7 +100,7 @@
                 <img src="../res/images/cubes.png" alt="" width="70px">
               </div>
               <div class="col-8">
-                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo $inventoryItens ?></h2> 
+                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo isset($dataProducts["QT_ESTOQUETOTAL"]) ? $dataProducts["QT_ESTOQUETOTAL"] ?? 0 : 0 ?></h2> 
               </div>
             </div>
           </div>
@@ -77,20 +113,20 @@
                 <img src="../res/images/trolley.png" alt="" width="70px">
               </div>
               <div class="col-8">
-                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo $totalProducts ?></h2> 
+                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo isset($dataProducts["QT_PRODUTOS"]) ? $dataProducts["QT_PRODUTOS"] ?? 0 : 0 ?></h2> 
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
-            <h4 class="card-title">Usuários</h4>
+            <h4 class="card-title">Administradores</h4>
             <div class="row g-3 align-items-center">
               <div class="col-4">
                 <img src="../res/images/user.png" alt="" width="70px">
               </div>
               <div class="col-8">
-                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo $totalUsers ?></h2> 
+                <h2 class="my-5 pe-2 text-end textNumberCompact"><?php echo isset($dataAdmins["QT_ADMINS"]) ? $dataAdmins["QT_ADMINS"] : 0 ?></h2> 
               </div>
             </div>
           </div>
@@ -107,13 +143,28 @@
                     <th>ID</th>
                     <th>Produto</th>
                     <th>Categoria</th> 
-                    <th>Valor Unit.</th>    
-                    <th>Qtd. Total</th>
-                    <th>Valor total</th>    
+                    <th>Valor unit.</th>    
+                    <th>Valor total</th>   
+                    <th>Qtd. Total</th> 
                   </tr>    
                 </thead>
                 <tbody class="table-group-divider">
-                  
+                  <?php
+      
+                    foreach ($dataTopProducts as $row) {
+                      echo "
+                      <tr>
+                        <td>{$row["ID"]}</td>
+                        <td>{$row["DS_PRODUTO"]}</td>
+                        <td>{$row["DS_CATEGORIA"]}</td>
+                        <td class=\"textNumber textMoneySymbol\">{$row["VL_PREUNI"]}</td>
+                        <td class=\"textNumber textMoneySymbol\">{$row["VL_PRECOTOTAL"]}</td>
+                        <td class=\"textNumber\">{$row["QT_ESTOQUETOTAL"]}</td>
+                      </tr>
+                      ";
+                    }
+
+                  ?>
                 </tbody>   
               </table>
             </div>

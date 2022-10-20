@@ -2,18 +2,21 @@
 
 require_once("config.php");
 
+try{
+    $fileStream = $_FILES["ARQUIVO"];
 
-$fileStream = $_FILES["ARQUIVO"];
+    $files = new Files();
 
-// var_dump($fileStream);
-// return;
-
-$files = new Files();
-
-$files->setFile($fileStream);
-$response = $files->uploadFile();
+    $files->setFile($fileStream);
+    $response = $files->uploadFile();
+} catch (Exception $e) {
+    $response = json_encode([
+        "status"=>500,
+        "errorCode"=>$e->getCode(),
+        "message"=>$e->getMessage(),
+        "file"=>$e->getFile(),
+        "line"=>$e->getLine()
+    ]);
+}
 
 echo $response;
-
-// $files->setFilePath("assets/859.png");
-// $files->downloadFile();
