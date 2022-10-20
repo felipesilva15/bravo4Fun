@@ -31,7 +31,7 @@
                                     SUM(COALESCE(PRO.PRODUTO_PRECO, 0) * COALESCE(EST.PRODUTO_QTD, 0)) AS VL_PRECOTOTAL,
                                     SUM(COALESCE(EST.PRODUTO_QTD, 0)) AS QT_ESTOQUETOTAL
                                   FROM PRODUTO AS PRO
-                                  LEFT JOIN CATEGORIA CAT ON PRO.CATEGORIA_ID = CAT.CATEGORIA_ID AND COALESCE(CAT.CATEGORIA_ATIVO, 1) = 1
+                                  LEFT JOIN CATEGORIA CAT ON PRO.CATEGORIA_ID = CAT.CATEGORIA_ID
                                   LEFT JOIN PRODUTO_ESTOQUE AS EST ON PRO.PRODUTO_ID = EST.PRODUTO_ID 
                                   WHERE
                                     COALESCE(PRO.PRODUTO_ATIVO, 1) = 1
