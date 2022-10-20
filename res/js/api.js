@@ -16,13 +16,32 @@ api.request = (url, method, data) => {
                     return;
                 }
 
-                res = JSON.parse(res);
+                // Tenta ler o JSON
+                try {
+                    res = JSON.parse(res);
+                } catch (error) {
+                    reject({ 
+                        status: 500, 
+                        title: "Erro inesperado",
+                        message: "Tente novamente mais tarde. Caso o erro persista, entre em contato com o administrador do seu sistema.", 
+                        req: request,
+                        items: error
+                    });
+                }
 
+                // Inautorizado
+                if (res.status == 403 && !res.items["showError"]){
+                    console.log(res);
+                    window.location.href = "/bravo4Fun/views/login.html";
+                }
+
+                // Sucesso
                 if (res.status < 400) {
                     resolve(res);
                     return;
                 }
 
+                // Ocorreu algum erro
                 reject(res);
             },
             error: (request) => {

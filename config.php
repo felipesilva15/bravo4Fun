@@ -14,3 +14,13 @@ spl_autoload_register(function($className){
 });
 
 require_once("sysFuncoes.php");
+
+
+if (!isset($isLogin) || !$isLogin){
+    $responseCredentials = json_decode(validarCredenciais(), true);
+
+    if (!$responseCredentials["status"] || $responseCredentials["status"] == 403 ){
+        echo json_encode($responseCredentials);
+        return;
+    }
+}

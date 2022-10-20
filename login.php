@@ -1,5 +1,7 @@
 <?php
 
+$isLogin = true;
+
 require_once("config.php");
 
 $usuario = new Usuario();
