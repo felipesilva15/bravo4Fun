@@ -261,6 +261,8 @@ class Usuario{
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de e-mail não foi preenchido."];
         } elseif ($this->getSenha() == "" || $this->getSenha() == sha1("")){
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de senha não foi preenchido."];
+        } elseif (!filter_var($this->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Este e-mail não é válido."];
         } elseif ($this->getSenha() != $this->getSenhaConf()){
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"As senhas informadas não condizem."];
         } elseif($this->validarAdminExistente()){
