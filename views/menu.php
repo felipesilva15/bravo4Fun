@@ -170,9 +170,18 @@
             </div>
           </div>
         </div>
+        <div class="col-12 box p-4 margin-0">
+          <div class="my-2">
+            <h4>Quantidade de produtos por categoria</h4>
+          </div>
+          <div class="m-5 mt-5 pb-1" style="max-width: 600px;">
+            <canvas id="myChart" width="50" height="50"></canvas>
+          </div>
+        </div>
       </div>
     </div>
   </main>
+  <script src="../node_modules/chart.js/dist/chart.min.js"></script>
   <script src="../res/bootstrap/js/bootstrap.min.js"></script>
   <script src="../res/plugins/jQuery/jquery-3.6.1.min.js"></script>
   <script src="../res/plugins/input/jquery.maskMoney.js"></script>
@@ -184,5 +193,40 @@
   <script src="../res/js/api.js"></script>
   <script src="../res/js/menu.js"></script>
   <script src="../res/js/init.js"></script>
+  <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+      labels: [
+        'Show',
+        'Cinema',
+        'Teatro'
+      ],
+      datasets: [{
+        label: 'Gráfico',
+        data: [10, 2, 7],
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 6
+      }]
+    },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: false,
+            text: 'Chart.js Doughnut Chart'
+          }
+        }
+      },
+    });
+  </script>
 </body>
 </html>
