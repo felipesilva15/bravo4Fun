@@ -117,7 +117,7 @@ class Usuario{
         }else{
             $this->setData($data[0]);
 
-            $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
+            $response = $this->makeUserData();
         }
 
         return($response);
@@ -290,13 +290,24 @@ class Usuario{
         return($adminRepetido);
     }
 
-    public function __toString():string{
+    public function makeUserData():string{
         return(json_encode([
-            "ADM_ID"=>$this->getId(),
-            "ADM_NOME"=>$this->getNome(),
-            "ADM_EMAIL"=>$this->getEmail(),
-            "ADM_SENHA"=>$this->getSenha(),
-            "ADM_ATIVO"=>$this->getAtivo()
+            "status"=>200, 
+            "title"=>"Sucesso", 
+            "message"=>"OK",
+            "items"=>[ 
+                [
+                    "ADM_ID"=>$this->getId(),
+                    "ADM_NOME"=>$this->getNome(),
+                    "ADM_EMAIL"=>$this->getEmail(),
+                    "ADM_SENHA"=>$this->getSenha(),
+                    "ADM_ATIVO"=>$this->getAtivo()
+                ]
+            ]
         ]));
+    }
+
+    public function __toString():string{
+        return($this->makeUserData());
     }
 }

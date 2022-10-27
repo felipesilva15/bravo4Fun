@@ -66,7 +66,7 @@
                                     <th>Nome</th>
                                     <th>E-mail</th>
                                     <th>
-                                        <a href="views/adminDigitar.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
+                                        <a href="views/adminDigitar.html" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
                                     </th>           
                                 </tr>    
                             </thead>
@@ -96,7 +96,7 @@
                                             <td>
                                                 <div class=\"d-flex flex-row\">
                                                     <div>
-                                                        <a href=\"views/adminDigitar.php?id={$row["ADM_ID"]}\" class=\"btn  btn-sm-custom p-0\">
+                                                        <a href=\"views/adminDigitar.html?id={$row["ADM_ID"]}\" class=\"btn  btn-sm-custom p-0\">
                                                             <img src=\"res/images/edit.png\" width=\"17px\" height=\"17px\">
                                                         </a>
                                                     </div>
