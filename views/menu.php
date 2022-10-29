@@ -45,6 +45,29 @@
                                     SUM(COALESCE(EST.PRODUTO_QTD, 0)) DESC
                                   LIMIT 10");
 
+  $dataTopCategory = $sql->select("SELECT
+                                    COALESCE(CAT.CATEGORIA_ID, 0) AS FK_CATEGORIA,
+                                    COALESCE(CAT.CATEGORIA_NOME, '') AS DS_CATEGORIA,
+                                    COUNT(1) AS QT_PRODUTO
+                                  FROM PRODUTO PRO
+                                  LEFT JOIN CATEGORIA CAT ON PRO.CATEGORIA_ID = CAT.CATEGORIA_ID
+                                  WHERE
+                                    COALESCE(PRO.PRODUTO_ATIVO, 1) = 1
+                                  GROUP BY
+                                    COALESCE(CATEGORIA_ID, 0),
+                                    COALESCE(CAT.CATEGORIA_NOME, '')
+                                  ORDER BY
+                                    COUNT(1) DESC
+                                  LIMIT 5");
+                            
+  $categoryNameArray = [];
+  $categoryValueArray = [];
+
+  foreach ($dataTopCategory as $data) {
+    array_push($categoryNameArray, $data["DS_CATEGORIA"]);
+    array_push($categoryValueArray, $data["QT_PRODUTO"]);
+  }
+
   $dataProducts = $dataProducts[0];
   $dataAdmins = $dataAdmins[0];
 ?>
@@ -174,8 +197,10 @@
           <div class="my-2">
             <h4>Quantidade de produtos por categoria</h4>
           </div>
-          <div class="m-5 mt-5 pb-1" style="max-width: 600px;">
-            <canvas id="myChart" width="50" height="50"></canvas>
+          <div class="full-height d-flex justify-content-center align-items-center">
+            <div class="m-5 mt-5 pb-1" style="width: 700px;">
+              <canvas id="myChart" width="50" height="50"></canvas>
+            </div>
           </div>
         </div>
       </div>
@@ -198,14 +223,10 @@
     const myChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
-      labels: [
-        'Show',
-        'Cinema',
-        'Teatro'
-      ],
+      labels: <?php echo json_encode($categoryNameArray); ?>,
       datasets: [{
         label: 'Gráfico',
-        data: [10, 2, 7],
+        data: <?php echo json_encode($categoryValueArray); ?>,
         backgroundColor: [
           'rgb(255, 99, 132)',
           'rgb(54, 162, 235)',
