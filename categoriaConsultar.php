@@ -54,7 +54,7 @@
                         </div> 
                     </form>
                     <div class="mt-4 table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover text-nowrap">
                             <thead>
                                 <tr>
                                     <th>ID</th>

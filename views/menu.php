@@ -160,7 +160,7 @@
           </div>
           <div class="m-2 mt-5 pb-1">
             <div class="mt-4 table-responsive">
-              <table class="table table-striped table-hover">
+              <table class="table table-striped table-hover text-nowrap">
                 <thead>
                   <tr>
                     <th>ID</th>
