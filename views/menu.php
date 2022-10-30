@@ -45,7 +45,7 @@
                                     SUM(COALESCE(EST.PRODUTO_QTD, 0)) DESC
                                   LIMIT 10");
 
-  $dataTopCategory = $sql->select("SELECT
+  $dataProductPerCategory = $sql->select("SELECT
                                     COALESCE(CAT.CATEGORIA_ID, 0) AS FK_CATEGORIA,
                                     COALESCE(CAT.CATEGORIA_NOME, '') AS DS_CATEGORIA,
                                     COUNT(1) AS QT_PRODUTO
@@ -59,13 +59,37 @@
                                   ORDER BY
                                     COUNT(1) DESC
                                   LIMIT 5");
+
+  $dataStorePerCategory = $sql->select("SELECT
+                                        COALESCE(CAT.CATEGORIA_ID, 0) AS FK_CATEGORIA,
+                                        COALESCE(CAT.CATEGORIA_NOME, '') AS DS_CATEGORIA,
+                                        SUM(COALESCE(EST.PRODUTO_QTD, 0)) AS QT_ESTOQUE
+                                      FROM CATEGORIA CAT 
+                                      LEFT JOIN PRODUTO PRO ON PRO.CATEGORIA_ID = CAT.CATEGORIA_ID
+                                      LEFT JOIN PRODUTO_ESTOQUE AS EST ON PRO.PRODUTO_ID = EST.PRODUTO_ID
+                                      WHERE
+                                        COALESCE(PRO.PRODUTO_ATIVO, 1) = 1
+                                      GROUP BY
+                                        COALESCE(CATEGORIA_ID, 0),
+                                        COALESCE(CAT.CATEGORIA_NOME, '')
+                                      ORDER BY
+                                        SUM(COALESCE(EST.PRODUTO_QTD, 0)) DESC
+                                      LIMIT 10");
                             
   $categoryNameArray = [];
   $categoryValueArray = [];
 
-  foreach ($dataTopCategory as $data) {
+  foreach ($dataProductPerCategory as $data) {
     array_push($categoryNameArray, $data["DS_CATEGORIA"]);
     array_push($categoryValueArray, $data["QT_PRODUTO"]);
+  }
+
+  $storeNameArray = [];
+  $storeValueArray = [];
+
+  foreach ($dataStorePerCategory as $data) {
+    array_push($storeNameArray, $data["DS_CATEGORIA"]);
+    array_push($storeValueArray, $data["QT_ESTOQUE"]);
   }
 
   $dataProducts = $dataProducts[0];
@@ -154,52 +178,68 @@
             </div>
           </div>
         </div>
-        <div class="col-12 box p-4 margin-0">
-          <div class="my-2">
-            <h4>Top 10 - Valor de estoque por produto</h4>
-          </div>
-          <div class="m-2 mt-5 pb-1">
-            <div class="mt-4 table-responsive">
-              <table class="table table-striped table-hover text-nowrap">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Produto</th>
-                    <th>Categoria</th> 
-                    <th>Valor unit.</th>    
-                    <th>Valor total</th>   
-                    <th>Qtd. Total</th> 
-                  </tr>    
-                </thead>
-                <tbody class="table-group-divider">
-                  <?php
-      
-                    foreach ($dataTopProducts as $row) {
-                      echo "
-                      <tr>
-                        <td>{$row["ID"]}</td>
-                        <td>{$row["DS_PRODUTO"]}</td>
-                        <td>{$row["DS_CATEGORIA"]}</td>
-                        <td class=\"textNumber textMoneySymbol\">{$row["VL_PREUNI"]}</td>
-                        <td class=\"textNumber textMoneySymbol\">{$row["VL_PRECOTOTAL"]}</td>
-                        <td class=\"textNumber\">{$row["QT_ESTOQUETOTAL"]}</td>
-                      </tr>
-                      ";
-                    }
-
-                  ?>
-                </tbody>   
-              </table>
+        <div class="col-12 col-lg-6">
+          <div class="box p-4 margin-0" style="height: 650px">
+            <div class="my-2">
+              <h4>Estoque por categoria de produto</h4>
+            </div>
+            <div class="full-height d-flex justify-content-center align-items-center">
+              <div class="m-5 mt-5 pb-1" style="min-width: 95%; max-width: 1000px;">
+                <canvas id="storePerProductChart" width="82" height="50"></canvas>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-12 box p-4 margin-0">
-          <div class="my-2">
-            <h4>Quantidade de produtos por categoria</h4>
+        <div class="col-12 col-lg-6">
+          <div class="box p-4 margin-0" style="height: 650px">
+            <div class="my-2">
+              <h4>Quantidade de produtos por categoria</h4>
+            </div>
+            <div class="full-height d-flex justify-content-center align-items-center">
+              <div class="m-5 mt-5 pb-1" style="min-width: 450px; max-width: 600px;">
+                <canvas id="productsPerCategoryChart" width="50" height="50"></canvas>
+              </div>
+            </div>
           </div>
-          <div class="full-height d-flex justify-content-center align-items-center">
-            <div class="m-5 mt-5 pb-1" style="width: 700px;">
-              <canvas id="myChart" width="50" height="50"></canvas>
+        </div>
+        <div class="col-12">
+          <div class="box p-4 margin-0">
+            <div class="my-2">
+              <h4>Top 10 - Valor de estoque por produto</h4>
+            </div>
+            <div class="m-2 mt-5 pb-1">
+              <div class="mt-4 table-responsive">
+                <table class="table table-striped table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Produto</th>
+                      <th>Categoria</th> 
+                      <th>Valor unit.</th>    
+                      <th>Valor total</th>   
+                      <th>Qtd. Total</th> 
+                    </tr>    
+                  </thead>
+                  <tbody class="table-group-divider">
+                    <?php
+        
+                      foreach ($dataTopProducts as $row) {
+                        echo "
+                        <tr>
+                          <td>{$row["ID"]}</td>
+                          <td>{$row["DS_PRODUTO"]}</td>
+                          <td>{$row["DS_CATEGORIA"]}</td>
+                          <td class=\"textNumber textMoneySymbol\">{$row["VL_PREUNI"]}</td>
+                          <td class=\"textNumber textMoneySymbol\">{$row["VL_PRECOTOTAL"]}</td>
+                          <td class=\"textNumber\">{$row["QT_ESTOQUETOTAL"]}</td>
+                        </tr>
+                        ";
+                      }
+
+                    ?>
+                  </tbody>   
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -219,8 +259,8 @@
   <script src="../res/js/menu.js"></script>
   <script src="../res/js/init.js"></script>
   <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
+    const ctx1 = document.getElementById('productsPerCategoryChart').getContext('2d');
+    const productsPerCategoryChart = new Chart(ctx1, {
       type: 'doughnut',
       data: {
       labels: <?php echo json_encode($categoryNameArray); ?>,
@@ -228,9 +268,9 @@
         label: 'Gráfico',
         data: <?php echo json_encode($categoryValueArray); ?>,
         backgroundColor: [
-          'rgb(255, 99, 132)',
-          'rgb(54, 162, 235)',
-          'rgb(255, 205, 86)'
+          '#C42A2A',
+          '#0F3D3E',
+          '#126E82'
         ],
         hoverOffset: 6
       }]
@@ -247,6 +287,43 @@
           }
         }
       },
+    });
+
+    const ctx2 = document.getElementById('storePerProductChart').getContext('2d');
+    const storePerProductChart = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+      labels: <?php echo json_encode($storeNameArray); ?>,
+      datasets: [{
+        label: 'Categoria',
+        data: <?php echo json_encode($storeValueArray); ?>,
+        backgroundColor: [
+          '#C42A2A',
+          '#0F3D3E',
+          '#126E82'
+        ],
+        borderWidth: 1,
+        barPercentage: 1,
+        minBarLegth: 2
+      }]
+    },
+    options: {
+      scales: {
+      y: {
+        beginAtZero: false
+      }
+    },
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'none',
+      },
+      title: {
+        display: false,
+        text: 'Chart.js Horizontal Bar Chart'
+      }
+    }
+  },
     });
   </script>
 </body>
