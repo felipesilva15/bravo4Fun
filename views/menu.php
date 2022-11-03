@@ -295,7 +295,7 @@
       data: {
       labels: <?php echo json_encode($storeNameArray); ?>,
       datasets: [{
-        label: 'Categoria',
+        label: 'Estoque',
         data: <?php echo json_encode($storeValueArray); ?>,
         backgroundColor: [
           '#C42A2A',
