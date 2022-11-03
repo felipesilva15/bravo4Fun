@@ -110,9 +110,6 @@ class Files {
     }
 
     private function uploadFileToRepository():string{  
-        $fileName = basename($_FILES["imagem"]["name"]); 
-        $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
-
         $handle = fopen($this->getFile()["tmp_name"], "rb");
         $imageSource = stream_get_contents($handle, filesize($this->getFile()["tmp_name"]));
     
@@ -158,9 +155,7 @@ class Files {
             "status"=> 200, 
             "message"=>"Upload realizado com sucesso.", 
             "items"=>[
-                "dirFile"=>$this->getDirFile(),
-                "file"=>$this->getFile(),
-                "filePath"=>$this->getFilePath(),
+                "filePath"=>$this->getFilePath()
             ]
         ]));
     }
