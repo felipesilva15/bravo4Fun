@@ -1,7 +1,7 @@
 <?php
 
 class Files {
-    private $file, $dirFile, $filePath, $imgurClientID;
+    private $file, $dirFile, $filePath, $imgurClientID, $uploadType;
 
     public function __construct($dirFile = ""){
         if($dirFile){
@@ -11,6 +11,7 @@ class Files {
         }
 
         $this->setImgurClientID("e27d6f9aee55c39");
+        $this->setUploadType(1);
     }
 
     public function setDirFile($dirFile){
@@ -45,6 +46,14 @@ class Files {
         return($this->imgurClientID);
     }
 
+    public function setUploadType($uploadType){
+        $this->uploadType = $uploadType;
+    }
+
+    public function getUploadType():int{
+        return($this->uploadType);
+    }
+
     public function uploadFile(){
         $resValid = $this->validFile();
 
@@ -52,23 +61,37 @@ class Files {
             return(json_encode($resValid));
         }
 
-        $this->createDir();
+        switch ($this->getUploadType()) {
+            case 0:
+                $response = $this->uploadFileToPhpServer();
+                break;
+            
+            case 1;
+                $response = $this->uploadFileToRepository();
+                break;
 
-        do {
-            $filename = $this->makeFilename();
-            $this->setFilePath($this->getDirFile().DIRECTORY_SEPARATOR.$filename);
-        } while (is_file($this->getFilePath()));
-
-        $response = $this->uploadFileToRepository();
+            default:
+                $response = json_encode([
+                    "status"=> 400, 
+                    "message"=>"Opção de upload inválida.", 
+                    "items"=>[]
+                ]);
+                break;
+        }
 
         return($response);
     }
 
     public function downloadFile(){
+        $this->createDir();
         $content = file_get_contents($this->getFilePath());
+        $sourceFilename = parse_url($this->getFilePath())["path"];
+        $basename = "";
 
-        $parse = parse_url($this->getFilePath());
-        $basename = $this->getDirFile().DIRECTORY_SEPARATOR.basename($parse["path"]);
+        do {
+            $filename = $this->makeFilename($sourceFilename);
+            $basename = $this->getDirFile().DIRECTORY_SEPARATOR.$filename;
+        } while (is_file($basename));
 
         $file = fopen($basename, "w+");
 
@@ -76,7 +99,11 @@ class Files {
 
         fclose($file);
 
-        echo "<a href=\"{$this->getFilePath()}\" download>Download</a>";
+        return(json_encode([
+            "status"=> 200, 
+            "message"=>"Download realizado com sucesso.", 
+            "items"=>[]
+        ]));
     }
 
     private function createDir(){
@@ -85,9 +112,9 @@ class Files {
         }
     }
 
-    private function makeFilename():string{
+    private function makeFilename($sourceFilename):string{
         $newFilename = md5(uniqid());
-        $extension = pathinfo($this->getFile()["name"], PATHINFO_EXTENSION);
+        $extension = pathinfo($sourceFilename, PATHINFO_EXTENSION);
 
         $newFilename = "{$newFilename}.{$extension}";
 
@@ -95,7 +122,7 @@ class Files {
     }
 
     private function validFile():array{
-        $aprovedExtensions = ["png", "jpg", "jpeg", "jfif", "bmp"];
+        $aprovedExtensions = ["png", "jpg", "jpeg", "gif", "jfif", "bmp"];
         $fileExtension = pathinfo($this->getFile()["name"], PATHINFO_EXTENSION);
 
         if(!in_array($fileExtension, $aprovedExtensions)){
@@ -155,7 +182,37 @@ class Files {
             "status"=> 200, 
             "message"=>"Upload realizado com sucesso.", 
             "items"=>[
+                "file"=>$this->getFile(),
                 "filePath"=>$this->getFilePath()
+            ]
+        ]));
+    }
+
+    private function uploadFileToPhpServer():string{ 
+        $this->createDir();
+
+        do {
+            $filename = $this->makeFilename($this->getFile()["name"]);
+            $this->setFilePath($this->getDirFile().DIRECTORY_SEPARATOR.$filename);
+        } while (is_file($this->getFilePath()));
+
+        $uploaded = move_uploaded_file($this->getFile()["tmp_name"], $this->getFilePath());
+
+        if(!$uploaded){
+            return(json_encode([
+                "status"=> 500, 
+                "message"=>"Falha ao realizar upload.", 
+                "items"=>[]
+            ]));
+        }
+
+        return(json_encode([
+            "status"=> 200, 
+            "message"=>"Upload realizado com sucesso.", 
+            "items"=>[
+                "dirFile"=>$this->getDirFile(),
+                "file"=>$this->getFile(),
+                "filePath"=>$this->getFilePath(),
             ]
         ]));
     }

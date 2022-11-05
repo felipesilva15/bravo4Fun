@@ -218,14 +218,14 @@
                     <h3>Upload</h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form action="upload.php" method="post" redirect="views\menu.php" id="form-js">
+                    <form action="upload.php" method="post" redirect="" id="form-js2">
                         <div class="row g-3">
                             <div class="col-12">
                                 <label class="form-label-custom" for="NOME">Arquivo<span class="required">*</span></label>
                                 <input name="ARQUIVO" required type="file" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12 mt-5">
-                                <button type="submit" id="btnOk" class="btn btn-success mx-1">Upload</button>
+                                <button type="submit" id="btnOk2" class="btn btn-success mx-1">Upload</button>
                                 <a href="menu.php" class="btn btn-light mx-1">Cancelar</a>
                             </div>
                         </div>
@@ -234,6 +234,29 @@
             </div>
         </div>
         <!-- Fim do formulário de upload -->
+        <!-- Inicio do formulário de download -->
+        <div class="m-3">
+            <div class="box box-dig p-2 margin-0">
+                <div class="my-3">
+                    <h3>Download</h3>
+                </div>
+                <div class="m-2 mt-4">
+                    <form action="download.php" method="post" redirect="" id="form-js">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label-custom" for="LINKARQUIVO">Link do Arquivo<span class="required">*</span></label>
+                                <input name="LINKARQUIVO" required type="text" class="form-control" placeholder="Digite...">
+                            </div>
+                            <div class="col-12 mt-5">
+                                <button type="submit" id="btnOk" class="btn btn-success mx-1">Download</button>
+                                <a href="menu.php" class="btn btn-light mx-1">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Fim do formulário de download -->
         <div class="mt-5">
             Fim do arquivo
         </div>
