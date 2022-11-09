@@ -243,11 +243,15 @@
                 <div class="m-2 mt-4">
                     <form action="upload.php" method="post" redirect="views\menu.php" id="form-js" enctype="multipart/form-data">
                         <div class="row g-3">
-                            <div class="col-3">
-                                <div style=" width: 100%;  margin: 0 0 32px 0; aspect-ratio: 16/9;">
+                            <div class="col-12 col-md-4">
+                                <div style=" width: 100%;  margin: 0 0 12px 0; aspect-ratio: 16/9; border: 2px dotted gray;">
                                     <div src="" alt="" id="imagePreview" width="100%" style="aspect-ratio: 16/9; background-position: center; background-repeat: no-repeat; background-size: cover; display: none;"></div>
                                 </div>
-                                <input name="INPUTFILE" id="inputFile" required type="file" class="form-control" placeholder="Digite..." style="display: block;">
+                                <input name="INPUTFILE" id="inputFileImage" accept="image/*" type="file" style="display: none;">
+                                <label for="inputFileImage" class="btn btn-secondary">🆙</label>
+                                <a class="btn btn-secondary" id="btnDownloadImage">💾</a>
+                                <button class="btn btn-secondary" id="btnZoomImage">🔍</button>
+                                <button class="btn btn-secondary" id="btnClearImage">🗑</button>
                             </div>
                         </div>
                     </form>
@@ -272,33 +276,5 @@
 <script src="/bravo4Fun/res/js/init.js"></script>
 <script src="/bravo4Fun/node_modules/select2/dist/js/select2.full.min.js"></script>
 <script src="/bravo4Fun/res/js/select2Config.js"></script>
-<script>
-    const inputFile = document.getElementById("inputFile");
-    const imagePreview = document.getElementById("imagePreview");
-
-    inputFile.addEventListener("change", (e) => {
-        // Pega o arquivo selecionado
-        let file = inputFile.files[0];
-
-        // Caso não seja selecionado um arquivo, limpa a imagem do elemento
-        if (!file){
-            imagePreview.style.backgroundImage = "";
-            imagePreview.style.display = "none";
-            return;
-        }
-
-        // Cria o leitor de arquivos
-        const reader = new FileReader();
-
-        // Quando o arquivo for lido, atualiza o src da imagem
-        reader.addEventListener("load", (e) => {
-            
-            imagePreview.style.backgroundImage = `url("${reader.result}")`;
-            imagePreview.style.display = "block";
-        })
-
-        // Realiza a leitura da imagem
-        reader.readAsDataURL(file);
-    })
-</script>
+<script src="/bravo4Fun/res/js/inputImagePreview.js"></script>
 </html>
