@@ -30,6 +30,7 @@
             <span id="span"></span>
             </button>
             <ul id="menu">
+                <li><a  href="../produtoConsultar.php">Produto</a></li>
                 <li><a  href="../categoriaConsultar.php">Categoria</a></li>
                 <li><a  href="../adminConsultar.php">Administrador</a></li>
             </ul>

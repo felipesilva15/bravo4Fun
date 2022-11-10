@@ -13,37 +13,15 @@
 <body class="default-height-body">
     <header id="header">
         <nav id="nav">
-<<<<<<< HEAD
-        <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">
-        <span id="span"></span>
-         </button>
-        <ul id="menu">
-            <li><a id="produtomenu" onclick="montarMenu('produto')" href="#">Vendas</a></li>
-            <li><a  href="adminConsultar.php">Administradores</a></li>
-         </ul>
-         </nav>
-         <a id="logo" href="/bravo4Fun/views/menu.html">Bravo4 Fun</a>
-         <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img id="semfoto" src="res/images/semfoto.png" width="50">
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="views/meuPerfil.html">Meu Perfil</a></li>
-                <li><a class="dropdown-item" href="views/login.html">Logout</a></li>
-            </ul>
-        </div>
-     </header>
-=======
             <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">
             <span id="span"></span>
             </button>
             <ul id="menu">
-                <li><a  href="produtoConsultar.php">Produto</a></li>
-                <li><a  href="categoriaConsultar.php">Categoria</a></li>
+                <li><a id="produtomenu" onclick="montarMenu('produto')" href="#">Vendas</a></li>
                 <li><a  href="adminConsultar.php">Administradores</a></li>
             </ul>
         </nav>
-        <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
+        <a id="logo" href="/bravo4Fun/views/menu.html">Bravo4 Fun</a>
         <img id="semfoto" src="res/images/semfoto.png" width="50">
     </header>
     <main class="full-height">
@@ -53,28 +31,27 @@
                     <h3>Produto - Consultar</h3>
                 </div>
                 <div class="m-2 mt-5 pb-1">
-                    <form action="produtoConsultar.php" method="get">
+                    <form action="categoriaConsultar.php" method="get">
                         <div class="row g-3">
                             <div class="row col-auto me-auto col-md-9">
                                 <div class="col-md-2">
                                     <label class="form-label-custom" for="id">ID</label>
-                                    <input name="id" min="0" type="number" class="form-control" placeholder="Digite..." value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "" ?>">
-                                </div>   
+                                    <input name="id" maxlength="500" type="number" class="form-control" placeholder="Digite..." value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "" ?>">
+                                </div>
                                 <div class="col-md-4">
-                                    <label class="form-label-custom" for="nome">Nome</label>
-                                    <input name="nome" maxlength="100" type="text" class="form-control" placeholder="Digite..." autocomplete="off" value="<?php echo isset($_GET["nome"]) ? $_GET["nome"] : "" ?>">
-                                </div>                                                                                                                                                                                            
+                                    <label class="form-label-custom" for="nome">Produto</label>
+                                    <input name="nome" maxlength="500" type="text" class="form-control" placeholder="Digite..." autocomplete="off" value="<?php echo isset($_GET["nome"]) ? $_GET["nome"] : "" ?>">
+                                </div>
                             </div>
                              <div class="col-auto align-self-end">
-                                <div class="d-flex column align-itens-end">
+                             <div class="d-flex column align-itens-end">
                                     <div class="form-check m-1 me-4">
                                         <input class="form-check-input" type="checkbox" name="inativo" value="1" id="inativo" <?php echo isset($_GET["inativo"]) && $_GET["inativo"] == 1 ? "checked" : "" ?>>
                                         <label class="form-check-label" for="inativo">Exibir inativos</label>
-                                    </div>
+                                    </div>                                
                                     <button type="submit" class="btn btn-primary mx-1">Consultar</button>
-                                </div>
                              </div>
-                        </div>
+                        </div> 
                     </form>
                     <div class="mt-4 table-responsive">
                         <table class="table table-striped table-hover">
@@ -83,10 +60,8 @@
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>Descrição</th>
-                                    <th>Categoria</th>
-                                    <th>Preço</th>
                                     <th>
-                                        <a href="views\produtoDigitar.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
+                                        <a href="views/categoriaDigitar.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
                                     </th>           
                                 </tr>    
                             </thead>
@@ -94,32 +69,31 @@
                                 <?php
                                     require_once("config.php");
 
-                                    $produto = new Produto();
+                                    $categoria = new Categoria();
 
-                                    $produto->setId(isset($_GET["id"]) && $_GET["id"] !== "" ? $_GET["id"] : 0);
-                                    $produto->setNome(isset($_GET["nome"]) ? $_GET["nome"] : "");   
-                                    $produto->setCategoria(isset($_GET["categoria"]) ? $_GET["categoria"] : "");   
-                                    $exibirInativo = isset($_GET["inativo"]) ? $_GET["inativo"] : 0;                                                                 
+                                    $categoria->setId(isset($_GET["id"]) && $_GET["id"] !== "" ? $_GET["id"] : 0);
+                                    $categoria->setNome(isset($_GET["nome"]) ? $_GET["nome"] : "");
+                                    $exibirInativo = isset($_GET["inativo"]) ? $_GET["inativo"] : 0;
 
-                                    $data = $produto->getProdutos($exibirInativo);                
+                                    $data = $categoria->getCategorias($exibirInativo);
 
                                     foreach ($data as $row) {
-                                        $row["PRODUTO_ATIVO"] = $row["PRODUTO_ATIVO"] ?? 1;
-                                        $styleInativo = $row["PRODUTO_ATIVO"] == 0 ? 'style="text-decoration: line-through;"' : "";
-                                        $acaoAtivo = $row["PRODUTO_ATIVO"] ?? 1 == 1 ? "DESATIVAR" : "ATIVAR";
-                                        $produto = substr($row["PRODUTO_NOME"], 0, 20);
-                                        $desc = substr($row["PRODUTO_DESC"], 0, 50);
+                                        $row["CATEGORIA_ATIVO"] = $row["CATEGORIA_ATIVO"] ?? 1;
+                                        $styleInativo = $row["CATEGORIA_ATIVO"] == 0 ? 'style="text-decoration: line-through;"' : "";
+                                        $acaoAtivo = $row["CATEGORIA_ATIVO"] ?? 1 == 1 ? "DESATIVAR" : "ATIVAR";
+
+                                        $desc = substr($row["CATEGORIA_DESC"], 0, 60);
+                                        $desc .= (strlen($row["CATEGORIA_DESC"]) > 60) ? "..." : "";
+
                                         echo "
                                         <tr {$styleInativo}>
-                                            <td>{$row["PRODUTO_ID"]}</td>  
-                                            <td>{$produto}</td>                                       
-                                            <td>{$desc}</td>  
+                                            <td>{$row["CATEGORIA_ID"]}</td>
                                             <td>{$row["CATEGORIA_NOME"]}</td>
-                                            <td>{$row["PRODUTO_PRECO"]}</td>  
+                                            <td>{$desc}</td>
                                             <td>
                                                 <div class=\"d-flex flex-row\">
                                                     <div>
-                                                        <a href=\"views\produtoDigitar.php?id={$row["PRODUTO_ID"]}\" class=\"btn  btn-sm-custom p-0\">
+                                                        <a href=\"views/categoriaDigitar.php?id={$row["CATEGORIA_ID"]}\" class=\"btn  btn-sm-custom p-0\">
                                                             <img src=\"res/images/edit.png\" width=\"17px\" height=\"17px\">
                                                         </a>
                                                     </div>
@@ -128,7 +102,7 @@
                                                             <img src=\"res/images/more.png\" width=\"16px\" height=\"16px\">
                                                         </button>
                                                         <ul class=\"dropdown-menu\">
-                                                            <li><a class=\"dropdown-item\" onclick=\"produtoDesativar({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Ativar / Desativar</a></li>
+                                                            <li><a class=\"dropdown-item\" onclick=\"categoriaDesativar({$row["CATEGORIA_ID"]})\">Ativar / Desativar</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -140,11 +114,10 @@
                             </tbody>   
                         </table>
                     </div>
-                </div>    
+                </div>
             </div>
         </div>
     </main>
->>>>>>> 9f583e69376a762e21379bc719acbd55eeda4957
 </body>
 <script src="res/bootstrap/js/bootstrap.min.js"></script>
 <script src="res/plugins/jQuery/jquery-3.6.1.min.js"></script>
@@ -157,7 +130,7 @@
 <script src="res/js/init.js"></script>
 <script src="res/js/menu.js"></script>
 <script>
-    function produtoDesativar(id, acao){
+    function categoriaDesativar(id, acao){
         cfgModal = modal.config();
 
         cfgModal.type = "CONFIRM";
@@ -165,7 +138,7 @@
         cfgModal.extra1 = id;
         cfgModal.extra2 = acao;
         cfgModal.callback = () => {
-            let request = api.request(`produtoDesativar.php?id=${id}`, "GET");
+            let request = api.request(`categoriaDesativar.php?id=${id}`, "GET");
         
             request
                 .then((res) => {
