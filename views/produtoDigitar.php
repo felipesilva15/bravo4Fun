@@ -48,7 +48,7 @@
                     <h3>Produto - <?php echo $acao == "C" ? "Incluir" : "Alterar" ?></h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form id="form-js" action="produtoAlterar.php" method="post" redirect="produtoConsultar.php">
+                    <form id="form-js" action="<?php echo $acao == "C" ? "produtoIncluir.php" : "produtoAlterar.php" ?>" method="post" redirect="produtoConsultar.php">                    
                         <div class="row g-3">
                             <input name="PRODUTO_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0 ?>">
                             <div class="col-md-4">
@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label-custom" for="PRODUTO_DESC">Descrição<span></span></label>
-                                <textarea name="PRODUTO_DESC" maxlength="500" rows="4" type="text" class="form-control" placeholder="Digite..." value="<?php echo $produto->getDescricao() ?>" ></textarea>
+                                <textarea name="PRODUTO_DESC" maxlength="500" rows="4" type="text" class="form-control" placeholder="Digite..." value="<?php echo $produto->getDesc() ?>" ></textarea>
                             </div>                                        
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>
