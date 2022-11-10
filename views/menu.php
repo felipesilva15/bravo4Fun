@@ -69,6 +69,7 @@
     </button>
       <ul id="menu">
         <!-- <li><a id="produtomenu" onclick="montarMenu('produtomenu')" href="#">Vendas</a></li> -->
+        <li><a  href="../produtoConsultar.php">Produto</a></li>
         <li><a  href="../categoriaConsultar.php">Categoria</a></li>
         <li><a  href="../adminConsultar.php">Administrador</a></li>
       </ul>
