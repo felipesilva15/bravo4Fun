@@ -53,3 +53,31 @@ function validarCredenciais():string{
         ]));
     }
 }
+
+function getSelect2Command($configName):string{
+    switch (strtoupper($configName)) {
+        case "CATEGORIA":
+            $command = "SELECT
+                            COALESCE(CAT.CATEGORIA_ID, 0) AS ID,
+                            COALESCE(CAT.CATEGORIA_NOME, '') AS NAME
+                        FROM CATEGORIA CAT
+                        WHERE
+                            COALESCE(CAT.CATEGORIA_ATIVO, 1) = 1";
+            break;
+        
+        case "ADMINISTRADOR":
+            $command = "SELECT
+                            COALESCE(ADM.ADM_ID, 0) AS ID,
+                            COALESCE(ADM.ADM_NOME, '') AS NAME
+                        FROM ADMINISTRADOR ADM
+                        WHERE
+                            COALESCE(ADM.ADM_ATIVO, 1) = 1";
+            break;
+        
+        default:
+            $command = "";
+            break;
+    }
+
+    return($command);
+} 

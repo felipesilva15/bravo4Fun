@@ -135,7 +135,7 @@ class Usuario{
         $data = $sql->select($query, $params);
 
         if(count($data) == 0){
-            $response = json_encode(["status"=> 403, "title"=>"Falha na autenticação", "message"=>"E-mail e/ou senha inválido.", "items"=>[]]);
+            $response = json_encode(["status"=> 403, "title"=>"Falha na autenticação", "message"=>"E-mail e/ou senha inválido.", "items"=>["showError"=>true]]);
         }else{
             $this->setId($data[0]["ADM_ID"]);
             $this->loadById();

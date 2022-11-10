@@ -29,7 +29,6 @@ function maskElementNumber(element){
 
 // Carrega máscara de números com casas decimais e pontos de milhar para labels e elementos de texto
 function maskTextNumber(element){
-    console.log($(element).text())
     let newValue = $(element).text() !== "" ? maskNumber(parseFloat($(element).text())) : "";
 
     $(element).text(newValue);

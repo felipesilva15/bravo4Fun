@@ -8,6 +8,7 @@ try{
     $files = new Files();
 
     $files->setFile($fileStream);
+    $files->setUploadType(1);
     $response = $files->uploadFile();
 } catch (Exception $e) {
     $response = json_encode([

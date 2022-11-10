@@ -8,6 +8,10 @@
     <link rel="shortcut icon" href="/bravo4Fun/res/images/logo.ico">
     <link rel="stylesheet" href="/bravo4Fun/res/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bravo4Fun/res/css/global.css">
+    <link rel="stylesheet" href="/bravo4Fun/node_modules/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet" href="/bravo4Fun/res/css/fixSelect2Theme.css">
+    <link rel="stylesheet" href="/bravo4Fun/res/css/inputImagePreview.css">
 </head>
 <body class="default-height-body">
     <main class="full-height">
@@ -65,11 +69,8 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label-custom" for="SELECT">Select<span class="required">*</span></label>
-                                <select class="form-select" aria-label="Default select example" name="SELECT">
-                                    <option value="0" selected>Selecione...</option>
-                                    <option value="1">Valor 1</option>
-                                    <option value="2">Valor 2</option>
-                                    <option value="3">Valor 3</option>
+                                <select class="form-select select2AutoConfig" select2Config="CATEGORIA" aria-label="Default select example" name="SELECT">
+                                    <option value="0" selected></option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -111,7 +112,7 @@
                         </div>
                     </form>
                     <div class="mt-4 table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover text-nowrap">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -184,7 +185,7 @@
                                     <td>
                                         <div class="d-flex flex-row">
                                             <div>
-                                                <a href="categoriaDigitar.php?id=3" class="btn  btn-sm-custom p-0">
+                                                <a href="categoriaDigitar.php?id=3" class="btn btn-sm-custom p-0">
                                                     <img src="../res/images/edit.png" alt="" width="17px" height="17px">
                                                 </a>
                                             </div>
@@ -218,14 +219,14 @@
                     <h3>Upload</h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form action="upload.php" method="post" redirect="views\menu.php" id="form-js">
+                    <form action="upload.php" method="post" redirect="" id="form-js2">
                         <div class="row g-3">
                             <div class="col-12">
                                 <label class="form-label-custom" for="NOME">Arquivo<span class="required">*</span></label>
                                 <input name="ARQUIVO" required type="file" class="form-control" placeholder="Digite...">
                             </div>
                             <div class="col-12 mt-5">
-                                <button type="submit" id="btnOk" class="btn btn-success mx-1">Upload</button>
+                                <button type="submit" id="btnOk2" class="btn btn-success mx-1">Upload</button>
                                 <a href="menu.php" class="btn btn-light mx-1">Cancelar</a>
                             </div>
                         </div>
@@ -234,6 +235,62 @@
             </div>
         </div>
         <!-- Fim do formulário de upload -->
+        <!-- Inicio do formulário de download -->
+        <div class="m-3">
+            <div class="box box-dig p-2 margin-0">
+                <div class="my-3">
+                    <h3>Download</h3>
+                </div>
+                <div class="m-2 mt-4">
+                    <form action="download.php" method="post" redirect="" id="form-js">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label-custom" for="LINKARQUIVO">Link do Arquivo<span class="required">*</span></label>
+                                <input name="LINKARQUIVO" required type="text" class="form-control" placeholder="Digite...">
+                            </div>
+                            <div class="col-12 mt-5">
+                                <button type="submit" id="btnOk" class="btn btn-success mx-1">Download</button>
+                                <a href="menu.php" class="btn btn-light mx-1">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Fim do formulário de download -->
+        <!-- Inicio do formulário de inputFile com Preview -->
+        <div class="m-3">
+            <div class="box box-dig p-2 margin-0">
+                <div class="my-3">
+                    <h3>Input File com Preview</h3>
+                </div>
+                <div class="m-2 mt-4">
+                    <form action="upload.php" method="post" redirect="views\menu.php" id="form-js" enctype="multipart/form-data">
+                        <div class="row g-3">
+                            <div class="col-12 col-md-4 col-lg-3">
+                                <div class="containerImagePreview">
+                                    <div class="imagePreview" id="imagePreview"></div>
+                                </div>
+                                <input name="INPUTFILE" id="inputFileImage" accept="image/*" type="file">
+                                <label for="inputFileImage" class="btn btn-secondary">
+                                    <img src="../res/images/upload.png" class="iconsImagePreview">
+                                </label>
+                                <a class="btn btn-secondary" id="btnDownloadImage" download>
+                                    <img src="../res/images/save.png" class="iconsImagePreview">
+                                </a>
+                                <button class="btn btn-secondary" id="btnZoomImage">
+                                    <img src="../res/images/zoom.png" class="iconsImagePreview">
+                                </button>
+                                <button class="btn btn-secondary" id="btnClearImage">
+                                    <img src="../res/images/delete.png" class="iconsImagePreview">
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Fim do formulário de inputFile com Preview -->
         <div class="mt-5">
             Fim do arquivo
         </div>
@@ -249,4 +306,7 @@
 <script src="/bravo4Fun/res/js/api.js"></script>
 <script src="/bravo4Fun/res/js/forms.js"></script>
 <script src="/bravo4Fun/res/js/init.js"></script>
+<script src="/bravo4Fun/node_modules/select2/dist/js/select2.full.min.js"></script>
+<script src="/bravo4Fun/res/js/select2Config.js"></script>
+<script src="/bravo4Fun/res/js/inputImagePreview.js"></script>
 </html>
