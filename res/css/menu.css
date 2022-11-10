@@ -112,3 +112,9 @@ a:hover {
     top: -7px;
   }
 }
+
+
+#dropdown-menu{
+  background-color: black;
+  padding-left: 1.5rem;
+}

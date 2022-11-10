@@ -14,15 +14,25 @@
     <header id="header">
         <nav id="nav">
         <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">
-        <span id="span"></span>
-         </button>
-        <ul id="menu">
-            <li><a  href="categoriaConsultar.php">Categoria</a></li>
-            <li><a  href="adminConsultar.php">Administrador</a></li>
-         </ul>
-         </nav>
-         <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
-        <img id="semfoto" src="res/images/semfoto.png" width="50">
+            <span id="span"></span>
+        </button>
+            <ul id="menu">
+                <li><a  href="categoriaConsultar.php">Categoria</a></li>
+                <li><a  href="adminConsultar.php">Administrador</a></li>
+            </ul>
+        </nav>
+        <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
+        <div class="dropdown">
+            <a id="btndrop btndrop-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">    
+                    <img id="semfoto" src="res/images/semfoto.png" width="50">
+                </button>
+            </a>
+            <ul id="dropdown-menu" class="dropdown-menu pb-3 pt-3">
+                <li><a  href="views/meuPerfil.php">Meu Perfil</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
      </header>
     <main class="full-height">
         <div class="m-3">
@@ -133,6 +143,7 @@
 <script src="/bravo4Fun/res/js/forms.js"></script>
 <script src="/bravo4Fun/res/js/init.js"></script>
 <script src="/bravo4Fun/res/js/menu.js"></script>
+<script src="/bravo4Fun/res/js/logout.js"></script>
 <script>
     function adminDesativar(id, acao){
         cfgModal = modal.config();

@@ -82,8 +82,8 @@
                                         $styleInativo = $row["CATEGORIA_ATIVO"] == 0 ? 'style="text-decoration: line-through;"' : "";
                                         $acaoAtivo = $row["CATEGORIA_ATIVO"] ?? 1 == 1 ? "DESATIVAR" : "ATIVAR";
 
-                                        $desc = substr($row["CATEGORIA_DESC"], 0, 60);
-                                        $desc .= (strlen($row["CATEGORIA_DESC"]) > 60) ? "..." : "";
+                                        $desc = substr($row["CATEGORIA_DESC"], 0, 120);
+                                        $desc .= (strlen($row["CATEGORIA_DESC"]) > 120) ? "..." : "";
 
                                         echo "
                                         <tr {$styleInativo}>

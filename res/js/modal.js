@@ -63,8 +63,14 @@ modal.show = (cfgModal) => {
                     $("#imgZoom").attr("src", cfgModal.extra1);
 
                     break;
+
+                case "CONFIRMCUSTOM":
+                    $("#[[msgModal]]").append(cfgModal.extra1);
+
+                    break;
             }
 
+        
             if($("#modal-title").text() == ""){
                 $("#modal-title").append(document.createTextNode(cfgModal.title));
             }

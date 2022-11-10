@@ -22,7 +22,15 @@
          </ul>
          </nav>
          <a id="logo" href="/bravo4Fun/views/menu.html">Bravo4 Fun</a>
-        <img id="semfoto" src="res/images/semfoto.png" width="50">
+         <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img id="semfoto" src="res/images/semfoto.png" width="50">
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="views/meuPerfil.html">Meu Perfil</a></li>
+                <li><a class="dropdown-item" href="views/login.html">Logout</a></li>
+            </ul>
+        </div>
      </header>
 </body>
 <script src="/bravo4Fun/res/bootstrap/js/bootstrap.min.js"></script>

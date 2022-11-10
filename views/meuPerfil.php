@@ -38,11 +38,11 @@
                         <div class="mb-1 mt-4 div-inline-input">
                             <input type="email" class="inline-input" name="ADM_ID" id="ADM_ID" required>
                             <label for="usuario_id" class="form-label">ID</label>
-                          </div>
+                        </div>
                         <div class="mb-1 mt-4 div-inline-input">
                             <input type="email" class="inline-input" name="ADM_NOME" id="ADM_NOME" required>
                             <label for="usuario_nome" class="form-label">Nome*</label>
-                          </div>
+                        </div>
                         <div class="mb-1 mt-4 div-inline-input">
                             <input type="email" class="inline-input" name="ADM_EMAIL" id="ADM_EMAIL" required>
                             <label for="usuario_email" class="form-label">E-mail*</label>
