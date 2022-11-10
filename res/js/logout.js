@@ -1,8 +1,9 @@
 function logout(){
     cfgModal = modal.config();
 
-    cfgModal.type = "CONFIRM";
+    cfgModal.type = "CONFIRMCUSTOM";
     cfgModal.title = "Atenção";
+    cfgModal.extra1 = "Deseja mesmo fazer logout?";
     cfgModal.callback = () => {
         let request = api.request(`logout.php`, "GET");
     

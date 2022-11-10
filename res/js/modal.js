@@ -65,7 +65,7 @@ modal.show = (cfgModal) => {
                     break;
 
                 case "CONFIRMCUSTOM":
-                    $("#[[msgModal]]").append(cfgModal.extra1);
+                    $("#msgModal").text(cfgModal.extra1);
 
                     break;
             }

@@ -14,16 +14,16 @@
     <header id="header">
         <nav id="nav">
         <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">
-<<<<<<< HEAD
-            <span id="span"></span>
-        </button>
-            <ul id="menu">
-                <li><a  href="categoriaConsultar.php">Categoria</a></li>
-                <li><a  href="adminConsultar.php">Administrador</a></li>
-            </ul>
-        </nav>
-        <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
-        <div class="dropdown">
+        <span id="span"></span>
+         </button>
+        <ul id="menu">
+            <li><a  href="produtoConsultar.php">Produto</a></li>
+            <li><a  href="categoriaConsultar.php">Categoria</a></li>
+            <li><a  href="adminConsultar.php">Administrador</a></li>
+         </ul>
+         </nav>
+         <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
+         <div class="dropdown">
             <a id="btndrop btndrop-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">    
                     <img id="semfoto" src="res/images/semfoto.png" width="50">
@@ -34,18 +34,6 @@
                 <li><a href="#" onclick="logout()">Logout</a></li>
             </ul>
         </div>
-=======
-        <span id="span"></span>
-         </button>
-        <ul id="menu">
-            <li><a  href="produtoConsultar.php">Produto</a></li>
-            <li><a  href="categoriaConsultar.php">Categoria</a></li>
-            <li><a  href="adminConsultar.php">Administrador</a></li>
-         </ul>
-         </nav>
-         <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
-        <img id="semfoto" src="res/images/semfoto.png" width="50">
->>>>>>> 9f583e69376a762e21379bc719acbd55eeda4957
      </header>
     <main class="full-height">
         <div class="m-3">
