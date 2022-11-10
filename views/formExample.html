@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/bravo4Fun/node_modules/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <link rel="stylesheet" href="/bravo4Fun/res/css/fixSelect2Theme.css">
+    <link rel="stylesheet" href="/bravo4Fun/res/css/inputImagePreview.css">
 </head>
 <body class="default-height-body">
     <main class="full-height">
@@ -184,7 +185,7 @@
                                     <td>
                                         <div class="d-flex flex-row">
                                             <div>
-                                                <a href="categoriaDigitar.php?id=3" class="btn  btn-sm-custom p-0">
+                                                <a href="categoriaDigitar.php?id=3" class="btn btn-sm-custom p-0">
                                                     <img src="../res/images/edit.png" alt="" width="17px" height="17px">
                                                 </a>
                                             </div>
@@ -243,15 +244,23 @@
                 <div class="m-2 mt-4">
                     <form action="upload.php" method="post" redirect="views\menu.php" id="form-js" enctype="multipart/form-data">
                         <div class="row g-3">
-                            <div class="col-12 col-md-4">
-                                <div style=" width: 100%;  margin: 0 0 12px 0; aspect-ratio: 16/9; border: 2px dotted gray;">
-                                    <div src="" alt="" id="imagePreview" width="100%" style="aspect-ratio: 16/9; background-position: center; background-repeat: no-repeat; background-size: cover; display: none;"></div>
+                            <div class="col-12 col-md-4 col-lg-3">
+                                <div class="containerImagePreview">
+                                    <div class="imagePreview" id="imagePreview"></div>
                                 </div>
-                                <input name="INPUTFILE" id="inputFileImage" accept="image/*" type="file" style="display: none;">
-                                <label for="inputFileImage" class="btn btn-secondary">🆙</label>
-                                <a class="btn btn-secondary" id="btnDownloadImage">💾</a>
-                                <button class="btn btn-secondary" id="btnZoomImage">🔍</button>
-                                <button class="btn btn-secondary" id="btnClearImage">🗑</button>
+                                <input name="INPUTFILE" id="inputFileImage" accept="image/*" type="file">
+                                <label for="inputFileImage" class="btn btn-secondary">
+                                    <img src="../res/images/upload.png" class="iconsImagePreview">
+                                </label>
+                                <a class="btn btn-secondary" id="btnDownloadImage" download>
+                                    <img src="../res/images/save.png" class="iconsImagePreview">
+                                </a>
+                                <button class="btn btn-secondary" id="btnZoomImage">
+                                    <img src="../res/images/zoom.png" class="iconsImagePreview">
+                                </button>
+                                <button class="btn btn-secondary" id="btnClearImage">
+                                    <img src="../res/images/delete.png" class="iconsImagePreview">
+                                </button>
                             </div>
                         </div>
                     </form>

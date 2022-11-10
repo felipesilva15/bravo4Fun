@@ -1,0 +1,24 @@
+.iconsImagePreview{
+    width: 24px;
+}
+
+#inputFileImage{
+    display: none;
+}
+
+.containerImagePreview{
+    width: 100%;  
+    margin-bottom: 8px; 
+    aspect-ratio: 9/9; 
+    border: 2px dotted #505050;
+}
+
+.imagePreview{
+    width: 100%;
+    margin: 0;
+    aspect-ratio: 9/9; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
+    display: none;
+}
