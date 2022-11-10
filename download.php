@@ -2,14 +2,12 @@
 
 require_once("config.php");
 
+$files = new Files();
+
+$files->setFilePath(isset($_POST["LINKARQUIVO"]) ? $_POST["LINKARQUIVO"] : "");
+
 try{
-    $fileStream = $_FILES["ARQUIVO"];
-
-    $files = new Files();
-
-    $files->setFile($fileStream);
-    $files->setUploadType(1);
-    $response = $files->uploadFile();
+    $response = $files->downloadFile();
 } catch (Exception $e) {
     $response = json_encode([
         "status"=>500,
