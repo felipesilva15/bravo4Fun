@@ -51,7 +51,7 @@
                     <form id="form-js" action="<?php echo $acao == "C" ? "produtoIncluir.php" : "produtoAlterar.php" ?>" method="post" redirect="produtoConsultar.php">                    
                         <div class="row g-3">
                             <input name="PRODUTO_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0 ?>">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label class="form-label-custom" for="PRODUTO_NOME">Nome<span class="required">*</span></label>
                                 <input name="PRODUTO_NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite..." value="<?php echo $produto->getNome()?>">
                             </div>
@@ -62,10 +62,10 @@
                                     <?php
                                         $categoriaID = $produto->getCategoria();
                                         foreach ($categorias as $categoria) {
-                                            if ($categoriaID == $categoria[CATEGORIA_ID]) {
-                                                echo '<option selected="selected" value="'.$categoria[CATEGORIA_ID].'">'.$categoria[CATEGORIA_NOME]. '</option>';    
+                                            if ($categoriaID == $categoria["CATEGORIA_ID"]) {
+                                                echo '<option selected="selected" value="'.$categoria["CATEGORIA_ID"].'">'.$categoria["CATEGORIA_NOME"]. '</option>';    
                                             } else {
-                                                echo '<option value="'.$categoria[CATEGORIA_ID].'">'.$categoria[CATEGORIA_NOME]. '</option>';    
+                                                echo '<option value="'.$categoria["CATEGORIA_ID"].'">'.$categoria["CATEGORIA_NOME"]. '</option>';    
                                             }                                                                                        
                                         }
                                     ?>                                    
@@ -81,7 +81,7 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label-custom" for="PRODUTO_DESC">Descrição<span></span></label>
-                                <textarea name="PRODUTO_DESC" maxlength="500" rows="4" type="text" class="form-control" placeholder="Digite..." value="<?php echo $produto->getDesc() ?>" ></textarea>
+                                <textarea name="PRODUTO_DESC" maxlength="500" rows="4" type="text" class="form-control" placeholder="Digite..." value="" ><?php echo $produto->getDescricao()?></textarea>
                             </div>                                        
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>

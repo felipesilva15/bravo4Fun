@@ -203,7 +203,7 @@ class Produto{
 
         $this->loadById();
 
-        $query = "UPDATE PRODUTO SET PRODUTO_ATIVO = :ATIVO WHERE PRODUTO_ID = :ID";
+        $query = "UPDATE PRODUTO SET PRODUTO_ATIVO = CAST(:ATIVO AS UNSIGNED) WHERE PRODUTO_ID = :ID";
         $params = [
             ":ID"=>$this->getId()
         ];
