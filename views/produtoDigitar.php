@@ -70,18 +70,18 @@
                                         }
                                     ?>                                    
                                 </select>                                                                                                                                 
-                            </div>   
+                            </div>    
                             <div class="col-md-6">
                                 <label class="form-label-custom" for="PRODUTO_PRECO">Preço<span class="required">*</span></label>
-                                <input name="PRODUTO_PRECO" maxlength="13" required type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getPreco() ?>">
+                                <input name="PRODUTO_PRECO" maxlength="6" required type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getPreco() ?>">
                             </div>                
                             <div class="col-md-6">
                                 <label class="form-label-custom" for="PRODUTO_DESCONTO">Desconto<span></span></label>
-                                <input name="PRODUTO_DESCONTO" maxlength="13" type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getDesconto() ?>" >
+                                <input name="PRODUTO_DESCONTO" maxlength="6" type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getDesconto() ?>" >
                             </div>
                             <div class="col-12">
                                 <label class="form-label-custom" for="PRODUTO_DESC">Descrição<span></span></label>
-                                <textarea name="PRODUTO_DESC" maxlength="500" rows="4" type="text" class="form-control" placeholder="Digite..." value="<?php echo $produto->getDesc() ?>" ></textarea>
+                                <textarea name="PRODUTO_DESC" maxlength="500" rows="4" type="text" class="form-control" placeholder="Digite..." value="teste" ><?php echo $produto->getDesc() ?></textarea>
                             </div>                                        
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>

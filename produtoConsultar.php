@@ -104,7 +104,7 @@
                                             <td>{$produto}</td>                                       
                                             <td>{$desc}</td>  
                                             <td>{$row["CATEGORIA_NOME"]}</td>
-                                            <td>{$row["PRODUTO_PRECO"]}</td>  
+                                            <td>{$row["PRODUTO_PRECO"]}</td>
                                             <td>
                                                 <div class=\"d-flex flex-row\">
                                                     <div>
