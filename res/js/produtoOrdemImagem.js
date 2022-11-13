@@ -1,4 +1,6 @@
 const columns = document.querySelectorAll(".column");
+const formItemAdd = document.querySelector("#formItemAdd");
+const inputItemAdd = document.querySelector("#inputFileUpload");
 
 document.addEventListener("dragstart", (e) => {
     e.target.classList.add("dragging");
@@ -6,6 +8,33 @@ document.addEventListener("dragstart", (e) => {
 
 document.addEventListener("dragend", (e) => {
     e.target.classList.remove("dragging");
+});
+
+inputItemAdd.addEventListener("change", (e) => {
+    if (!inputItemAdd.files[0]){
+        return;
+    }
+
+    let data = new FormData(formItemAdd);
+    
+    let request = api.request("upload.php", "POST", data);
+
+    request
+        .then((res) => {
+            console.log(res);
+            createItem(res.items.filePath);
+        })
+        .catch((err) => {
+            console.log(err);
+
+            cfgModalError = modal.config();
+
+            cfgModalError.type = "ERROR";
+            cfgModalError.title = "Atenção";
+            cfgModalError.body = err;
+
+            modal.show(cfgModalError);
+        });
 });
 
 columns.forEach((item) => {
@@ -37,6 +66,10 @@ function getNewPosition(column, posX) {
     return result;
 }
 
-function createItem(){
-    
+function createItem(imageUrl){
+    $("#produtosDescartados").prepend(`<div class="col-12 col-sm-6 col-md-4 col-lg-2 item" draggable="true">
+        <div class="box box-none-border margin-0 item-card" imageId="0" imageUrl="${imageUrl}">
+            <img draggable="false" class="p-1 item-img" src="${imageUrl}" alt="">
+        </div>
+    </div>`)
 }

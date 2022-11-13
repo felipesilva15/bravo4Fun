@@ -3,7 +3,7 @@
 require_once("config.php");
 
 try{
-    $fileStream = $_FILES["ARQUIVO"];
+    $fileStream = $_FILES["inputFileUpload"];
 
     $files = new Files();
 

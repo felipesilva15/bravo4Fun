@@ -1,14 +1,12 @@
 <?php
     require_once("../config.php");
-    require_once("../class/Categoria.php");
+    require_once("../class/ProdutoImagem.php");
     require_once("../class/Sql.php");
     
-    $categoria = new Categoria();
+    $produtoImagem = new ProdutoImagem();
     
-    $categoria->setId(isset($_GET["id"]) ? $_GET["id"] : 0);
-    $categoria->loadById();
-    
-    $acao = isset($_GET["id"]) ? "U" : "C"
+    $produtoImagem->setProdutoId(isset($_GET["id"]) ? $_GET["id"] : 0);
+    $data = $produtoImagem->getProdutoImagens();
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +41,7 @@
         <div class="m-3">
             <div class="box box-dig p-2 margin-0">
                 <div class="my-3">
-                    <h3>Produto - Imagens e ordem</h3>
+                    <h3>Produto - Imagens e ordens</h3>
                 </div>
                 <div class="m-2 mt-4">
                     <form id="form-js" action="produtoOrdemImagem.php" method="post" redirect="categoriaConsultar.php">
@@ -53,31 +51,18 @@
                                 <div class="mb-3">
                                     <h4>Imagens descartadas</h4>
                                 </div>
-                                <div class="row g-3 column">
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-2 item" draggable="true">
-                                        <div class="box margin-0 item-card">
-                                            <img draggable="false" class="p-1 item-img" src="/bravo4Fun/res/images/produto-sem-foto.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-2 item" draggable="true">
-                                        <div class="box margin-0 item-card">
-                                            <img draggable="false" class="p-1 item-img" src="/bravo4Fun/res/images/produto-sem-foto.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-2 item" draggable="true">
-                                        <div class="box margin-0 item-card">
-                                            <img draggable="false" class="p-1 item-img" src="/bravo4Fun/res/images/produto-sem-foto.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-2 item" draggable="true">
-                                        <div class="box margin-0 item-card">
-                                            <img draggable="false" class="p-1 item-img" src="/bravo4Fun/res/images/produto-sem-foto.jpg" alt="">
-                                        </div>
-                                    </div>
+                                <div class="row g-3 column" id="produtosDescartados">
                                     <div class="col-12 col-sm-6 col-md-4 col-lg-2" draggable="true">
-                                        <div class="box margin-0 item-add">
-                                            <img draggable="false" src="/bravo4Fun/res/images/plus-symbol-button.png" alt="" height="auto" class="plus-button-icon">
-                                        </div>
+                                        <form action="" method="" id="formItemAdd"></form>
+                                        <form action="" method="" id="formItemAdd">
+                                            <label class="form-label-custom" for="inputFileUpload">
+                                                <div class="box box-none-border margin-0 item-add">
+                                                    <img draggable="false" src="/bravo4Fun/res/images/plus-symbol-button.png" alt="" height="auto" class="plus-button-icon">
+                                                </div>
+                                            </label>
+                                            <input name="inputFileUpload" id="inputFileUpload" type="file" accept="image/*" class="form-control" placeholder="Digite...">
+                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +70,18 @@
                                 <div class="mb-3">
                                     <h4>Imagens selecionadas</h4>
                                 </div>
-                                <div class="row g-3 column">
+                                <div class="row g-3 column" id="produtosSelecionados">
+                                    <?php
+                                        foreach ($data as $row) {
+                                            echo "
+                                                <div class=\"col-12 col-sm-6 col-md-4 col-lg-2 item\" draggable=\"true\">
+                                                    <div class=\"box box-none-border margin-0 item-card\" imageId=\"{$row["IMAGEM_ID"]}\" imageUrl=\"{$row["IMAGEM_URL"]}\">
+                                                        <img draggable=\"false\" class=\"p-1 item-img\" src=\"{$row["IMAGEM_URL"]}\">
+                                                    </div>
+                                                </div>
+                                            ";
+                                        }
+                                    ?>
                                     <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                                         <div style="aspect-ratio: 9/9;"></div>
                                     </div>

@@ -66,6 +66,10 @@ form div.div-inline-input .inline-input:valid ~ label{
     box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 
+.box-none-border{
+    border: none;
+}
+
 .box-dig{
     border-top-color: #198754;
 }
