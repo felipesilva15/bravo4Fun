@@ -7,9 +7,17 @@ function select2LoadConfig() {
         request
             .then((res) => {
                 let data = res.items[0];
+                let valueToSelect = $(singleElement).attr("select2ValueToSelect");
+                let selected = "";
 
                 data.forEach(item => {
-                    $(singleElement).append(`<option value="${item.ID}">${item.ID + dataSeparator + item.NAME}</option>`);
+                    if(valueToSelect && valueToSelect == item.ID){
+                        selected = "selected";
+                    } else{
+                        selected = "";
+                    }
+
+                    $(singleElement).append(`<option ${selected} value="${item.ID}">${item.ID + dataSeparator + item.NAME}</option>`);
                 })
             })
             .catch((err) => {

@@ -128,7 +128,7 @@
                 </button>
             </a>
             <ul id="dropdown-menu" class="dropdown-menu pb-3 pt-3">
-                <li><a  href="views/meuPerfil.php">Meu Perfil</a></li>
+                <li><a  href="/bravo4Fun/views/meuPerfil.php">Meu Perfil</a></li>
                 <li><a href="#" onclick="logout()">Logout</a></li>
             </ul>
         </div>
@@ -268,7 +268,7 @@
   <script src="../res/js/api.js"></script>
   <script src="../res/js/menu.js"></script>
   <script src="../res/js/init.js"></script>
-  <script src="res/js/logout.js"></script>
+  <script src="../res/js/logout.js"></script>
   <script>
     const ctx1 = document.getElementById('productsPerCategoryChart').getContext('2d');
     const productsPerCategoryChart = new Chart(ctx1, {

@@ -1,0 +1,37 @@
+.item-card, .item-add{
+    aspect-ratio: 9/9;
+}
+
+.dragging {
+    opacity: 0.5;
+}
+
+.item-card{
+    cursor: grab;
+}
+
+.item-card:active{
+    cursor: grabbing;
+}
+
+.item-img{
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
+
+.item-add{
+    background-color: rgb(224, 224, 224);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.plus-button-icon{
+    width: 45%;
+}
+
+#inputFileUpload{
+    display: none;
+}
