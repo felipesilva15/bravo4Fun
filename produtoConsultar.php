@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="res/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="res/css/global.css">
     <link rel="stylesheet" href="res/css/menu.css">
+    <link rel="stylesheet" href="/bravo4Fun/node_modules/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet" href="/bravo4Fun/res/css/fixSelect2Theme.css">
+    <link rel="stylesheet" href="/bravo4Fun/res/css/inputImagePreview.css">
 </head>
 <body class="default-height-body">
     <header id="header">
@@ -52,9 +56,15 @@
                                 <div class="col-md-4">
                                     <label class="form-label-custom" for="nome">Nome</label>
                                     <input name="nome" maxlength="100" type="text" class="form-control" placeholder="Digite..." autocomplete="off" value="<?php echo isset($_GET["nome"]) ? $_GET["nome"] : "" ?>">
-                                </div>                                                                                                                                                                                            
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label-custom" for="SELECT">Categoria</label>
+                                    <select class="form-select select2AutoConfig" select2Config="CATEGORIA" placeholder="Selecione" name="SELECT">
+                                        <option value="0">Selecione</option>
+                                    </select>
+                                </div>                                                                                                                                                                                             
                             </div>
-                             <div class="col-auto align-self-end">
+                            <div class="col-auto align-self-end">
                                 <div class="d-flex column align-itens-end">
                                     <div class="form-check m-1 me-4">
                                         <input class="form-check-input" type="checkbox" name="inativo" value="1" id="inativo" <?php echo isset($_GET["inativo"]) && $_GET["inativo"] == 1 ? "checked" : "" ?>>
@@ -62,7 +72,7 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary mx-1">Consultar</button>
                                 </div>
-                             </div>
+                            </div>
                         </div>
                     </form>
                     <div class="mt-4 table-responsive">
@@ -74,6 +84,7 @@
                                     <th>Descrição</th>
                                     <th>Categoria</th>
                                     <th>Preço</th>
+                                    <th>Imagem Principal</th>
                                     <th>
                                         <a href="views\produtoDigitar.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
                                     </th>           
@@ -106,9 +117,16 @@
                                             <td>{$row["CATEGORIA_NOME"]}</td>
                                             <td>{$row["PRODUTO_PRECO"]}</td>
                                             <td>
+                                            <div class=\"btn  btn-sm-custom p-0\" id=\"btnZoomImage\">
+                                                <a onclick=\"produtoDesativar({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Clique para ver</a>
+                                                <img src=\"res/images/imagem.png\" class=\"iconsImagePreview\">
+                                            </button>
+                                            </div>
+                                            </td>
+                                            <td>
                                                 <div class=\"d-flex flex-row\">
                                                     <div>
-                                                        <a href=\"views\produtoDigitar.php?id={$row["PRODUTO_ID"]}\" class=\"btn  btn-sm-custom p-0\">
+                                                        <a href=\"views/produtoDigitar.php?id={$row["PRODUTO_ID"]}\" class=\"btn  btn-sm-custom p-0\">
                                                             <img src=\"res/images/edit.png\" width=\"17px\" height=\"17px\">
                                                         </a>
                                                     </div>
@@ -145,6 +163,8 @@
 <script src="res/js/init.js"></script>
 <script src="res/js/menu.js"></script>
 <script src="res/js/logout.js"></script>
+<script src="/bravo4Fun/node_modules/select2/dist/js/select2.full.min.js"></script>
+<script src="/bravo4Fun/res/js/select2Config.js"></script>
 <script>
     function produtoDesativar(id, acao){
         cfgModal = modal.config();

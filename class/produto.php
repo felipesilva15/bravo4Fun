@@ -213,7 +213,7 @@ class Produto{
 
         $this->loadById();
 
-        $query = "UPDATE PRODUTO SET PRODUTO_ATIVO = CAST(:ATIVO AS UNSIGNED) WHERE PRODUTO_ID = :ID";
+        $query = "UPDATE PRODUTO SET PRODUTO_ATIVO = CAST(:ATIVO AS SIGNED) WHERE PRODUTO_ID = :ID";
         $params = [
             ":ID"=>$this->getId()
         ];
@@ -224,9 +224,9 @@ class Produto{
                 return($response);
             }
 
-            $params[":ATIVO"] = true;
+            $params[":ATIVO"] = 1;
         } else{
-            $params[":ATIVO"] = false;
+            $params[":ATIVO"] = 0;
         }
 
         $sql->executeQuery($query, $params);
