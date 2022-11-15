@@ -5,7 +5,7 @@
     
     $produtoImagem = new ProdutoImagem();
     
-    $produtoImagem->setProdutoId(isset($_GET["id"]) ? $_GET["id"] : 0);
+    $produtoImagem->setProduto(isset($_GET["id"]) ? $_GET["id"] : 0);
     $data = $produtoImagem->getProdutoImagens();
 ?>
 

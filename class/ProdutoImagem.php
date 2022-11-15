@@ -1,7 +1,7 @@
 <?php
 
 class ProdutoImagem{
-    private $id = 0, $produtoId = 0, $descricao = "", $ativo = 0;
+    private $id = 0, $produto = 0, $url = "", $ordem = 0, $imagens = [];
 
     public function getId():int{
         return($this->id);
@@ -11,50 +11,36 @@ class ProdutoImagem{
         $this->id = $id;
     }
 
-    public function getProdutoId():int{
-        return($this->produtoId);
+    public function getProduto():int{
+        return($this->produto);
     }
 
-    public function setProdutoId($produtoId){
-        $this->produtoId = $produtoId;
+    public function setProduto($produto){
+        $this->produto = $produto;
     }
 
-    public function getNome():string{
-        return($this->nome);
+    public function getUrl():string{
+        return($this->url);
     }
 
-    public function setNome($nome){
-        $this->nome = $nome;
+    public function setUrl($url){
+        $this->url = $url;
     }
 
-    public function getDescricao():string{
-        return($this->descricao);
+    public function getOrdem():int{
+        return($this->ordem);
     }
 
-    public function setDescricao($descricao){
-        $this->descricao = $descricao;
+    public function setOrdem($ordem){
+        $this->ordem = $ordem;
     }
 
-    public function getAtivo():int{
-        return($this->ativo);
+    public function getImagens():array{
+        return($this->imagens);
     }
 
-    public function setAtivo($ativo){
-        $this->ativo = $ativo ?? 1;
-    }
-
-    public function setData($data = []){
-        $this->setId(isset($data["CATEGORIA_ID"]) ? $data["CATEGORIA_ID"] : 0);
-        $this->setNome(isset($data["CATEGORIA_NOME"]) ? $data["CATEGORIA_NOME"] : "");
-        $this->setDescricao(isset($data["CATEGORIA_DESC"]) ? $data["CATEGORIA_DESC"] : "");
-        $this->setAtivo(isset($data["CATEGORIA_ATIVO"]) ? $data["CATEGORIA_ATIVO"] : 1);
-    }
-
-    public function unsetData(){
-        $this->setId(0);
-        $this->setNome("");
-        $this->setDescricao("");
-        $this->setAtivo(0);
+    public function setImagens($imagens){
+        $this->imagens = $imagens;
     }
 
     public function getProdutoImagens($exibirInativo = 0){
@@ -63,9 +49,9 @@ class ProdutoImagem{
         $sqlWhere = "";
         $params = [];
 
-        if($this->getProdutoId() != 0){
+        if($this->getProduto() != 0){
             $sqlWhere .= " AND PRODUTO_ID = :PRODUTO_ID";
-            $params[":PRODUTO_ID"] = $this->getProdutoId();
+            $params[":PRODUTO_ID"] = $this->getProduto();
         }
         if($exibirInativo == 0){
             $sqlWhere .= " AND COALESCE(IMAGEM_ORDEM, -1) >= 0";
@@ -83,23 +69,20 @@ class ProdutoImagem{
         return($data);
     }
 
-    public function loadById(){
-        $sql = new Sql();
+    public function atualizarImagens(){
+        foreach ($this->getImagens() as $imagem) {
+            $this->setId($imagem["IMAGEM_ID"]);
+            $this->setUrl($imagem["IMAGEM_URL"]);
+            $this->setOrdem($imagem["IMAGEM_ORDEM"]);
 
-        $query = "SELECT * FROM CATEGORIA WHERE CATEGORIA_ID = :ID";
-        $params = [
-            ":ID"=>$this->getId()
-        ];
-
-        $data = $sql->select($query, $params);
-
-        if(count($data) == 0){
-            $response = json_encode(["status"=> 500, "message"=>"Categoria inválida!"]);
-        }else{
-            $this->setData($data[0]);
-
-            $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
+            if($this->getId() != 0){
+                $response = $this->update();
+            } else{
+                $response = $this->insert();
+            }
         }
+
+        $response = json_encode(["status"=> 200, "message"=>"Ok", "items"=>[]]);
 
         return($response);
     }
@@ -107,28 +90,23 @@ class ProdutoImagem{
     public function insert(){
         $sql = new Sql();
 
-        $resValidar = $this->validarCategoria();
-
-        if($resValidar["status"] != 200){
-            return(json_encode($resValidar));
-        }
-
-        $query = "INSERT INTO CATEGORIA (CATEGORIA_NOME, CATEGORIA_DESC) VALUES (:NOME, :DESCRICAO)";
+        $query = "INSERT INTO PRODUTO_IMAGEM (PRODUTO_ID, IMAGEM_URL, IMAGEM_ORDEM) VALUES (:PRODUTO, :URL, :ORDEM)";
         $params = [
-            ":NOME"=>$this->getNome(),
-            ":DESCRICAO"=>$this->getDescricao(),
+            ":PRODUTO_ID"=>$this->getProduto(),
+            ":URL"=>$this->getUrl(),
+            ":ORDEM"=>$this->getOrdem()
         ];
 
         $sql->executeQuery($query, $params);
         $this->setId($sql->returnLastId());
 
-            if($this->getId() == 0){
-                $response = json_encode(["status"=> 500, "message"=>"Erro ao cadastrar categoria!"]);
-            }else{
-                $this->loadById();
+        if($this->getId() == 0){
+            $response = json_encode(["status"=> 500, "message"=>"Erro ao cadastrar imagem!"]);
+        }else{
+            //$this->loadById();
 
-                $response = json_encode(["status"=> 200, "message"=>"Categoria Inclusa", "items"=>[]]);
-            }
+            $response = json_encode(["status"=> 200, "message"=>"Ok", "items"=>[]]);
+        }
 
         return($response); 
     }
@@ -136,117 +114,26 @@ class ProdutoImagem{
     public function update(){
         $sql = new Sql();
 
-        $resValidar = $this->validarCategoria();
-
-        if($resValidar["status"] != 200){
-            return(json_encode($resValidar));
-        }
-
-        $query = "UPDATE CATEGORIA SET CATEGORIA_NOME = :NOME, CATEGORIA_DESC = :DESCRICAO WHERE CATEGORIA_ID = :ID";
+        $query = "UPDATE PRODUTO_IMAGEM SET PRODUTO_ID = :PRODUTO, IMAGEM_URL = :URL, IMAGEM_ORDEM = :ORDEM WHERE IMAGEM_ID = :ID";
         $params = [
             ":ID"=>$this->getId(),
-            ":NOME"=>$this->getNome(),
-            ":DESCRICAO"=>$this->getDescricao(),
+            ":PRODUTO"=>$this->getProduto(),
+            ":URL"=>$this->getUrl(),
+            ":ORDEM"=>$this->getOrdem()
         ];
 
         $sql->executeQuery($query, $params);
-        $this->loadById();
+        //$this->loadById();
 
         $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         
         return($response);
-    }
-
-    public function delete(){
-        $sql = new Sql();
-
-        $query = "DELETE FROM CATEGORIA WHERE CATEGORIA_ID = :ID";
-        $params = [
-            ":ID"=>$this->getId()
-        ];
-
-        $sql->executeQuery($query, $params);
-
-        $this->unsetData();
-        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
-
-        return($response);
-    }
-
-    public function desativar(){
-        $sql = new Sql();
-
-        $this->loadById();
-
-        $query = "UPDATE CATEGORIA SET CATEGORIA_ATIVO = CAST(:ATIVO AS SIGNED) WHERE CATEGORIA_ID = :ID";
-        $params = [
-            ":ID"=>$this->getId()
-        ];
-
-        if($this->getAtivo() == 0){
-            if($this->validarCategoriaExistente()){
-                $response = json_encode([
-                    "status"=> 400, 
-                    "title"=>"Dado inválido", 
-                    "message"=>"Já existe uma Categoria cadastrada com este nome.",
-                    "items"=>[]
-                ]);
-            }
-
-            if(isset($response) && $response !== ""){
-                return($response);
-            }
-
-            $params[":ATIVO"] = 1;
-        } else{
-            $params[":ATIVO"] = 0;
-        }
-        
-        $sql->executeQuery($query, $params);
-
-        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
-        
-        return($response);
-    }
-
-    public function validarCategoria(){
-        $response = "";
-
-        if(!isset($this->nome) || $this->nome == ""){
-            $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome da Categoria não foi preenchido."];
-        } elseif (!isset($this->descricao) || $this->descricao == "") {
-            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Para cadastrar uma categoria você precisa inserir uma Descrição."];
-        } elseif($this->validarCategoriaExistente()){
-            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Já existe uma Categoria cadastrada com este nome."];
-        } else{
-            $response = ["status"=> 200, "title"=>"Dado inválido", "message"=>"Ok"];
-        }
-
-        return($response);
-    }
-
-    private function validarCategoriaExistente(){
-        $sql = new Sql();
-
-        $query = "SELECT * FROM CATEGORIA WHERE CATEGORIA_NOME = :NOME AND COALESCE(CATEGORIA_ATIVO, 1) = 1 AND CATEGORIA_ID <> :ID";
-        $params = [
-            ":NOME"=>$this->getNome(),
-            ":ID"=>$this->getId()
-        ];
-
-        $data = $sql->select($query, $params);
-
-        $categoriaRepetida = count($data) > 0 ? true : false; 
-
-        return($categoriaRepetida);
     }
 
     public function __toString():string{
         return(json_encode([
-            "CATEGORIA_ID"=>$this->getId(),
-            "CATEGORIA_NOME"=>$this->getNome(),
-            "CATEGORIA_DESC"=>$this->getDescricao(),
-            "CATEGORIA_ATIVO"=>$this->getAtivo()
+            "PRODUTO_ID"=>$this->getProduto(),
+            "IMAGENS"=>$this->getImagens()
         ]));
     }
 }

@@ -80,8 +80,23 @@ btnOk.addEventListener("click", (e) => {
     e.preventDefault();
 
     let data = prepareDataToSave();
+    let request = api.request("produtoOrdemImagem.php", "POST", data);
 
-    console.log(data);
+    request
+        .then((res) => {
+            window.location.href = "/bravo4Fun/produtoConsultar.php";
+        })
+        .catch((err) => {
+            console.log(err);
+
+            cfgModalError = modal.config();
+
+            cfgModalError.type = "ERROR";
+            cfgModalError.title = "Atenção";
+            cfgModalError.body = err;
+
+            modal.show(cfgModalError);
+        });
 })
 
 function prepareDataToSave(){
