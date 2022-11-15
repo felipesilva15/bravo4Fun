@@ -124,10 +124,12 @@ function prepareDataToSave(){
         }
     });
 
-    let data = {
-        PRODUTO_ID: produtoId,
-        IMAGENS: imagens
-    }
+    let data = new FormData();
 
+    data.append("PRODUTO_ID", produtoId);
+
+    for (var i = 0, valuePair; valuePair = imagens[i]; i++)
+        for (var j in valuePair) data.append(`IMAGENS[${i}][${j}]`, valuePair[j]);
+    
     return(data);
 }

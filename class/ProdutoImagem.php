@@ -70,10 +70,12 @@ class ProdutoImagem{
     }
 
     public function atualizarImagens(){
-        foreach ($this->getImagens() as $imagem) {
-            $this->setId($imagem["IMAGEM_ID"]);
+        $imagens = $this->getImagens();
+
+        foreach ($imagens as $imagem) {
+            $this->setId(intval($imagem["IMAGEM_ID"]));
             $this->setUrl($imagem["IMAGEM_URL"]);
-            $this->setOrdem($imagem["IMAGEM_ORDEM"]);
+            $this->setOrdem(intval($imagem["IMAGEM_ORDEM"]));
 
             if($this->getId() != 0){
                 $response = $this->update();
@@ -92,7 +94,7 @@ class ProdutoImagem{
 
         $query = "INSERT INTO PRODUTO_IMAGEM (PRODUTO_ID, IMAGEM_URL, IMAGEM_ORDEM) VALUES (:PRODUTO, :URL, :ORDEM)";
         $params = [
-            ":PRODUTO_ID"=>$this->getProduto(),
+            ":PRODUTO"=>$this->getProduto(),
             ":URL"=>$this->getUrl(),
             ":ORDEM"=>$this->getOrdem()
         ];

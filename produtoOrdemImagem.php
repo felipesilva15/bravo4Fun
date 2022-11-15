@@ -4,7 +4,7 @@ require_once("config.php");
 
 $produtoImagem = new ProdutoImagem();
 
-$produtoImagem->setProduto(isset($_POST["PRODUTO_ID"]) ? $_POST["PRODUTO_ID"] : 0);
+$produtoImagem->setProduto(isset($_POST["PRODUTO_ID"]) ? intval($_POST["PRODUTO_ID"]) : 0);
 $produtoImagem->setImagens(isset($_POST["IMAGENS"]) ? $_POST["IMAGENS"] : []);
 
 try{
