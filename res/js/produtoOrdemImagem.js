@@ -1,6 +1,8 @@
 const columns = document.querySelectorAll(".column");
 const formItemAdd = document.querySelector("#formItemAdd");
 const inputItemAdd = document.querySelector("#inputFileUpload");
+const btnOk = document.querySelector("#btnOk");
+const produtoId = parseInt(document.querySelector("#PRODUTO_ID").value);
 
 document.addEventListener("dragstart", (e) => {
     e.target.classList.add("dragging");
@@ -72,4 +74,45 @@ function createItem(imageUrl){
             <img draggable="false" class="p-1 item-img" src="${imageUrl}" alt="">
         </div>
     </div>`)
+}
+
+btnOk.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    let data = prepareDataToSave();
+
+    console.log(data);
+})
+
+function prepareDataToSave(){
+    const produtosDescartados = document.querySelectorAll("#produtosDescartados .item-card");
+    const produtosSelecionados = document.querySelectorAll("#produtosSelecionados .item-card");
+
+    let imagens = [];
+
+    produtosSelecionados.forEach((element, index) => {
+        imagens.push({
+            IMAGEM_ID: parseInt(element.getAttribute("imageid")),
+            IMAGEM_URL: element.getAttribute("imageurl"),
+            IMAGEM_ORDEM: index
+        })
+    });
+
+    produtosDescartados.forEach((element, index) => {
+        // Adiciona apenas as imagens descartadas que já foram salvas no BD
+        if(element.getAttribute("imageid") && element.getAttribute("imageid") != 0){
+            imagens.push({
+                IMAGEM_ID: parseInt(element.getAttribute("imageid")),
+                IMAGEM_URL: element.getAttribute("imageurl"),
+                IMAGEM_ORDEM: -1
+            });
+        }
+    });
+
+    let data = {
+        PRODUTO_ID: produtoId,
+        IMAGENS: imagens
+    }
+
+    return(data);
 }

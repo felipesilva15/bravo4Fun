@@ -44,9 +44,9 @@
                     <h3>Produto - Imagens e ordens</h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form id="form-js" action="produtoOrdemImagem.php" method="post" redirect="categoriaConsultar.php">
+                    <form id="form-js" action="produtoOrdemImagem.php" method="post">
                         <div class="row g-3">
-                            <input name="PRODUTO_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0?>">
+                            <input name="PRODUTO_ID" id="PRODUTO_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0?>">
                             <div class="box p-3 margin-0">
                                 <div class="mb-3">
                                     <h4>Imagens descartadas</h4>
@@ -89,7 +89,7 @@
                             </div>
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk">Alterar</button>
-                                <a href="../categoriaConsultar.php" class="btn btn-light mx-1">Cancelar</a>
+                                <a href="../produtoConsultar.php" class="btn btn-light mx-1">Cancelar</a>
                             </div>
                         </div>
                     </form>
@@ -107,7 +107,6 @@
 <script src="../res/js/modal.js"></script>
 <script src="../res/js/api.js"></script>
 <script src="../res/js/init.js"></script>
-<script src="../res/js/forms.js"></script>
 <script src="/bravo4Fun/res/js/menu.js"></script>
 <script src="/bravo4Fun/res/js/produtoOrdemImagem.js"></script>
 </html>
