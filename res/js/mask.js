@@ -23,13 +23,25 @@ function loadMasks(){
 
 // Carrega máscara de números com casas decimais e pontos de milhar para inputs
 function maskElementNumber(element){
-    $(element).maskMoney({thousands: ".", decimal: ","});
-    element.value = element.value !== "" ? maskNumber(parseFloat(element.value)) : "";
+    let decimalPlaces = $(element).attr("decimalPlaces");
+
+    if (typeof decimalPlaces == 'undefined' || decimalPlaces == null){
+        decimalPlaces = 2;
+    }  
+
+    $(element).maskMoney({thousands: ".", decimal: ",", precision: decimalPlaces});
+    element.value = element.value !== "" ? maskNumber(parseFloat(element.value), decimalPlaces) : "";
 }
 
 // Carrega máscara de números com casas decimais e pontos de milhar para labels e elementos de texto
 function maskTextNumber(element){
-    let newValue = $(element).text() !== "" ? maskNumber(parseFloat($(element).text())) : "";
+    let decimalPlaces = $(element).attr("decimalPlaces");
+
+    if (typeof decimalPlaces == 'undefined' || decimalPlaces == null){
+        decimalPlaces = 2;
+    }  
+
+    let newValue = $(element).text() !== "" ? maskNumber(parseFloat($(element).text()), decimalPlaces) : "";
 
     $(element).text(newValue);
 }
@@ -49,10 +61,6 @@ function maskTextMoneySymbol(element) {
 
 // Retorna o número com as cadas decimais corretas
 function maskNumber(value, decimalPlaces){
-    if (typeof decimalPlaces == 'undefined' || decimalPlaces == 0){
-        decimalPlaces = 2;
-    }  
-
     return parseFloat(value.toFixed(decimalPlaces)).toLocaleString('pt-br', {minimumFractionDigits: decimalPlaces});
 }
 
