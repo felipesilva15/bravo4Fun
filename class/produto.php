@@ -95,14 +95,6 @@ class Produto{
             $sqlWhere .= " AND CATEGORIA_ID LIKE :CATEGORIA";
             $params[":CATEGORIA"] = $this->getCategoria();
         }
-       /* if($this->getPreco() !== ""){
-            $sqlWhere .= " AND PRODUTO_PRECO LIKE :PRECO";
-            $params[":PRECO"] = "%{$this->getPreco()}%";
-        }
-        if($this->getDesconto() !== ""){
-            $sqlWhere .= " AND PRODUTO_DESCONTO LIKE :DESCONTO";
-            $params[":DESCONTO"] = "%{$this->getDesconto()}%";
-        }*/
         if($exibirInativo == 0){
             $sqlWhere .= " AND COALESCE(PRODUTO_ATIVO, 1) = 1";
         }
@@ -238,7 +230,7 @@ class Produto{
     public function validarProduto(){
         $response = "";
 
-        if(!isset($this->nome) || $this->nome == ""){
+        if($this->getNome() == ""){
             $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome do produto não foi preenchido."];
          } else{
             $response = ["status"=> 200, "title"=>"Dado válido", "message"=>"Ok"];
@@ -262,6 +254,7 @@ class Produto{
 
         return($produtoRepetido);
     }
+    
     public function __toString():string{
         return(json_encode([
             "PRODUTO_ID"=>$this->getId(),    

@@ -22,4 +22,23 @@ try{
     ]);
 }
 
+$produtoEstoque = new ProdutoEstoque();
+
+$produtoEstoque->setProduto($produto->getId());
+$produtoEstoque->setQuantidade(isset($_POST["PRODUTO_QTD"]) ? $_POST["PRODUTO_QTD"] : 0);
+
+if(json_decode($response, true)["status"] == 200){
+    try{
+        $response = $produtoEstoque->atualizarEstoque();
+    } catch (Exception $e) {
+        $response = json_encode([
+            "status"=>500,
+            "errorCode"=>$e->getCode(),
+            "message"=>$e->getMessage(),
+            "file"=>$e->getFile(),
+            "line"=>$e->getLine()
+        ]);
+    }
+}
+
 echo $response;

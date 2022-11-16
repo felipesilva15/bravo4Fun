@@ -5,10 +5,13 @@
     require_once("../class/produto.php");
     
     $produto = new Produto();
-    //$estoque = new ProdutoEstoque();
+    $estoque = new ProdutoEstoque();
 
     $produto->setId(isset($_GET["id"]) ? $_GET["id"] : 0);
     $produto->loadById();
+
+    $estoque->setProduto(isset($_GET["id"]) ? $_GET["id"] : 0);
+    $estoque->loadByProduto();
    
     $acao = isset($_GET["id"]) ? "U" : "C";
 ?>
@@ -64,19 +67,19 @@
                                     <select class="form-select select2AutoConfig" select2Config="CATEGORIA" select2ValueToSelect="<?php echo $produto->getCategoria()?>" name="CATEGORIA_ID">
                                         <option value="0"></option>
                                     </select>
-                                </div>    
+                                </div>
                                 <div class="col-12 col-md-6">
-                                    <label class="form-label-custom" for="PRODUTO_QUANTIDADE">Qtd. em estoque</label>
-                                    <input name="PRODUTO_QUANTIDADE" min="0" type="number" class="form-control" placeholder="Digite..." value="<?php  //echo $estoque->getQuantidade() != 0 ? $produto->getQuantidade() : "" ?>">                 
+                                    <label class="form-label-custom" for="PRODUTO_QTD">Qtd. em estoque</label>
+                                    <input name="PRODUTO_QTD" min="0" type="text" class="form-control inputNumber" decimalPlaces="0" placeholder="Digite..." value="<?php  echo $estoque->getQuantidade() != 0 ? $estoque->getQuantidade() : "" ?>">                 
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label-custom" for="PRODUTO_PRECO">Preço <span class="required">*</span></label>
                                     <input name="PRODUTO_PRECO" maxlength="6" required type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getPreco() != 0 ? $produto->getPreco() : "" ?>">
-                                </div>                
+                                </div>
                                 <div class="col-12 col-md-6">
                                     <label class="form-label-custom" for="PRODUTO_DESCONTO">Desconto<span></span></label>
                                     <input name="PRODUTO_DESCONTO" maxlength="6" type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getDesconto() != 0 ? $produto->getDesconto() : "" ?>" >
-                                </div>   
+                                </div>
                                 <div class="col-12">
                                     <label class="form-label-custom" for="PRODUTO_DESC">Descrição<span></span></label>
                                     <textarea name="PRODUTO_DESC" maxlength="1000" rows="7" type="text" class="form-control" placeholder="Digite..." value="" ><?php echo $produto->getDesc() ?></textarea>
