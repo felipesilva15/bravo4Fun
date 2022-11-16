@@ -82,7 +82,7 @@
                                             ";
                                         }
                                     ?>
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-2" id="designBox">
                                         <div style="aspect-ratio: 9/9;"></div>
                                     </div>
                                 </div>

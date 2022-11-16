@@ -3,6 +3,7 @@ const formItemAdd = document.querySelector("#formItemAdd");
 const inputItemAdd = document.querySelector("#inputFileUpload");
 const btnOk = document.querySelector("#btnOk");
 const produtoId = parseInt(document.querySelector("#PRODUTO_ID").value);
+const designBox = document.querySelector("#designBox");
 
 document.addEventListener("dragstart", (e) => {
     e.target.classList.add("dragging");
@@ -42,28 +43,30 @@ inputItemAdd.addEventListener("change", (e) => {
 columns.forEach((item) => {
     item.addEventListener("dragover", (e) => {
         const dragging = document.querySelector(".dragging");
-        const applyAfter = getNewPosition(item, e.clientX);
+        const applyAfter = getNewPosition(item, e.clientX, e.clientY);
 
         if (applyAfter) {
             applyAfter.insertAdjacentElement("afterend", dragging);
         } else {
             item.prepend(dragging);
         }
+
+        checkDesignBox()
     });
 });
 
-function getNewPosition(column, posX) {
+function getNewPosition(column, posX, posY) {
     const cards = column.querySelectorAll(".item:not(.dragging)");
     let result;
 
-    for (let refer_card of cards) {
+    cards.forEach((refer_card) => {
         const box = refer_card.getBoundingClientRect();
         const boxCenterX = box.x + box.width / 2;
 
-        if (posX >= boxCenterX){
-            result = refer_card
-        };
-    }
+        if (posX >= boxCenterX && posY >= box.y && posY <= box.y + box.height){
+            result = refer_card;
+        }
+    });
 
     return result;
 }
@@ -100,8 +103,8 @@ btnOk.addEventListener("click", (e) => {
 })
 
 function prepareDataToSave(){
-    const produtosDescartados = document.querySelectorAll("#produtosDescartados .item-card");
-    const produtosSelecionados = document.querySelectorAll("#produtosSelecionados .item-card");
+    let produtosDescartados = document.querySelectorAll("#produtosDescartados .item-card");
+    let produtosSelecionados = document.querySelectorAll("#produtosSelecionados .item-card");
 
     let imagens = [];
 
@@ -128,8 +131,23 @@ function prepareDataToSave(){
 
     data.append("PRODUTO_ID", produtoId);
 
-    for (var i = 0, valuePair; valuePair = imagens[i]; i++)
-        for (var j in valuePair) data.append(`IMAGENS[${i}][${j}]`, valuePair[j]);
+    for (var i = 0, valuePair; valuePair = imagens[i]; i++){
+        for (var j in valuePair){
+            data.append(`IMAGENS[${i}][${j}]`, valuePair[j]);
+        }
+    }
     
     return(data);
 }
+
+function checkDesignBox(){
+    let produtosSelecionados = document.querySelectorAll("#produtosSelecionados .item-card");
+
+    if(produtosSelecionados && produtosSelecionados.length > 0){
+        designBox.style.display = "none";
+    } else{
+        designBox.style.display = "block";
+    }
+}
+
+checkDesignBox();
