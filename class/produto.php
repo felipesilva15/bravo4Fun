@@ -111,8 +111,19 @@ class Produto{
             $sqlWhere = " WHERE " . substr($sqlWhere, 5);
         }
 
-        $query = "SELECT PRO.*, CATEGORIA_NOME FROM PRODUTO PRO LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID=PRO.CATEGORIA_ID $sqlWhere  ORDER BY PRODUTO_ID DESC";
+        $query = "  SELECT 
+                        PRO.*, 
+                        CAT.CATEGORIA_NOME, 
+                        PE.PRODUTO_QTD
+                    FROM PRODUTO PRO 
+                    LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID=PRO.CATEGORIA_ID 
+                    LEFT JOIN PRODUTO_IMAGEM PIMG ON PIMG.PRODUTO_ID=PRO.PRODUTO_ID AND PIMG.IMAGEM_ORDEM=0
+                    LEFT JOIN PRODUTO_ESTOQUE PE ON PE.PRODUTO_ID=PRO.PRODUTO_ID 
+                    $sqlWhere  
+                    ORDER BY 
+                        PRODUTO_ID DESC";
         $data = $sql->select($query, $params);
+
 
         return($data);
     }

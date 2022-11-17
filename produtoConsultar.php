@@ -83,7 +83,9 @@
                                     <th>Nome</th>
                                     <th>Descrição</th>
                                     <th>Categoria</th>
+                                    <th>Estoque Atual</th>
                                     <th>Preço</th>
+                                    <th>Desconto</th>
                                     <th>Imagem Principal</th>
                                     <th>
                                         <a href="views\produtoDigitar.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
@@ -115,11 +117,14 @@
                                             <td>{$produto}</td>                                       
                                             <td>{$desc}</td>  
                                             <td>{$row["CATEGORIA_NOME"]}</td>
+                                            <td>{$row['PRODUTO_QTD']}</td>
                                             <td>{$row["PRODUTO_PRECO"]}</td>
+                                            <td>{$row["PRODUTO_DESCONTO"]}</td>
                                             <td>
                                             <div class=\"btn  btn-sm-custom p-0\" id=\"btnZoomImage\">
-                                                <a onclick=\"produtoDesativar({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Clique para ver</a>
-                                                <img src=\"res/images/imagem.png\" class=\"iconsImagePreview\">
+                                            <button class=\"btn btn-sm-custom\">
+                                                <a onclick=\"imageZoom({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Clique para ver</a>
+                                                
                                             </button>
                                             </div>
                                             </td>

@@ -2,12 +2,12 @@
     require_once("../config.php");
     require_once("../class/Categoria.php");
     require_once("../class/Sql.php");
-    require_once("../class/produtoEstoque.php"); //Esse ainda a Laysa irá criar
+    // require_once("../class/produtoEstoque.php"); //Esse ainda a Laysa irá criar
     require_once("../class/produto.php");
     
     $produto = new Produto();
     $categorias = new Categoria();
-    $estoque = new ProdutoEstoque();
+    // $estoque = new ProdutoEstoque(); //Esse ainda a Laysa irá criar
     $categorias = $categorias->getCategorias();
 
     $produto->setId(isset($_GET["id"]) ? $_GET["id"] : 0);
