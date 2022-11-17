@@ -1,7 +1,7 @@
 <?php
 
 class Produto{
-    private $id = 0, $nome = "", $ativo = 0, $desc = "", $categoria = 0, $preco = 0, $desconto = 0;
+    private $id = 0, $nome = "", $ativo = 0, $desc = "", $categoria = 0, $preco = 0, $desconto = 0, $quantidade=0;
    
     public function getId():int{
         return($this->id);
@@ -52,6 +52,12 @@ class Produto{
     public function setAtivo($ativo){
         $this->ativo = $ativo ?? 1;
     }
+    public function getQuantidade():int{
+        return($this->quantidade);
+    }    
+    public function setQuantidade($quantidade){
+        $this->quantidade = $quantidade ?? 0;
+    }
 
     public function setData($data = []){
         $this->setId(isset($data["PRODUTO_ID"]) ? $data["PRODUTO_ID"] : 0);
@@ -61,6 +67,7 @@ class Produto{
         $this->setPreco(isset($data["PRODUTO_PRECO"]) ? $data["PRODUTO_PRECO"] : 0);
         $this->setDesconto(isset($data["PRODUTO_DESCONTO"]) ? $data["PRODUTO_DESCONTO"] : 0);
         $this->setAtivo(isset($data["PRODUTO_ATIVO"]) ? $data["PRODUTO_ATIVO"] : 1);
+        $this->setQuantidade(isset($data["PRODUTO_QTD"]) ? $data["PRODUTO_QTD"] : 0);
     }
 
     public function unsetData(){
@@ -71,6 +78,7 @@ class Produto{
         $this->setPreco(0);
         $this->setDesconto(0);
         $this->setAtivo(0);
+        $this->setQuantidade(0);
     }
 
     public function getProdutos($exibirInativo = 0){
@@ -111,7 +119,15 @@ class Produto{
             $sqlWhere = " WHERE " . substr($sqlWhere, 5);
         }
 
-        $query = "SELECT PRO.*, CATEGORIA_NOME FROM PRODUTO PRO LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID=PRO.CATEGORIA_ID $sqlWhere  ORDER BY PRODUTO_ID DESC";
+        $query = "SELECT 
+                    PRO.*, 
+                    CATEGORIA_NOME, 
+                    EST.PRODUTO_QTD
+                  FROM PRODUTO PRO 
+                  LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID=PRO.CATEGORIA_ID 
+                  LEFT JOIN PRODUTO_ESTOQUE EST ON EST.PRODUTO_ID = PRO.PRODUTO_ID
+                  $sqlWhere                    
+                  ORDER BY PRODUTO_ID DESC";
         $data = $sql->select($query, $params);
 
         return($data);
@@ -120,7 +136,9 @@ class Produto{
     public function loadById(){
         $sql = new Sql();
     
-        $query = "SELECT * FROM PRODUTO WHERE PRODUTO_ID = :ID";
+        $query = "SELECT PRO.*, EST.PRODUTO_QTD FROM PRODUTO PRO
+                  LEFT JOIN PRODUTO_ESTOQUE EST ON EST.PRODUTO_ID = PRO.PRODUTO_ID
+                  WHERE PRO.PRODUTO_ID = :ID";
         $params = [
             ":ID"=>$this->getId()
         ];
@@ -146,19 +164,19 @@ class Produto{
         if($resValidar["status"] != 200){
             return(json_encode($resValidar));
         }
-        
+
         $query = "INSERT INTO PRODUTO (PRODUTO_NOME, PRODUTO_DESC, PRODUTO_PRECO, PRODUTO_DESCONTO, CATEGORIA_ID, PRODUTO_ATIVO) VALUES (:NOME, :DESC, :PRECO, :DESCONTO, :CATEGORIA, 1)";
 
         //Tratando valores       
         $preco = str_replace(',','.',$this->getPreco());
         $desconto = str_replace(',','.',$this->getDesconto());
-
+     
         $params = [
-            ":NOME"=>$this->getNome(),
-            ":DESC"=>$this->getDesc(),
-            ":PRECO"=>floatval($preco),
-            ":DESCONTO"=>floatval($desconto),
-            ":CATEGORIA"=>$this->getCategoria(),        
+             ":NOME"=>$this->getNome(),
+             ":DESC"=>$this->getDesc(),
+             ":PRECO"=>floatval($preco),
+             ":DESCONTO"=>floatval($desconto),
+             ":CATEGORIA"=>$this->getCategoria(),        
         ];
         
         $sql->executeQuery($query, $params);
@@ -167,8 +185,9 @@ class Produto{
         if($this->getId() == 0){
             $response = json_encode(["status"=> 500, "title"=>"Erro inesperado", "message"=>"Ocorreu um erro ao cadastrar o produto. Tente novamente mais tarde."]);
         }else{
+            $this->updateEstoque();
             $this->loadById();
-
+    
             $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         }
 
@@ -183,7 +202,7 @@ class Produto{
         if($resValidar["status"] != 200){
             return(json_encode($resValidar));
         }
-
+     
         $query = "  UPDATE PRODUTO 
                     SET PRODUTO_NOME = :NOME, PRODUTO_DESC = :DESC, PRODUTO_PRECO = :PRECO, PRODUTO_DESCONTO = :DESCONTO, CATEGORIA_ID = :CATEGORIA
                     WHERE PRODUTO_ID = :ID";
@@ -202,17 +221,46 @@ class Produto{
         ];                  
            
         $sql->executeQuery($query, $params);
+        $this->updateEstoque();
 
         $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         
         return($response);
     }
 
+    public function updateEstoque(){
+        $sql = new Sql();
+    
+        $query = "SELECT * FROM PRODUTO_ESTOQUE WHERE PRODUTO_ID = :ID";
+        $params = [
+            ":ID"=>$this->getId(),
+        ];
+
+        $data = $sql->select($query, $params);
+
+        if(count($data) == 0){           
+            $query = "INSERT INTO PRODUTO_ESTOQUE (PRODUTO_ID, PRODUTO_QTD) VALUES (:ID, :QTD)";
+        }else{            
+            $query = "UPDATE PRODUTO_ESTOQUE SET PRODUTO_QTD = :QTD WHERE PRODUTO_ID = :ID";
+        }        
+                     
+       $params = [
+            ":ID"=>$this->getId(),
+            ":QTD"=>$this->getQuantidade(),
+        ];                  
+
+        $sql->executeQuery($query, $params);
+
+        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
+        
+        return($response);
+    }  
+
     public function desativar(){
         $sql = new Sql();
 
         $this->loadById();
-
+ 
         $query = "UPDATE PRODUTO SET PRODUTO_ATIVO = CAST(:ATIVO AS SIGNED) WHERE PRODUTO_ID = :ID";
         $params = [
             ":ID"=>$this->getId()
@@ -235,6 +283,7 @@ class Produto{
         
         return($response);
     }
+
     public function validarProduto(){
         $response = "";
 
