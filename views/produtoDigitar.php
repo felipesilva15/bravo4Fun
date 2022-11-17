@@ -1,13 +1,11 @@
 <?php
     require_once("../config.php");
     require_once("../class/produto.php");
-    require_once("../class/produtoEstoque.php");
     require_once("../class/Categoria.php");
     require_once("../class/Sql.php");
     
     $produto = new Produto();
     $categorias = new Categoria();
-    $estoque = new ProdutoEstoque();
     $categorias = $categorias->getCategorias();
 
     $produto->setId(isset($_GET["id"]) ? $_GET["id"] : 0);
@@ -58,11 +56,13 @@
                                 <div class="containerImagePreview">
                                     <div class="imagePreview" id="imagePreview"></div>
                                 </div>
-                               
                                 <input name="INPUTFILE" id="inputFileImage" accept="image/*" type="file">
                                 <label for="inputFileImage" class="btn btn-secondary">
                                     <img src="../res/images/upload.png" class="iconsImagePreview">
-                                </label>                                
+                                </label>
+                                <a class="btn btn-secondary" id="btnDownloadImage" download>
+                                    <img src="../res/images/save.png" class="iconsImagePreview">
+                                </a>
                                 <button class="btn btn-secondary" id="btnZoomImage">
                                     <img src="../res/images/zoom.png" class="iconsImagePreview">
                                 </button>
@@ -100,8 +100,8 @@
                                 <input name="PRODUTO_DESCONTO" maxlength="6" type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getDesconto() ?>" >
                             </div>   
                             <div class="m-2 mt-2 col-5">
-                                    <label class="form-label-custom" for="PRODUTO_QUANTIDADE">Quantidade</label>
-                                    <input name="PRODUTO_QUANTIDADE" min="0" type="number" class="form-control" placeholder="Digite..." value="<?php  echo $estoque->getQuantidade() ?>">
+                                    <label class="form-label-custom" for="PRODUTO_QTD">Quantidade</label>
+                                    <input name="PRODUTO_QTD" min="0" type="number" class="form-control" placeholder="Digite..." value="<?php  echo $produto->getQuantidade() ?>">                                
                                 </div>                     
                             </div>
                             <div class="m-2 mt-2 col-9">
