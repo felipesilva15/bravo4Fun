@@ -5,6 +5,5 @@ request
     .then((res) => {
     })
     .catch((err) => {
-        console.log(err);
         window.location.href = "/bravo4Fun/views/login.html"
     });

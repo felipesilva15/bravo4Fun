@@ -21,7 +21,6 @@ function select2LoadConfig() {
                 })
             })
             .catch((err) => {
-                console.log(err);
             });
     });
 }
