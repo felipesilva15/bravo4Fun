@@ -1,8 +1,9 @@
 <?php
     require_once("../config.php");
-    require_once("../class/produto.php");
+    require_once("../class/produtoImagem.php");
     require_once("../class/Categoria.php");
     require_once("../class/Sql.php");
+    require_once("../class/produto.php");
     
     $produto = new Produto();
     $categorias = new Categoria();

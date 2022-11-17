@@ -5,7 +5,7 @@
     
     $produtoImagem = new ProdutoImagem();
     
-    $produtoImagem->setProdutoId(isset($_GET["id"]) ? $_GET["id"] : 0);
+    $produtoImagem->setProduto(isset($_GET["id"]) ? $_GET["id"] : 0);
     $data = $produtoImagem->getProdutoImagens();
 ?>
 
@@ -23,20 +23,9 @@
     <link rel="stylesheet" href="/bravo4Fun/res/css/produtoOrdemImagem.css">
 </head>
 <body class="default-height-body">
-    <header id="header">
-        <nav id="nav">
-            <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">
-            <span id="span"></span>
-            </button>
-            <ul id="menu">
-                <li><a  href="../produtoConsultar.php">Produto</a></li>
-                <li><a  href="../categoriaConsultar.php">Categoria</a></li>
-                <li><a  href="../adminConsultar.php">Administrador</a></li>
-            </ul>
-        </nav>
-        <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
-        <img id="semfoto" src="/bravo4Fun/res/images/semfoto.png" width="50">
-    </header>
+    <?php
+        include_once("header.html");
+    ?>
     <main class="full-height">
         <div class="m-3">
             <div class="box box-dig p-2 margin-0">
@@ -44,9 +33,9 @@
                     <h3>Produto - Imagens e ordens</h3>
                 </div>
                 <div class="m-2 mt-4">
-                    <form id="form-js" action="produtoOrdemImagem.php" method="post" redirect="categoriaConsultar.php">
+                    <form id="form-js" action="produtoOrdemImagem.php" method="post">
                         <div class="row g-3">
-                            <input name="PRODUTO_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0?>">
+                            <input name="PRODUTO_ID" id="PRODUTO_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0?>">
                             <div class="box p-3 margin-0">
                                 <div class="mb-3">
                                     <h4>Imagens descartadas</h4>
@@ -82,14 +71,14 @@
                                             ";
                                         }
                                     ?>
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-2" id="designBox">
                                         <div style="aspect-ratio: 9/9;"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 mt-5">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk">Alterar</button>
-                                <a href="../categoriaConsultar.php" class="btn btn-light mx-1">Cancelar</a>
+                                <a href="../produtoConsultar.php" class="btn btn-light mx-1">Cancelar</a>
                             </div>
                         </div>
                     </form>
@@ -98,16 +87,8 @@
         </div>
     </main>
 </body>
-<script src="../res/bootstrap/js/bootstrap.min.js"></script>
-<script src="../res/plugins/jQuery/jquery-3.6.1.min.js"></script>
-<script src="../res/plugins/input/jquery.maskMoney.js"></script>
-<script src="../res/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../res/js/utils.js"></script>
-<script src="../res/js/mask.js"></script>
-<script src="../res/js/modal.js"></script>
-<script src="../res/js/api.js"></script>
-<script src="../res/js/init.js"></script>
-<script src="../res/js/forms.js"></script>
-<script src="/bravo4Fun/res/js/menu.js"></script>
+    <?php
+        include_once("footer.html");
+    ?>
 <script src="/bravo4Fun/res/js/produtoOrdemImagem.js"></script>
 </html>
