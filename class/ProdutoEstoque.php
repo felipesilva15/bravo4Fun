@@ -53,9 +53,9 @@ class ProdutoEstoque{
     }
 
     public function atualizarEstoque(){
-        $responseLoad = json_decode($this->loadByProduto(), true);
+        $response = "";
 
-        if($responseLoad["status"] != 200){
+        if(!$this->validarEstoqueExistente()){
             $response = $this->insert();
         } else{
             $response = $this->update();
@@ -161,6 +161,21 @@ class ProdutoEstoque{
         $produtoExiste = count($data) > 0 ? true : false; 
 
         return($produtoExiste);
+    }
+
+    private function validarEstoqueExistente(){
+        $sql = new Sql();
+
+        $query = "SELECT * FROM PRODUTO_ESTOQUE WHERE PRODUTO_ID = :PRODUTO";
+        $params = [
+            ":PRODUTO"=>$this->getProduto()
+        ];
+
+        $data = $sql->select($query, $params);
+
+        $estoqueExiste = count($data) > 0 ? true : false; 
+
+        return($estoqueExiste);
     }
 
     public function __toString():string{
