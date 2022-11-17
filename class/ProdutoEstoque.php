@@ -53,9 +53,9 @@ class ProdutoEstoque{
     }
 
     public function atualizarEstoque(){
-        $response = "";
+        $responseLoad = json_decode($this->loadByProduto(), true);
 
-        if($this->getProduto() == 0){
+        if($responseLoad["status"] != 200){
             $response = $this->insert();
         } else{
             $response = $this->update();
