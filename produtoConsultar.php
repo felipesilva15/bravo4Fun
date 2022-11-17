@@ -49,18 +49,18 @@
                     <form action="produtoConsultar.php" method="get">
                         <div class="row g-3">
                             <div class="row col-auto me-auto col-md-9">
-                                <div class="col-md-2">
+                                <div class="col-12 col-md-2">
                                     <label class="form-label-custom" for="id">ID</label>
                                     <input name="id" min="0" type="number" class="form-control" placeholder="Digite..." value="<?php echo isset($_GET["id"]) ? $_GET["id"] : "" ?>">
                                 </div>   
-                                <div class="col-md-4">
+                                <div class="col-12 col-md-4">
                                     <label class="form-label-custom" for="nome">Nome</label>
                                     <input name="nome" maxlength="100" type="text" class="form-control" placeholder="Digite..." autocomplete="off" value="<?php echo isset($_GET["nome"]) ? $_GET["nome"] : "" ?>">
                                 </div>
-                                <div class="col-md-5">
-                                    <label class="form-label-custom" for="SELECT">Categoria</label>
-                                    <select class="form-select select2AutoConfig" select2Config="CATEGORIA" placeholder="Selecione" name="SELECT">
-                                        <option value="0">Selecione</option>
+                                <div class="col-12 col-md-5">
+                                    <label class="form-label-custom" for="categoria">Categoria</label>
+                                    <select class="form-select select2AutoConfig" select2Config="CATEGORIA" select2ValueToSelect="<?php echo isset($_GET["categoria"]) ? $_GET["categoria"] : "" ?>" placeholder="Selecione" name="categoria">
+                                        <option value="0">Selecione...</option>
                                     </select>
                                 </div>                                                                                                                                                                                             
                             </div>
@@ -76,7 +76,7 @@
                         </div>
                     </form>
                     <div class="mt-4 table-responsive">
-                        <table class="table table-striped table-hover">
+                        <table class="table table-striped table-hover text-nowrap">
                             <thead>
                                 <tr>
                                     <th>ID</th>
@@ -84,6 +84,8 @@
                                     <th>Descrição</th>
                                     <th>Categoria</th>
                                     <th>Preço</th>
+                                    <th>Desconto</th>
+                                    <th>Qtd. em estoque</th>
                                     <th>Imagem Principal</th>
                                     <th>
                                         <a href="views\produtoDigitar.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
@@ -98,7 +100,7 @@
 
                                     $produto->setId(isset($_GET["id"]) && $_GET["id"] !== "" ? $_GET["id"] : 0);
                                     $produto->setNome(isset($_GET["nome"]) ? $_GET["nome"] : "");   
-                                    $produto->setCategoria(isset($_GET["categoria"]) ? $_GET["categoria"] : "");   
+                                    $produto->setCategoria(isset($_GET["categoria"]) && $_GET["categoria"] != "" ? $_GET["categoria"] : 0);   
                                     $exibirInativo = isset($_GET["inativo"]) ? $_GET["inativo"] : 0;                                                                 
 
                                     $data = $produto->getProdutos($exibirInativo);                
@@ -115,10 +117,12 @@
                                             <td>{$produto}</td>                                       
                                             <td>{$desc}</td>  
                                             <td>{$row["CATEGORIA_NOME"]}</td>
-                                            <td>{$row["PRODUTO_PRECO"]}</td>
+                                            <td class=\"textNumber textMoneySymbol\">{$row["PRODUTO_PRECO"]}</td>
+                                            <td class=\"textNumber textMoneySymbol\">{$row["PRODUTO_DESCONTO"]}</td>
+                                            <td class=\"textNumber\" decimalPlaces=\"0\">{$row["PRODUTO_QTD"]}</td>
                                             <td>
                                             <div class=\"btn  btn-sm-custom p-0\" id=\"btnZoomImage\">
-                                                <a onclick=\"produtoDesativar({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Clique para ver</a>
+                                                <a onclick=\"produtoZoomImagem('{$row["IMAGEM_URL"]}')\">Clique para ver</a>
                                                 <img src=\"res/images/imagem.png\" class=\"iconsImagePreview\">
                                             </button>
                                             </div>
@@ -136,6 +140,7 @@
                                                         </button>
                                                         <ul class=\"dropdown-menu\">
                                                             <li><a class=\"dropdown-item\" onclick=\"produtoDesativar({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Ativar / Desativar</a></li>
+                                                            <li><a class=\"dropdown-item\" href=\"views/produtoOrdemImagem.php?id={$row["PRODUTO_ID"]}\">Imagens do produto</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -192,6 +197,19 @@
                     modal.show(cfgModalError);
                 });
         };
+
+        modal.show(cfgModal);
+    }
+
+    function produtoZoomImagem(urlImage){
+        if(urlImage == ""){
+            urlImage = "/bravo4Fun/res/images/produto-sem-foto.jpg"
+        }
+
+        cfgModal = modal.config();
+
+        cfgModal.type = "IMAGEZOOM";
+        cfgModal.extra1 = urlImage;
 
         modal.show(cfgModal);
     }

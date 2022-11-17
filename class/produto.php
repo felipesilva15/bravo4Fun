@@ -79,20 +79,20 @@ class Produto{
         $sqlWhere = "";
         $params = [];
 
-        if($this->getId()!== 0){
-            $sqlWhere .= " AND PRODUTO_ID = :ID";
+        if($this->getId() != 0){
+            $sqlWhere .= " AND PRO.PRODUTO_ID = :ID";
             $params[":ID"] = $this->getId();
         }       
-        if($this->getNome() !== ""){
-            $sqlWhere .= " AND PRODUTO_NOME LIKE :NOME";
+        if($this->getNome() != ""){
+            $sqlWhere .= " AND PRO.PRODUTO_NOME LIKE :NOME";
             $params[":NOME"] = "%{$this->getNome()}%";
         }
-        if($this->getDesc() !== ""){
-            $sqlWhere .= " AND PRODUTO_DESC LIKE :DESC";
+        if($this->getDesc() != ""){
+            $sqlWhere .= " AND PRO.PRODUTO_DESC LIKE :DESC";
             $params[":DESC"] = "%{$this->getDesc()}%";
         }
-        if($this->getCategoria() !== ""){
-            $sqlWhere .= " AND CATEGORIA_ID LIKE :CATEGORIA";
+        if($this->getCategoria() != 0){
+            $sqlWhere .= " AND PRO.CATEGORIA_ID = :CATEGORIA";
             $params[":CATEGORIA"] = $this->getCategoria();
         }
         if($exibirInativo == 0){
@@ -103,7 +103,18 @@ class Produto{
             $sqlWhere = " WHERE " . substr($sqlWhere, 5);
         }
 
-        $query = "SELECT PRO.*, CATEGORIA_NOME FROM PRODUTO PRO LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID=PRO.CATEGORIA_ID $sqlWhere  ORDER BY PRODUTO_ID DESC";
+        $query = "SELECT 
+                    PRO.*, 
+                    COALESCE(CAT.CATEGORIA_NOME, '') AS CATEGORIA_NOME,
+                    COALESCE(IMG.IMAGEM_URL, '') AS IMAGEM_URL,
+                    COALESCE(EST.PRODUTO_QTD, 0) AS PRODUTO_QTD
+                FROM PRODUTO PRO 
+                LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID = PRO.CATEGORIA_ID 
+                LEFT JOIN PRODUTO_IMAGEM IMG ON IMG.PRODUTO_ID = PRO.PRODUTO_ID AND IMG.IMAGEM_ORDEM = 0
+                LEFT JOIN PRODUTO_ESTOQUE EST ON EST.PRODUTO_ID = PRO.PRODUTO_ID
+                $sqlWhere  
+                ORDER BY 
+                    PRODUTO_ID DESC";
         $data = $sql->select($query, $params);
 
         return($data);
@@ -211,7 +222,24 @@ class Produto{
         ];
 
         if($this->getAtivo() == false){
-            
+            if($this->validarProdutoExistente()){
+                $response = json_encode([
+                    "status"=> 400, 
+                    "title"=>"Dado inválido", 
+                    "message"=>"Já existe um produto cadastrado com este nome. Não será possível ativá-lo.",
+                    "items"=>[]
+                ]);
+            }
+    
+            if(!$this->validarCategoriaExistente()){
+                $response = json_encode([
+                    "status"=> 400, 
+                    "title"=>"Dado inválido", 
+                    "message"=>"Categoria do produto inválida ou inativa no sistema. Ajuste a mesma antes de ativar o produto.",
+                    "items"=>[]
+                ]);
+            }
+
             if(isset($response) && $response !== ""){
                 return($response);
             }
@@ -231,9 +259,17 @@ class Produto{
         $response = "";
 
         if($this->getNome() == ""){
-            $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome do produto não foi preenchido."];
-         } else{
-            $response = ["status"=> 200, "title"=>"Dado válido", "message"=>"Ok"];
+            $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome não foi preenchido."];
+        } elseif ($this->getCategoria() == 0) {
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de categoria não foi preenchido."];
+        } elseif ($this->getPreco() == 0 ){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de senha não foi preenchido."];
+        } elseif(!$this->validarCategoriaExistente()){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Categoria inválida ou inativa no sistema."];
+        } elseif($this->validarProdutoExistente()){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Já existe um produto cadastrado com este nome. Tente um nome diferente."];
+        } else{
+            $response = ["status"=> 200, "title"=>"Dado inválido", "message"=>"Ok"];
         }
 
         return($response);
@@ -253,6 +289,21 @@ class Produto{
         $produtoRepetido = count($data) > 0 ? true : false; 
 
         return($produtoRepetido);
+    }
+
+    private function validarCategoriaExistente(){
+        $sql = new Sql();
+
+        $query = "SELECT CAT.CATEGORIA_ID FROM CATEGORIA CAT WHERE CAT.CATEGORIA_ID = :CATEGORIA AND COALESCE(CAT.CATEGORIA_ATIVO, 1) = 1";
+        $params = [
+            ":CATEGORIA"=>$this->getCategoria()
+        ];
+
+        $data = $sql->select($query, $params);
+
+        $categoriaExistente = count($data) > 0 ? true : false; 
+
+        return($categoriaExistente);
     }
     
     public function __toString():string{
