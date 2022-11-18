@@ -24,12 +24,9 @@ inputItemAdd.addEventListener("change", (e) => {
 
     request
         .then((res) => {
-            console.log(res);
             createItem(res.items.filePath);
         })
         .catch((err) => {
-            console.log(err);
-
             cfgModalError = modal.config();
 
             cfgModalError.type = "ERROR";
@@ -90,8 +87,6 @@ btnOk.addEventListener("click", (e) => {
             window.location.href = "/bravo4Fun/produtoConsultar.php";
         })
         .catch((err) => {
-            console.log(err);
-
             cfgModalError = modal.config();
 
             cfgModalError.type = "ERROR";

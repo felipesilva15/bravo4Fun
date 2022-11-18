@@ -22,7 +22,6 @@ function validarCredenciais() {
 
     request
         .then((res) => {
-            console.log(res);
         })
         .catch((err) => {
             window.location.href = "/bravo4Fun/views/login.html";

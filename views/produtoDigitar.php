@@ -114,4 +114,5 @@
 <?php
     include_once("footer.html");
 ?>
+<script src="/bravo4Fun/res/js/inputImagePreview.js"></script>
 </html>
