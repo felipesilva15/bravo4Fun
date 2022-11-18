@@ -15,30 +15,9 @@
     <link rel="stylesheet" href="/bravo4Fun/res/css/inputImagePreview.css">
 </head>
 <body class="default-height-body">
-    <header id="header">
-    <nav id="nav">
-            <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">
-            <span id="span"></span>
-            </button>
-            <ul id="menu">
-                <li><a  href="produtoConsultar.php">Produto</a></li>
-                <li><a  href="categoriaConsultar.php">Categoria</a></li>
-                <li><a  href="adminConsultar.php">Administrador</a></li>
-            </ul>
-        </nav>
-        <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
-         <div class="dropdown">
-            <a id="btndrop btndrop-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">    
-                    <img id="semfoto" src="res/images/semfoto.png" width="50">
-                </button>
-            </a>
-            <ul id="dropdown-menu" class="dropdown-menu pb-3 pt-3">
-                <li><a  href="views/meuPerfil.php">Meu Perfil</a></li>
-                <li><a href="#" onclick="logout()">Logout</a></li>
-            </ul>
-        </div>
-    </header>
+    <?php
+        include_once("views/header.html");
+    ?>
     <main class="full-height">
         <div class="m-3">
             <div class="box box-read p-2 margin-0">
@@ -58,8 +37,8 @@
                                     <input name="nome" maxlength="100" type="text" class="form-control" placeholder="Digite..." autocomplete="off" value="<?php echo isset($_GET["nome"]) ? $_GET["nome"] : "" ?>">
                                 </div>
                                 <div class="col-md-5">
-                                    <label class="form-label-custom" for="CATEGORIA_ID">Categoria</label>
-                                    <select class="form-select select2AutoConfig" select2Config="CATEGORIA" placeholder="Selecione" name="SELECT">
+                                    <label class="form-label-custom" for="categoria">Categoria</label>
+                                    <select class="form-select select2AutoConfig" placeholder="Selecione"  select2Config="CATEGORIA" select2ValueToSelect="<?php echo isset($_GET["categoria"]) ? $_GET["categoria"] : ""?>" name="categoria">
                                         <option value="0">Selecione...</option>
                                     </select>
                                 </div>                                                                                                                                                                                             
@@ -141,6 +120,7 @@
                                                         </button>
                                                         <ul class=\"dropdown-menu\">
                                                             <li><a class=\"dropdown-item\" onclick=\"produtoDesativar({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Ativar / Desativar</a></li>
+                                                            <li><a class=\"dropdown-item\" onclick=\"readImage({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Imagens</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -157,19 +137,9 @@
         </div>
     </main>
 </body>
-<script src="res/bootstrap/js/bootstrap.min.js"></script>
-<script src="res/plugins/jQuery/jquery-3.6.1.min.js"></script>
-<script src="res/plugins/input/jquery.maskMoney.js"></script>
-<script src="res/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="res/js/utils.js"></script>
-<script src="res/js/mask.js"></script>
-<script src="res/js/modal.js"></script>
-<script src="res/js/api.js"></script>
-<script src="res/js/init.js"></script>
-<script src="res/js/menu.js"></script>
-<script src="res/js/logout.js"></script>
-<script src="/bravo4Fun/node_modules/select2/dist/js/select2.full.min.js"></script>
-<script src="/bravo4Fun/res/js/select2Config.js"></script>
+<?php
+    include_once("footer.html");
+?>
 <script>
     function produtoDesativar(id, acao){
         cfgModal = modal.config();

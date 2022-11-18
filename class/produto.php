@@ -100,7 +100,7 @@ class Produto{
             $params[":DESC"] = "%{$this->getDesc()}%";
         }
         if($this->getCategoria() !== ""){
-            $sqlWhere .= " AND CATEGORIA_ID LIKE :CATEGORIA";
+            $sqlWhere .= " AND CATEGORIA_ID = :CATEGORIA";
             $params[":CATEGORIA"] = $this->getCategoria();
         }
        /* if($this->getPreco() !== ""){
