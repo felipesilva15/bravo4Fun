@@ -3,18 +3,12 @@
     require_once("../class/produtoImagem.php");
     require_once("../class/Categoria.php");
     require_once("../class/Sql.php");
-<<<<<<< HEAD
     // require_once("../class/produtoEstoque.php"); //Esse ainda a Laysa irá criar
-=======
->>>>>>> 48bfc0ddd54c143b358ac28b912823aea1eb377d
     require_once("../class/produto.php");
     
     $produto = new Produto();
     $categorias = new Categoria();
-<<<<<<< HEAD
     // $estoque = new ProdutoEstoque(); //Esse ainda a Laysa irá criar
-=======
->>>>>>> 48bfc0ddd54c143b358ac28b912823aea1eb377d
     $categorias = $categorias->getCategorias();
 
     $produto->setId(isset($_GET["id"]) ? $_GET["id"] : 0);

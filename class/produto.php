@@ -119,7 +119,6 @@ class Produto{
             $sqlWhere = " WHERE " . substr($sqlWhere, 5);
         }
 
-<<<<<<< HEAD
         $query = "  SELECT 
                         PRO.*, 
                         CAT.CATEGORIA_NOME, 
@@ -131,17 +130,7 @@ class Produto{
                     $sqlWhere  
                     ORDER BY 
                         PRODUTO_ID DESC";
-=======
-        $query = "SELECT 
-                    PRO.*, 
-                    CATEGORIA_NOME, 
-                    EST.PRODUTO_QTD
-                  FROM PRODUTO PRO 
-                  LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID=PRO.CATEGORIA_ID 
-                  LEFT JOIN PRODUTO_ESTOQUE EST ON EST.PRODUTO_ID = PRO.PRODUTO_ID
-                  $sqlWhere                    
-                  ORDER BY PRODUTO_ID DESC";
->>>>>>> 48bfc0ddd54c143b358ac28b912823aea1eb377d
+
         $data = $sql->select($query, $params);
 
 

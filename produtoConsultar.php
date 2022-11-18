@@ -58,9 +58,9 @@
                                     <input name="nome" maxlength="100" type="text" class="form-control" placeholder="Digite..." autocomplete="off" value="<?php echo isset($_GET["nome"]) ? $_GET["nome"] : "" ?>">
                                 </div>
                                 <div class="col-md-5">
-                                    <label class="form-label-custom" for="SELECT">Categoria</label>
+                                    <label class="form-label-custom" for="CATEGORIA_ID">Categoria</label>
                                     <select class="form-select select2AutoConfig" select2Config="CATEGORIA" placeholder="Selecione" name="SELECT">
-                                        <option value="0">Selecione</option>
+                                        <option value="0">Selecione...</option>
                                     </select>
                                 </div>                                                                                                                                                                                             
                             </div>
