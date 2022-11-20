@@ -1,5 +1,4 @@
 <?php
-
   // TODO: Adicionar a lógica e funções na classe de produtos
   require_once("../config.php");
   require_once("../class/Sql.php");
@@ -110,7 +109,7 @@
 </head>
 <body>
   <?php
-    include_once("header.html");
+    include_once("header.php");
   ?>
   <main class="full-height">
     <div class="row g-3 mx-4 my-4">

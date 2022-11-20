@@ -16,7 +16,7 @@
 </head>
 <body class="default-height-body">
     <?php
-        include_once("views/header.html");
+        include_once("views/header.php");
     ?>
     <main class="full-height">
         <div class="m-3">
