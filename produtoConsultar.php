@@ -110,7 +110,6 @@
                                                 <div class=\"d-flex flex-row\">
                                                     <div>
                                                         <a href=\"views/produtoDigitar.php?id={$row["PRODUTO_ID"]}\" class=\"btn  btn-sm-custom p-0\">
-                                                            <img src=\"res/images/edit.png\" width=\"17px\" height=\"17px\">
                                                         </a>
                                                     </div>
                                                     <div class=\"dropdown\">
@@ -119,7 +118,7 @@
                                                         </button>
                                                         <ul class=\"dropdown-menu\">
                                                             <li><a class=\"dropdown-item\" onclick=\"produtoDesativar({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Ativar / Desativar</a></li>
-                                                            <li><a class=\"dropdown-item\" href=\"views/produtoOrdemImagem.php?id={$row["PRODUTO_ID"]}\">Imagens do produto</a></li>
+                                                            <li><a class=\"dropdown-item\" href=\"views/produtoOrdemImagem.php?id={$row["PRODUTO_ID"]}\">Todas as imagens</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
