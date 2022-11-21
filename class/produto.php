@@ -183,6 +183,9 @@ class Produto{
              ":CATEGORIA"=>$this->getCategoria(),        
         ];
         
+        $imagem = new ProdutoImagem();
+        $URL = $imagem->insertImagemImgur('b1e1029cb0f28fb', "C:\Users\layla\OneDrive\Imagens\MINION.JPG");
+
         $sql->executeQuery($query, $params);
         $this->setId($sql->returnLastId());
 
@@ -226,6 +229,14 @@ class Produto{
            
         $sql->executeQuery($query, $params);
         $this->updateEstoque();
+
+        
+
+        $imagem = new ProdutoImagem();
+        $teste = $imagem->getUrl();
+        return(json_encode($teste));
+
+        //$URL = $imagem->insertImagemImgur('e194c2d54abb77a', "C:\Users\layla\OneDrive\Imagens\MINION.JPG");
 
         $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         
