@@ -34,7 +34,7 @@
 </head>
 <body class="default-height-body">
     <?php
-        include_once("header.html");
+        include_once("header.php");
     ?>
     <main class="full-height">
         <div class="m-3">

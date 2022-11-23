@@ -1,3 +1,7 @@
+<?php
+    header("Cache-control: no-cache, no-store, must-revalidate");
+?>
+
 <header id="header">
     <nav id="nav">
     <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">
