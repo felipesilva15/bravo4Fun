@@ -90,6 +90,8 @@
                                         $acaoAtivo = $row["PRODUTO_ATIVO"] ?? 1 == 1 ? "DESATIVAR" : "ATIVAR";
                                         $produto = substr($row["PRODUTO_NOME"], 0, 20);
                                         $desc = substr($row["PRODUTO_DESC"], 0, 50);
+                                        $desc .= (strlen($row["PRODUTO_DESC"]) > 50) ? "..." : "";
+
                                         echo "
                                         <tr {$styleInativo}>
                                             <td>{$row["PRODUTO_ID"]}</td>  
@@ -108,7 +110,9 @@
                                             <td>
                                                 <div class=\"d-flex flex-row\">
                                                     <div>
-                                                        <a href=\"views/produtoDigitar.php?id={$row["PRODUTO_ID"]}\" class=\"btn  btn-sm-custom p-0\"></a>
+                                                        <a href=\"views/produtoDigitar.php?id={$row["PRODUTO_ID"]}\" class=\"btn  btn-sm-custom p-0\">
+                                                            <img src=\"res/images/edit.png\" width=\"17px\" height=\"17px\">
+                                                        </a>
                                                     </div>
                                                     <div class=\"dropdown\">
                                                         <button class=\"btn btn-sm-custom dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">

@@ -56,8 +56,6 @@
                                   GROUP BY
                                     COALESCE(CATEGORIA_ID, 0),
                                     COALESCE(CAT.CATEGORIA_NOME, '')
-                                  ORDER BY
-                                    COUNT(1) DESC
                                   LIMIT 5");
 
   $dataStorePerCategory = $sql->select("SELECT
@@ -204,9 +202,9 @@
                       <th>ID</th>
                       <th>Produto</th>
                       <th>Categoria</th> 
-                      <th>Valor unit.</th>    
+                      <th>Valor unit.</th>   
+                      <th>Qtd. Total</th>  
                       <th>Valor total</th>   
-                      <th>Qtd. Total</th> 
                     </tr>    
                   </thead>
                   <tbody class="table-group-divider">
@@ -219,8 +217,8 @@
                           <td>{$row["DS_PRODUTO"]}</td>
                           <td>{$row["DS_CATEGORIA"]}</td>
                           <td class=\"textNumber textMoneySymbol\">{$row["VL_PREUNI"]}</td>
-                          <td class=\"textNumber textMoneySymbol\">{$row["VL_PRECOTOTAL"]}</td>
                           <td class=\"textNumber\">{$row["QT_ESTOQUETOTAL"]}</td>
+                          <td class=\"textNumber textMoneySymbol\">{$row["VL_PRECOTOTAL"]}</td>
                         </tr>
                         ";
                       }
