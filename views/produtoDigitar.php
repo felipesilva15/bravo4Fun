@@ -46,49 +46,31 @@
                     <form id="form-js" action="<?php echo $acao == "C" ? "produtoIncluir.php" : "produtoAlterar.php" ?>" method="post" redirect="produtoConsultar.php">                    
                         <div class="row g-3">
                             <input name="PRODUTO_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0 ?>">
-                            <div class="col-12 col-md-9 row g-3 me-2 mt-0 mb-4">
-                                <div class="col-12">
-                                    <label class="form-label-custom" for="PRODUTO_NOME">Nome <span class="required">*</span></label>
-                                    <input name="PRODUTO_NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite..." value="<?php echo $produto->getNome()?>">
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label-custom" for="CATEGORIA_ID">Categoria <span class="required">*</span></label>
-                                    <select class="form-select select2AutoConfig" select2Config="CATEGORIA" select2ValueToSelect="<?php echo $produto->getCategoria()?>" name="CATEGORIA_ID">
-                                        <option value="0"></option>
-                                    </select>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label-custom" for="PRODUTO_QTD">Qtd. em estoque</label>
-                                    <input name="PRODUTO_QTD" min="0" type="text" class="form-control inputNumber" decimalPlaces="0" placeholder="Digite..." value="<?php  echo $estoque->getQuantidade() != 0 ? $estoque->getQuantidade() : "" ?>">                 
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label-custom" for="PRODUTO_PRECO">Preço <span class="required">*</span></label>
-                                    <input name="PRODUTO_PRECO" maxlength="6" required type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getPreco() != 0 ? $produto->getPreco() : "" ?>">
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <label class="form-label-custom" for="PRODUTO_DESCONTO">Desconto<span></span></label>
-                                    <input name="PRODUTO_DESCONTO" maxlength="6" type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getDesconto() != 0 ? $produto->getDesconto() : "" ?>" >
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label-custom" for="PRODUTO_DESC">Descrição<span></span></label>
-                                    <textarea name="PRODUTO_DESC" maxlength="1000" rows="7" type="text" class="form-control" placeholder="Digite..." value="" ><?php echo $produto->getDesc() ?></textarea>
-                                </div>
+                            <div class="col-12">
+                                <label class="form-label-custom" for="PRODUTO_NOME">Nome <span class="required">*</span></label>
+                                <input name="PRODUTO_NOME" maxlength="500" required type="text" class="form-control" placeholder="Digite..." value="<?php echo $produto->getNome()?>">
                             </div>
-                            <div class="col-12 col-md-3">
-                                    <div class="containerImagePreview">
-                                        <div class="imagePreview" id="imagePreview"></div>
-                                    </div>
-                                
-                                    <input name="INPUTFILE" id="inputFileImage" accept="image/*" type="file">
-                                    <label for="inputFileImage" class="btn btn-secondary">
-                                        <img src="../res/images/upload.png" class="iconsImagePreview">
-                                    </label>                                
-                                    <button class="btn btn-secondary" id="btnZoomImage">
-                                        <img src="../res/images/zoom.png" class="iconsImagePreview">
-                                    </button>
-                                    <button class="btn btn-secondary" id="btnClearImage">
-                                        <img src="../res/images/delete.png" class="iconsImagePreview">
-                                    </button>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label-custom" for="CATEGORIA_ID">Categoria <span class="required">*</span></label>
+                                <select class="form-select select2AutoConfig" select2Config="CATEGORIA" select2ValueToSelect="<?php echo $produto->getCategoria()?>" name="CATEGORIA_ID">
+                                    <option value="0"></option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label-custom" for="PRODUTO_QTD">Qtd. em estoque</label>
+                                <input name="PRODUTO_QTD" min="0" type="text" class="form-control inputNumber" decimalPlaces="0" placeholder="Digite..." value="<?php  echo $estoque->getQuantidade() != 0 ? $estoque->getQuantidade() : "" ?>">                 
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label-custom" for="PRODUTO_PRECO">Preço <span class="required">*</span></label>
+                                <input name="PRODUTO_PRECO" maxlength="6" required type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getPreco() != 0 ? $produto->getPreco() : "" ?>">
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <label class="form-label-custom" for="PRODUTO_DESCONTO">Desconto<span></span></label>
+                                <input name="PRODUTO_DESCONTO" maxlength="6" type="text" class="form-control inputNumber" placeholder="Digite..." value="<?php echo $produto->getDesconto() != 0 ? $produto->getDesconto() : "" ?>" >
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label-custom" for="PRODUTO_DESC">Descrição<span></span></label>
+                                <textarea name="PRODUTO_DESC" maxlength="1000" rows="7" type="text" class="form-control" placeholder="Digite..." value="" ><?php echo $produto->getDesc() ?></textarea>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-success mx-1" id="btnOk"><?php echo $acao == "C" ? "Cadastrar" : "Alterar" ?></button>

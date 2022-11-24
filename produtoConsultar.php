@@ -102,15 +102,13 @@
                                             <td>
                                             <div class=\"btn  btn-sm-custom p-0\" id=\"btnZoomImage\">
                                                 <a onclick=\"produtoZoomImagem('{$row["IMAGEM_URL"]}')\">Clique para ver</a>
-                                                <img src=\"res/images/imagem.png\" class=\"iconsImagePreview\">
                                             </button>
                                             </div>
                                             </td>
                                             <td>
                                                 <div class=\"d-flex flex-row\">
                                                     <div>
-                                                        <a href=\"views/produtoDigitar.php?id={$row["PRODUTO_ID"]}\" class=\"btn  btn-sm-custom p-0\">
-                                                        </a>
+                                                        <a href=\"views/produtoDigitar.php?id={$row["PRODUTO_ID"]}\" class=\"btn  btn-sm-custom p-0\"></a>
                                                     </div>
                                                     <div class=\"dropdown\">
                                                         <button class=\"btn btn-sm-custom dropdown-toggle\" type=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">

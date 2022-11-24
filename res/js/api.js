@@ -2,7 +2,8 @@ const api = {};
 
 let protocol = window.location.protocol;
 let host = window.location.hostname;
-let urlBase = `${protocol}//${host}/bravo4Fun/`;
+let port = window.location.port && window.location.port != '' ? ':' + window.location.port : ''; 
+let urlBase = `${protocol}//${host}${port}/bravo4Fun/`;
 
 // Realiza uma requisição de um arquivo do projeto sem retornar um conjunto de dados
 api.request = (url, method, data) => {
