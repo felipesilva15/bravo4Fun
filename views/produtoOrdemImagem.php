@@ -36,7 +36,7 @@
                     <form id="form-js" action="produtoOrdemImagem.php" method="post">
                         <div class="row g-3">
                             <input name="PRODUTO_ID" id="PRODUTO_ID" required type="hidden" class="form-control" placeholder="" value="<?php echo isset($_GET["id"]) ? $_GET["id"] : 0?>">
-                            <div class="box p-3 margin-0">
+                            <div class="p-3 margin-0">
                                 <div class="mb-3">
                                     <h4>Imagens descartadas</h4>
                                 </div>
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="box p-3 margin-0">
+                            <div class="p-3 margin-0">
                                 <div class="mb-3">
                                     <h4>Imagens selecionadas</h4>
                                 </div>
