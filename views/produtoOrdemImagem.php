@@ -27,7 +27,7 @@
         include_once("header.php");
     ?>
     <main class="full-height">
-        <div class="m-3">
+        <div class="m-3 pb-5">
             <div class="box box-dig p-2 margin-0">
                 <div class="my-3">
                     <h3>Produto - Imagens e ordens</h3>
@@ -86,6 +86,9 @@
             </div>
         </div>
     </main>
+    <?php
+        include_once("footerContent.php");
+    ?>
 </body>
     <?php
         include_once("footer.html");

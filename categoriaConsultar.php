@@ -15,7 +15,7 @@
         include_once("views/header.php");
     ?>
     <main class="full-height">
-        <div class="m-3">
+        <div class="m-3 pb-5">
             <div class="box box-read p-2 margin-0">
                 <div class="my-3">
                     <h3>Categoria - Consultar</h3>
@@ -108,6 +108,9 @@
             </div>
         </div>
     </main>
+    <?php
+        include_once("views/footerContent.php");
+    ?>
 </body>
     <?php
         include_once("views/footer.html");
