@@ -55,8 +55,6 @@
                                   GROUP BY
                                     COALESCE(CATEGORIA_ID, 0),
                                     COALESCE(CAT.CATEGORIA_NOME, '')
-                                  ORDER BY
-                                    COUNT(1) DESC
                                   LIMIT 5");
 
   $dataStorePerCategory = $sql->select("SELECT
@@ -101,7 +99,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu</title>
+  <title>Bravo 4 Fun</title>
   <link rel="shortcut icon" href="/bravo4Fun/res/images/logo.ico">
   <link rel="stylesheet" href="/bravo4Fun/res/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="/bravo4Fun/res/css/global.css">
@@ -112,7 +110,7 @@
     include_once("header.php");
   ?>
   <main class="full-height">
-    <div class="row g-3 mx-4 my-4">
+    <div class="row g-3 mx-4 my-4 pb-5">
       <div class="row g-3">
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
@@ -203,9 +201,9 @@
                       <th>ID</th>
                       <th>Produto</th>
                       <th>Categoria</th> 
-                      <th>Valor unit.</th>    
-                      <th>Valor total</th>   
-                      <th>Qtd. Total</th> 
+                      <th>Valor unit.</th>
+                      <th>Qtd. Total</th>
+                      <th>Valor total</th>
                     </tr>    
                   </thead>
                   <tbody class="table-group-divider">
@@ -218,8 +216,8 @@
                           <td>{$row["DS_PRODUTO"]}</td>
                           <td>{$row["DS_CATEGORIA"]}</td>
                           <td class=\"textNumber textMoneySymbol\">{$row["VL_PREUNI"]}</td>
-                          <td class=\"textNumber textMoneySymbol\">{$row["VL_PRECOTOTAL"]}</td>
                           <td class=\"textNumber\">{$row["QT_ESTOQUETOTAL"]}</td>
+                          <td class=\"textNumber textMoneySymbol\">{$row["VL_PRECOTOTAL"]}</td>
                         </tr>
                         ";
                       }
@@ -234,6 +232,9 @@
       </div>
     </div>
   </main>
+  <?php
+        include_once("footerContent.php");
+    ?>
   <?php
     include_once("footer.html");
   ?>

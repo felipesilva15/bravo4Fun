@@ -13,7 +13,7 @@
         <li><a  href="/bravo4Fun/adminConsultar.php">Administrador</a></li>
      </ul>
      </nav>
-     <a id="logo" href="/bravo4Fun/views/menu.php">Bravo4 Fun</a>
+     <a id="logo" href="/bravo4Fun/views/menu.php">Bravo 4 Fun</a>
      <div class="dropdown">
         <a id="btndrop btndrop-secondary dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <button aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-expanded="false">    

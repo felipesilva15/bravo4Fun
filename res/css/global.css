@@ -1,11 +1,8 @@
-footer, .login-header{
+.login-footer, .login-header{
     box-sizing: border-box;
     background-color: #1d2124;
     height: 50px;
     color: #ffffff;
-}
-
-.login-footer, .login-header{
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -96,4 +93,10 @@ form div.div-inline-input .inline-input:valid ~ label{
     padding: 1px 5px; 
     font-size: 14px; 
     border-radius: 0.25rem;
+}
+
+.link-card-contribuitor{
+    color: #000000;
+    font-weight: bold;
+    font-size: 1.2em;
 }
