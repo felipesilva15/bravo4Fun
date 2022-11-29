@@ -21,7 +21,6 @@
             </button>
         </a>
         <ul id="dropdown-menu" class="dropdown-menu pb-3 pt-3">
-            <li><a href="/bravo4Fun/views/meuPerfil.php">Meu Perfil</a></li>
             <li><a href="#" onclick="logout()">Logout</a></li>
         </ul>
     </div>

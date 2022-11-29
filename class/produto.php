@@ -1,7 +1,7 @@
 <?php
 
 class Produto{
-    private $id = 0, $nome = "", $ativo = 0, $desc = "", $categoria = 0, $preco = 0, $desconto = 0, $quantidade=0;
+    private $id = 0, $nome = "", $ativo = 0, $desc = "", $categoria = 0, $preco = 0, $desconto = 0;
    
     public function getId():int{
         return($this->id);
@@ -52,12 +52,6 @@ class Produto{
     public function setAtivo($ativo){
         $this->ativo = $ativo ?? 1;
     }
-    public function getQuantidade():int{
-        return($this->quantidade);
-    }    
-    public function setQuantidade($quantidade){
-        $this->quantidade = $quantidade ?? 0;
-    }
 
     public function setData($data = []){
         $this->setId(isset($data["PRODUTO_ID"]) ? $data["PRODUTO_ID"] : 0);
@@ -67,7 +61,6 @@ class Produto{
         $this->setPreco(isset($data["PRODUTO_PRECO"]) ? $data["PRODUTO_PRECO"] : 0);
         $this->setDesconto(isset($data["PRODUTO_DESCONTO"]) ? $data["PRODUTO_DESCONTO"] : 0);
         $this->setAtivo(isset($data["PRODUTO_ATIVO"]) ? $data["PRODUTO_ATIVO"] : 1);
-        $this->setQuantidade(isset($data["PRODUTO_QTD"]) ? $data["PRODUTO_QTD"] : 0);
     }
 
     public function unsetData(){
@@ -78,7 +71,6 @@ class Produto{
         $this->setPreco(0);
         $this->setDesconto(0);
         $this->setAtivo(0);
-        $this->setQuantidade(0);
     }
 
     public function getProdutos($exibirInativo = 0){
@@ -88,25 +80,17 @@ class Produto{
         $params = [];
 
         if($this->getId()!== 0){
-            $sqlWhere .= " AND PRODUTO_ID = :ID";
+            $sqlWhere .= " AND PRO.PRODUTO_ID = :ID";
             $params[":ID"] = $this->getId();
         }       
         if($this->getNome() !== ""){
-            $sqlWhere .= " AND PRODUTO_NOME LIKE :NOME";
+            $sqlWhere .= " AND PRO.PRODUTO_NOME LIKE :NOME";
             $params[":NOME"] = "%{$this->getNome()}%";
         }
         if($this->getCategoria() != 0){
             $sqlWhere .= " AND PRO.CATEGORIA_ID = :CATEGORIA";
             $params[":CATEGORIA"] = $this->getCategoria();
         }
-       /* if($this->getPreco() !== ""){
-            $sqlWhere .= " AND PRODUTO_PRECO LIKE :PRECO";
-            $params[":PRECO"] = "%{$this->getPreco()}%";
-        }
-        if($this->getDesconto() !== ""){
-            $sqlWhere .= " AND PRODUTO_DESCONTO LIKE :DESCONTO";
-            $params[":DESCONTO"] = "%{$this->getDesconto()}%";
-        }*/
         if($exibirInativo == 0){
             $sqlWhere .= " AND COALESCE(PRODUTO_ATIVO, 1) = 1";
         }
@@ -117,18 +101,17 @@ class Produto{
 
         $query = "  SELECT 
                         PRO.*, 
-                        CAT.CATEGORIA_NOME, 
-                        PE.PRODUTO_QTD
+                        COALESCE(CAT.CATEGORIA_NOME, '') AS CATEGORIA_NOME, 
+                        COALESCE(IMG.IMAGEM_URL, '') AS IMAGEM_URL,
+                        COALESCE(EST.PRODUTO_QTD, 0) AS PRODUTO_QTD
                     FROM PRODUTO PRO 
-                    LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID=PRO.CATEGORIA_ID 
-                    LEFT JOIN PRODUTO_IMAGEM PIMG ON PIMG.PRODUTO_ID=PRO.PRODUTO_ID AND PIMG.IMAGEM_ORDEM=0
-                    LEFT JOIN PRODUTO_ESTOQUE PE ON PE.PRODUTO_ID=PRO.PRODUTO_ID 
+                    LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID = PRO.CATEGORIA_ID 
+                    LEFT JOIN PRODUTO_IMAGEM IMG ON IMG.PRODUTO_ID = PRO.PRODUTO_ID AND IMG.IMAGEM_ORDEM = 0
+                    LEFT JOIN PRODUTO_ESTOQUE EST ON EST.PRODUTO_ID = PRO.PRODUTO_ID 
                     $sqlWhere  
                     ORDER BY 
                         PRODUTO_ID DESC";
-
         $data = $sql->select($query, $params);
-
 
         return($data);
     }
@@ -136,9 +119,7 @@ class Produto{
     public function loadById(){
         $sql = new Sql();
     
-        $query = "SELECT PRO.*, EST.PRODUTO_QTD FROM PRODUTO PRO
-                  LEFT JOIN PRODUTO_ESTOQUE EST ON EST.PRODUTO_ID = PRO.PRODUTO_ID
-                  WHERE PRO.PRODUTO_ID = :ID";
+        $query = "SELECT * FROM PRODUTO WHERE PRODUTO_ID = :ID";
         $params = [
             ":ID"=>$this->getId()
         ];
@@ -179,8 +160,8 @@ class Produto{
              ":CATEGORIA"=>$this->getCategoria(),        
         ];
         
-        $imagem = new ProdutoImagem();
-        $URL = $imagem->insertImagemImgur('b1e1029cb0f28fb', "C:\Users\layla\OneDrive\Imagens\MINION.JPG");
+        // $imagem = new ProdutoImagem();
+        // $URL = $imagem->insertImagemImgur('b1e1029cb0f28fb', "C:\Users\layla\OneDrive\Imagens\MINION.JPG");
 
         $sql->executeQuery($query, $params);
         $this->setId($sql->returnLastId());
@@ -224,13 +205,13 @@ class Produto{
         ];                  
            
         $sql->executeQuery($query, $params);
-        $this->updateEstoque();
+        // $this->updateEstoque();
 
         
 
-        $imagem = new ProdutoImagem();
-        $teste = $imagem->getUrl();
-        return(json_encode($teste));
+        // $imagem = new ProdutoImagem();
+        // $teste = $imagem->getUrl();
+        // return(json_encode($teste));
 
         //$URL = $imagem->insertImagemImgur('e194c2d54abb77a', "C:\Users\layla\OneDrive\Imagens\MINION.JPG");
 
@@ -239,46 +220,63 @@ class Produto{
         return($response);
     }
 
-    public function updateEstoque(){
-        $sql = new Sql();
+    // public function updateEstoque(){
+    //     $sql = new Sql();
     
-        $query = "SELECT * FROM PRODUTO_ESTOQUE WHERE PRODUTO_ID = :ID";
-        $params = [
-            ":ID"=>$this->getId(),
-        ];
+    //     $query = "SELECT * FROM PRODUTO_ESTOQUE WHERE PRODUTO_ID = :ID";
+    //     $params = [
+    //         ":ID"=>$this->getId(),
+    //     ];
 
-        $data = $sql->select($query, $params);
+    //     $data = $sql->select($query, $params);
 
-        if(count($data) == 0){           
-            $query = "INSERT INTO PRODUTO_ESTOQUE (PRODUTO_ID, PRODUTO_QTD) VALUES (:ID, :QTD)";
-        }else{            
-            $query = "UPDATE PRODUTO_ESTOQUE SET PRODUTO_QTD = :QTD WHERE PRODUTO_ID = :ID";
-        }        
+    //     if(count($data) == 0){           
+    //         $query = "INSERT INTO PRODUTO_ESTOQUE (PRODUTO_ID, PRODUTO_QTD) VALUES (:ID, :QTD)";
+    //     }else{            
+    //         $query = "UPDATE PRODUTO_ESTOQUE SET PRODUTO_QTD = :QTD WHERE PRODUTO_ID = :ID";
+    //     }        
                      
-       $params = [
-            ":ID"=>$this->getId(),
-            ":QTD"=>$this->getQuantidade(),
-        ];                  
+    //    $params = [
+    //         ":ID"=>$this->getId(),
+    //         ":QTD"=>$this->getQuantidade(),
+    //     ];                  
 
-        $sql->executeQuery($query, $params);
+    //     $sql->executeQuery($query, $params);
 
-        $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
+    //     $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         
-        return($response);
-    }  
+    //     return($response);
+    // }  
 
     public function desativar(){
         $sql = new Sql();
 
         $this->loadById();
- 
+
         $query = "UPDATE PRODUTO SET PRODUTO_ATIVO = CAST(:ATIVO AS SIGNED) WHERE PRODUTO_ID = :ID";
         $params = [
             ":ID"=>$this->getId()
         ];
 
         if($this->getAtivo() == false){
-            
+            if($this->validarProdutoExistente()){
+                $response = json_encode([
+                    "status"=> 400, 
+                    "title"=>"Dado inválido", 
+                    "message"=>"Já existe um produto cadastrado com este nome. Não será possível ativá-lo.",
+                    "items"=>[]
+                ]);
+            }
+    
+            if(!$this->validarCategoriaExistente()){
+                $response = json_encode([
+                    "status"=> 400, 
+                    "title"=>"Dado inválido", 
+                    "message"=>"Categoria do produto inválida ou inativa no sistema. Ajuste a mesma antes de ativar o produto.",
+                    "items"=>[]
+                ]);
+            }
+
             if(isset($response) && $response !== ""){
                 return($response);
             }
@@ -294,19 +292,25 @@ class Produto{
         
         return($response);
     }
-
     public function validarProduto(){
         $response = "";
 
-        if(!isset($this->nome) || $this->nome == ""){
-            $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome do produto não foi preenchido."];
-         } else{
-            $response = ["status"=> 200, "title"=>"Dado válido", "message"=>"Ok"];
+        if($this->getNome() == ""){
+            $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome não foi preenchido."];
+        } elseif ($this->getCategoria() == 0) {
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de categoria não foi preenchido."];
+        } elseif ($this->getPreco() == 0 ){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de preço não foi preenchido."];
+        } elseif(!$this->validarCategoriaExistente()){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Categoria inválida ou inativa no sistema."];
+        } elseif($this->validarProdutoExistente()){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Já existe um produto cadastrado com este nome. Tente um nome diferente."];
+        } else{
+            $response = ["status"=> 200, "title"=>"Dado inválido", "message"=>"Ok"];
         }
 
         return($response);
     }
-
     private function validarProdutoExistente(){
         $sql = new Sql();
 
@@ -321,6 +325,21 @@ class Produto{
         $produtoRepetido = count($data) > 0 ? true : false; 
 
         return($produtoRepetido);
+    }
+
+    private function validarCategoriaExistente(){
+        $sql = new Sql();
+
+        $query = "SELECT CAT.CATEGORIA_ID FROM CATEGORIA CAT WHERE CAT.CATEGORIA_ID = :CATEGORIA AND COALESCE(CAT.CATEGORIA_ATIVO, 1) = 1";
+        $params = [
+            ":CATEGORIA"=>$this->getCategoria()
+        ];
+
+        $data = $sql->select($query, $params);
+
+        $categoriaExistente = count($data) > 0 ? true : false; 
+
+        return($categoriaExistente);
     }
     public function __toString():string{
         return(json_encode([
