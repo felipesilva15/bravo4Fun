@@ -95,12 +95,8 @@ class Produto{
             $sqlWhere .= " AND PRODUTO_NOME LIKE :NOME";
             $params[":NOME"] = "%{$this->getNome()}%";
         }
-        if($this->getDesc() !== ""){
-            $sqlWhere .= " AND PRODUTO_DESC LIKE :DESC";
-            $params[":DESC"] = "%{$this->getDesc()}%";
-        }
-        if($this->getCategoria() !== ""){
-            $sqlWhere .= " AND CATEGORIA_ID = :CATEGORIA";
+        if($this->getCategoria() != 0){
+            $sqlWhere .= " AND PRO.CATEGORIA_ID = :CATEGORIA";
             $params[":CATEGORIA"] = $this->getCategoria();
         }
        /* if($this->getPreco() !== ""){

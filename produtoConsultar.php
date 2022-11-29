@@ -79,7 +79,7 @@
 
                                     $produto->setId(isset($_GET["id"]) && $_GET["id"] !== "" ? $_GET["id"] : 0);
                                     $produto->setNome(isset($_GET["nome"]) ? $_GET["nome"] : "");   
-                                    $produto->setCategoria(isset($_GET["categoria"]) ? $_GET["categoria"] : "");   
+                                    $produto->setCategoria(isset($_GET["categoria"]) ? $_GET["categoria"] : 0);   
                                     $exibirInativo = isset($_GET["inativo"]) ? $_GET["inativo"] : 0;                                                                 
 
                                     $data = $produto->getProdutos($exibirInativo);                
@@ -138,7 +138,7 @@
     </main>
 </body>
 <?php
-    include_once("footer.html");
+    include_once("views/footer.html");
 ?>
 <script>
     function produtoDesativar(id, acao){
