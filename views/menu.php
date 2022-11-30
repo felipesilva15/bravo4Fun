@@ -1,4 +1,5 @@
 <?php
+
   // TODO: Adicionar a lógica e funções na classe de produtos
   require_once("../config.php");
   require_once("../class/Sql.php");
@@ -110,7 +111,7 @@
     include_once("header.php");
   ?>
   <main class="full-height">
-    <div class="row g-3 mx-4 my-4 pb-5">
+    <div class="row g-3 mx-4 my-4">
       <div class="row g-3">
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
@@ -201,9 +202,9 @@
                       <th>ID</th>
                       <th>Produto</th>
                       <th>Categoria</th> 
-                      <th>Valor unit.</th>
-                      <th>Qtd. Total</th>
-                      <th>Valor total</th>
+                      <th>Valor unit.</th>   
+                      <th>Qtd. Total</th>  
+                      <th>Valor total</th>   
                     </tr>    
                   </thead>
                   <tbody class="table-group-divider">
@@ -235,9 +236,6 @@
   <?php
         include_once("footerContent.php");
     ?>
-  <?php
-    include_once("footer.html");
-  ?>
   <script src="../node_modules/chart.js/dist/chart.min.js"></script>
   <script>
     const ctx1 = document.getElementById('productsPerCategoryChart').getContext('2d');
@@ -308,4 +306,7 @@
     });
   </script>
 </body>
+  <?php
+      include_once("footer.html");
+    ?>
 </html>

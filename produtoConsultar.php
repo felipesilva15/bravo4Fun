@@ -90,22 +90,22 @@
                                         $acaoAtivo = $row["PRODUTO_ATIVO"] ?? 1 == 1 ? "DESATIVAR" : "ATIVAR";
                                         $produto = substr($row["PRODUTO_NOME"], 0, 20);
                                         $desc = substr($row["PRODUTO_DESC"], 0, 50);
+                                        $desc .= (strlen($row["PRODUTO_DESC"]) > 50) ? "..." : "";
                                         echo "
                                         <tr {$styleInativo}>
                                             <td>{$row["PRODUTO_ID"]}</td>  
                                             <td>{$produto}</td>                                       
                                             <td>{$desc}</td>  
                                             <td>{$row["CATEGORIA_NOME"]}</td>
-                                            <td>{$row['PRODUTO_QTD']}</td>
-                                            <td>{$row["PRODUTO_PRECO"]}</td>
-                                            <td>{$row["PRODUTO_DESCONTO"]}</td>
+                                            <td class=\"textNumber\" decimalPlaces=\"0\">{$row["PRODUTO_QTD"]}</td>
+                                            <td class=\"textNumber textMoneySymbol\">{$row["PRODUTO_PRECO"]}</td>
+                                            <td class=\"textNumber textMoneySymbol\">{$row["PRODUTO_DESCONTO"]}</td>
                                             <td>
-                                            <div class=\"btn  btn-sm-custom p-0\" id=\"btnZoomImage\">
-                                            <button class=\"btn btn-sm-custom\">
-                                                <a onclick=\"imageZoom({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Clique para ver</a>
-                                                
-                                            </button>
-                                            </div>
+                                                <div class=\"btn  btn-sm-custom p-0\" id=\"btnZoomImage\">
+                                                    <button class=\"btn btn-sm-custom\">
+                                                        <a onclick=\"produtoZoomImagem('{$row["IMAGEM_URL"]}')\">Clique para ver</a>
+                                                    </button>
+                                                </div>
                                             </td>
                                             <td>
                                                 <div class=\"d-flex flex-row\">
@@ -120,7 +120,7 @@
                                                         </button>
                                                         <ul class=\"dropdown-menu\">
                                                             <li><a class=\"dropdown-item\" onclick=\"produtoDesativar({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Ativar / Desativar</a></li>
-                                                            <li><a class=\"dropdown-item\" onclick=\"readImage({$row["PRODUTO_ID"]}, '{$acaoAtivo}')\">Imagens</a></li>
+                                                            <li><a class=\"dropdown-item\" href=\"views/produtoOrdemImagem.php?id={$row["PRODUTO_ID"]}\">Todas as imagens</a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -140,9 +140,9 @@
         include_once("views/footerContent.php");
     ?>
 </body>
-<?php
-    include_once("views/footer.html");
-?>
+    <?php
+        include_once("views/footer.html");
+    ?>
 <script>
     function produtoDesativar(id, acao){
         cfgModal = modal.config();
@@ -170,6 +170,18 @@
                     modal.show(cfgModalError);
                 });
         };
+
+        modal.show(cfgModal);
+    }
+    function produtoZoomImagem(urlImage){
+        if(urlImage == ""){
+            urlImage = "/bravo4Fun/res/images/produto-sem-foto.jpg"
+        }
+
+        cfgModal = modal.config();
+
+        cfgModal.type = "IMAGEZOOM";
+        cfgModal.extra1 = urlImage;
 
         modal.show(cfgModal);
     }

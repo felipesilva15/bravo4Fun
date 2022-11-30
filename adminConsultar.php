@@ -115,9 +115,9 @@
         include_once("views/footerContent.php");
     ?>
 </body>
-<?php
-    include_once("views/footer.html");
-?>
+    <?php
+        include_once("views/footer.html");
+    ?>
 <script>
     function adminDesativar(id, acao){
         cfgModal = modal.config();
