@@ -160,9 +160,6 @@ class Produto{
              ":CATEGORIA"=>$this->getCategoria(),        
         ];
         
-        // $imagem = new ProdutoImagem();
-        // $URL = $imagem->insertImagemImgur('b1e1029cb0f28fb', "C:\Users\layla\OneDrive\Imagens\MINION.JPG");
-
         $sql->executeQuery($query, $params);
         $this->setId($sql->returnLastId());
 
@@ -205,48 +202,11 @@ class Produto{
         ];                  
            
         $sql->executeQuery($query, $params);
-        // $this->updateEstoque();
-
-        
-
-        // $imagem = new ProdutoImagem();
-        // $teste = $imagem->getUrl();
-        // return(json_encode($teste));
-
-        //$URL = $imagem->insertImagemImgur('e194c2d54abb77a', "C:\Users\layla\OneDrive\Imagens\MINION.JPG");
 
         $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
         
         return($response);
     }
-
-    // public function updateEstoque(){
-    //     $sql = new Sql();
-    
-    //     $query = "SELECT * FROM PRODUTO_ESTOQUE WHERE PRODUTO_ID = :ID";
-    //     $params = [
-    //         ":ID"=>$this->getId(),
-    //     ];
-
-    //     $data = $sql->select($query, $params);
-
-    //     if(count($data) == 0){           
-    //         $query = "INSERT INTO PRODUTO_ESTOQUE (PRODUTO_ID, PRODUTO_QTD) VALUES (:ID, :QTD)";
-    //     }else{            
-    //         $query = "UPDATE PRODUTO_ESTOQUE SET PRODUTO_QTD = :QTD WHERE PRODUTO_ID = :ID";
-    //     }        
-                     
-    //    $params = [
-    //         ":ID"=>$this->getId(),
-    //         ":QTD"=>$this->getQuantidade(),
-    //     ];                  
-
-    //     $sql->executeQuery($query, $params);
-
-    //     $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);
-        
-    //     return($response);
-    // }  
 
     public function desativar(){
         $sql = new Sql();

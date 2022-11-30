@@ -8,6 +8,11 @@
     width: 100%;
 }
 
+.login-footer{
+    z-index: 999;
+}
+
+
 .login-header{
     top: 0;
 }

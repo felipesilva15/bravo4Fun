@@ -185,19 +185,29 @@ class Categoria{
             if($this->validarCategoriaExistente()){
                 $response = json_encode([
                     "status"=> 400, 
-                    "title"=>"Dado inválido", 
+                    "title"=>"Alteração não permitida", 
                     "message"=>"Já existe uma Categoria cadastrada com este nome.",
                     "items"=>[]
                 ]);
             }
 
-            if(isset($response) && $response !== ""){
-                return($response);
-            }
-
             $params[":ATIVO"] = 1;
         } else{
+            
+            if($this->validarProdutoVinculadoCategoria()){
+                $response = json_encode([
+                    "status"=> 400, 
+                    "title"=>"Alteração não permitida", 
+                    "message"=>"Não é possível desativar categoria pois existem produtos vinculados a ela.",
+                    "items"=>[]
+                ]);
+            }
+
             $params[":ATIVO"] = 0;
+        }
+
+        if(isset($response) && $response !== ""){
+            return($response);
         }
         
         $sql->executeQuery($query, $params);
@@ -237,6 +247,21 @@ class Categoria{
         $categoriaRepetida = count($data) > 0 ? true : false; 
 
         return($categoriaRepetida);
+    }
+
+    private function validarProdutoVinculadoCategoria(){
+        $sql = new Sql();
+
+        $query = "SELECT PRO.PRODUTO_ID FROM PRODUTO PRO WHERE PRO.CATEGORIA_ID = :CATEGORIA AND COALESCE(PRO.PRODUTO_ATIVO, 1) = 1";
+        $params = [
+            ":CATEGORIA"=>$this->getId()
+        ];
+
+        $data = $sql->select($query, $params);
+
+        $categoriaExistente = count($data) > 0 ? true : false; 
+
+        return($categoriaExistente);
     }
 
     public function __toString():string{
