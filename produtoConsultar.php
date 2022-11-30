@@ -88,13 +88,14 @@
                                         $row["PRODUTO_ATIVO"] = $row["PRODUTO_ATIVO"] ?? 1;
                                         $styleInativo = $row["PRODUTO_ATIVO"] == 0 ? 'style="text-decoration: line-through;"' : "";
                                         $acaoAtivo = $row["PRODUTO_ATIVO"] ?? 1 == 1 ? "DESATIVAR" : "ATIVAR";
-                                        $produto = substr($row["PRODUTO_NOME"], 0, 20);
+
                                         $desc = substr($row["PRODUTO_DESC"], 0, 50);
                                         $desc .= (strlen($row["PRODUTO_DESC"]) > 50) ? "..." : "";
+
                                         echo "
                                         <tr {$styleInativo}>
                                             <td>{$row["PRODUTO_ID"]}</td>  
-                                            <td>{$produto}</td>                                       
+                                            <td>{$row["PRODUTO_NOME"]}</td>                                       
                                             <td>{$desc}</td>  
                                             <td>{$row["CATEGORIA_NOME"]}</td>
                                             <td class=\"textNumber\" decimalPlaces=\"0\">{$row["PRODUTO_QTD"]}</td>

@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="res/bootstrap/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="../res/images/logo.ico">
+    <link rel="stylesheet" href="../res/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awsome/4.7.0/css/font-awsome.min.css">
     <link rel="stylesheet" href="/bravo4Fun/res/css/global.css">
     <link rel="stylesheet" href="/bravo4Fun/res/css/menu.css">
     <link rel="stylesheet" href="/bravo4Fun/res/css/styleColaborators.css">
-    <title>Participantes - Projeto Bravo 4 Fun</title>
+    <title>Participantes - Bravo 4 Fun</title>
 </head>
 <body>
         <?php
@@ -21,7 +22,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="card felipe">
+                        <div class="card-custom felipe">
                             <div class="perfil">
                                 <div class="img2"><img src="../res/images/ImagesColaborators/felipe.jfif" alt="Felipe Silva"></div>
                                 <div class="main-text">
@@ -45,7 +46,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="card laysa">
+                        <div class="card-custom laysa">
                             <div class="perfil">
                                 <div class="img2"><img src="../res/images/ImagesColaborators/laysa.jfif" alt="Layza Lacerda"></div>
                                 <div class="main-text">
@@ -69,7 +70,7 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="card ewerton">
+                        <div class="card-custom ewerton">
                             <div class="perfil">
                                 <div class="img2"><img src="../res/images/ImagesColaborators/ewerton.jpg" alt="Ewerton Sobral"></div>
                                     <div class="main-text">

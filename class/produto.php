@@ -102,11 +102,19 @@ class Produto{
         $query = "  SELECT 
                         PRO.*, 
                         COALESCE(CAT.CATEGORIA_NOME, '') AS CATEGORIA_NOME, 
-                        COALESCE(IMG.IMAGEM_URL, '') AS IMAGEM_URL,
+                        COALESCE((
+                            SELECT 
+                                IMGAUX.IMAGEM_URL 
+                            FROM PRODUTO_IMAGEM IMGAUX 
+                            WHERE 
+                                    IMGAUX.PRODUTO_ID = PRO.PRODUTO_ID 
+                                AND IMGAUX.IMAGEM_ORDEM >= 0 
+                            ORDER BY 
+                                IMGAUX.IMAGEM_ORDEM 
+                            LIMIT 1), '') AS IMAGEM_URL,
                         COALESCE(EST.PRODUTO_QTD, 0) AS PRODUTO_QTD
                     FROM PRODUTO PRO 
                     LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID = PRO.CATEGORIA_ID 
-                    LEFT JOIN PRODUTO_IMAGEM IMG ON IMG.PRODUTO_ID = PRO.PRODUTO_ID AND IMG.IMAGEM_ORDEM = 0
                     LEFT JOIN PRODUTO_ESTOQUE EST ON EST.PRODUTO_ID = PRO.PRODUTO_ID 
                     $sqlWhere  
                     ORDER BY 
@@ -166,7 +174,6 @@ class Produto{
         if($this->getId() == 0){
             $response = json_encode(["status"=> 500, "title"=>"Erro inesperado", "message"=>"Ocorreu um erro ao cadastrar o produto. Tente novamente mais tarde."]);
         }else{
-            $this->updateEstoque();
             $this->loadById();
     
             $response = json_encode(["status"=> 200, "message"=>"OK", "items"=>[]]);

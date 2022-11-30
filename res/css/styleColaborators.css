@@ -9,7 +9,7 @@
 }
 
 body{
-    background: #ddd;
+    background: #f0f0f0;
 }
 header{
     background-color: rgb(41, 51, 51);
@@ -18,7 +18,7 @@ header{
 .profile-area{
     padding: 30px 0;
 }
-.card{
+.card-custom{
     display: flex;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     overflow: hidden;
@@ -56,22 +56,20 @@ header{
     height: 140px;
     border-radius: 50%;
     border: 7px solid #fff;
+    transition: .6s;
 }
 .felipe:hover .img2 img{
     border-color: #0f3d33;
-    transition: .7s;
     transform: translateY(-20px);
 }
 
 .laysa:hover .img2 img{
     border-color: #C42A2A;
-    transition: .7s;
     transform: translateY(-20px);
 }
 
 .ewerton:hover .img2 img{
     border-color: #126E82;
-    transition: .7s;
     transform: translateY(-20px);
 }
 

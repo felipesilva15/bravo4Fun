@@ -121,9 +121,6 @@
             </div>
         </div>
     </main>
-    <?php
-        include_once("footerContent.php");
-    ?>
 </body>
 <?php
     include_once("footer.html");
