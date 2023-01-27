@@ -1,8 +1,8 @@
 <?php
     require_once("../config.php");
     require_once("../class/Sql.php");
-    require_once("../class/produtoEstoque.php");
-    require_once("../class/produto.php");
+    require_once("../class/ProdutoEstoque.php");
+    require_once("../class/Produto.php");
     
     $produto = new Produto();
     $estoque = new ProdutoEstoque();
