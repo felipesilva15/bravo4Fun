@@ -63,7 +63,7 @@ function zoomImage() {
 
     cfgModal = modal.config();
 
-    cfgModal.type = "IMAGEZOOM";
+    cfgModal.type = "imageZoom";
     cfgModal.extra1 = fileImage;
 
     modal.show(cfgModal);

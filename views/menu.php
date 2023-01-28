@@ -110,9 +110,9 @@
   <?php
     include_once("header.php");
   ?>
-  <main class="full-height">
-    <div class="row g-3 mx-4 my-4">
-      <div class="row g-3">
+  <main class="full-height mb-5">
+    <div class="row g-3 ms-2 me-1 my-1">
+      <div class="row g-3 pe-0 mt-0">
         <div class="col-lg-3 col-md-6 col-12">
           <div class="box p-3 margin-0">
             <h4 class="card-title">Valor do estoque</h4>
@@ -183,7 +183,7 @@
               <h4>Quantidade de produtos por categoria</h4>
             </div>
             <div class="full-height d-flex justify-content-center align-items-center">
-              <div class="m-5 mt-5 pb-1" style="min-width: 450px; max-width: 600px;">
+              <div class="m-5 mt-5 pb-1" style="min-width: 415px; max-width: 600px;">
                 <canvas id="productsPerCategoryChart" width="50" height="50"></canvas>
               </div>
             </div>

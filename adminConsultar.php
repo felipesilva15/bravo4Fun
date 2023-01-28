@@ -14,7 +14,7 @@
     <?php
         include_once("views/header.php");
     ?>
-    <main class="full-height">
+    <main class="full-height mb-5">
         <div class="m-3 pb-5">
             <div class="box box-read p-2 margin-0">
                 <div class="my-3">

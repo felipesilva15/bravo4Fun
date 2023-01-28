@@ -15,16 +15,16 @@ a:hover {
 }
 
 #logo {
-    font-size: 30px;
-    text-transform: uppercase;
-    letter-spacing: 6px;
-    font-family: Arial, Helvetica, sans-serif;
-  }
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
 #header {
   box-sizing: border-box;
   height: 64px;
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -57,7 +57,7 @@ a:hover {
     display: block;
     position: absolute;
     width: 25vw;
-    top: 64px;
+    top: 63px;
     right: 75%;
     background: #1d2124;
     transition: 0.6s;
@@ -67,14 +67,14 @@ a:hover {
     overflow-y: hidden;
   }
   #nav.active #menu {
-    height: calc(100vh - 64px);
+    height: 100vh;
     visibility: visible;
     overflow-y: auto;
   }
   #menu a {
     padding: 1rem 0;
     margin: 0 1rem;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+    /* border-bottom: 2px solid rgba(0, 0, 0, 0.05); */
     font-family: Arial, Helvetica, sans-serif;
   }
   #btn-mobile {
@@ -112,6 +112,37 @@ a:hover {
     top: -7px;
   }
 }
+
+/* Celular */
+@media (max-width: 480px){
+	#logo {
+    font-size: 1.2rem;
+  }
+
+  #header{
+    padding: 0.3rem;
+  }
+
+  #menu{
+    width: 100vw;
+    right: 0;
+  }
+
+  .login-footer{
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 481px) and (max-width: 992px){
+	#menu{
+    width: 50vw;
+    right: 50%;
+  }
+}
+
+
+
 
 
 #dropdown-menu{

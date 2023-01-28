@@ -1,7 +1,7 @@
 function logout(){
     cfgModal = modal.config();
 
-    cfgModal.type = "CONFIRMCUSTOM";
+    cfgModal.type = "confirmCustom";
     cfgModal.title = "Atenção";
     cfgModal.extra1 = "Deseja mesmo fazer logout?";
     cfgModal.callback = () => {
@@ -16,7 +16,7 @@ function logout(){
 
                 cfgModalError = modal.config();
 
-                cfgModalError.type = "CONFIRMCUSTOM";
+                cfgModalError.type = "confirmCustom";
                 cfgModalError.title = "Atenção";
                 cfgModalError.body = "Deseja mesmo fazer logout";
 

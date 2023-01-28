@@ -23,9 +23,9 @@ modal.show = (cfgModal) => {
     let url = ""
 
     if(cfgModal.type !== "CUSTOM"){
-        url = `res/modals/${cfgModal.type.toLowerCase()}.html`;
+        url = `res/modals/${cfgModal.type}.html`;
     } else{
-        url = `res/modals/${cfgModal.body.toLowerCase()}.html`
+        url = `res/modals/${cfgModal.body}.html`
     }
     
     let request = api.requestArchive(url, "GET");
@@ -36,7 +36,7 @@ modal.show = (cfgModal) => {
 
             $("body").append(modalToDisplay);
 
-            switch (cfgModal.type) {
+            switch (cfgModal.type.toUpperCase()) {
                 case "INFO":
                     $(".modal-body").last().append(cfgModal.body);
 
