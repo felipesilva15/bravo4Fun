@@ -22,7 +22,7 @@ modal.show = (cfgModal) => {
     modalToDisplay = document.createElement("div");
     let url = ""
 
-    if(cfgModal.type !== "CUSTOM"){
+    if(cfgModal.type.toUpperCase() !== "CUSTOM"){
         url = `res/modals/${cfgModal.type}.html`;
     } else{
         url = `res/modals/${cfgModal.body}.html`

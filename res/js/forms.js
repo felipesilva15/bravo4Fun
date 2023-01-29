@@ -36,7 +36,7 @@ $("#btnOk").on("click", (e) => {
         .catch((err) => {
             cfgModalError = modal.config();
 
-            cfgModalError.type = "ERROR";
+            cfgModalError.type = "error";
             cfgModalError.title = "Atenção";
             cfgModalError.body = err;
 

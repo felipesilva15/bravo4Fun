@@ -29,7 +29,7 @@ inputItemAdd.addEventListener("change", (e) => {
         .catch((err) => {
             cfgModalError = modal.config();
 
-            cfgModalError.type = "ERROR";
+            cfgModalError.type = "error";
             cfgModalError.title = "Atenção";
             cfgModalError.body = err;
 
@@ -89,7 +89,7 @@ btnOk.addEventListener("click", (e) => {
         .catch((err) => {
             cfgModalError = modal.config();
 
-            cfgModalError.type = "ERROR";
+            cfgModalError.type = "error";
             cfgModalError.title = "Atenção";
             cfgModalError.body = err;
 

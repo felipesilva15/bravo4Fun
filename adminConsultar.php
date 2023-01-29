@@ -122,7 +122,7 @@
     function adminDesativar(id, acao){
         cfgModal = modal.config();
 
-        cfgModal.type = "CONFIRM";
+        cfgModal.type = "confirm";
         cfgModal.title = "Atenção";
         cfgModal.extra1 = id;
         cfgModal.extra2 = acao;
@@ -138,7 +138,7 @@
 
                     cfgModalError = modal.config();
 
-                    cfgModalError.type = "ERROR";
+                    cfgModalError.type = "error";
                     cfgModalError.title = "Erro ao processar a solicitação";
                     cfgModalError.body = err;
 
