@@ -238,8 +238,6 @@
     ?>
   <script src="../node_modules/chart.js/dist/chart.min.js"></script>
   <script>
-    console.log('Teste do action do GitHub.');
-
     const ctx1 = document.getElementById('productsPerCategoryChart').getContext('2d');
     const productsPerCategoryChart = new Chart(ctx1, {
       type: 'doughnut',
