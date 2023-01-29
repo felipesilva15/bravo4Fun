@@ -112,7 +112,8 @@ class Produto{
                             ORDER BY 
                                 IMGAUX.IMAGEM_ORDEM 
                             LIMIT 1), '') AS IMAGEM_URL,
-                        COALESCE(EST.PRODUTO_QTD, 0) AS PRODUTO_QTD
+                        COALESCE(EST.PRODUTO_QTD, 0) AS PRODUTO_QTD,
+                        COALESCE(PRO.PRODUTO_PRECO, 0) - COALESCE(PRO.PRODUTO_DESCONTO) AS PRODUTO_PRETOT
                     FROM PRODUTO PRO 
                     LEFT JOIN CATEGORIA CAT ON CAT.CATEGORIA_ID = PRO.CATEGORIA_ID 
                     LEFT JOIN PRODUTO_ESTOQUE EST ON EST.PRODUTO_ID = PRO.PRODUTO_ID 
@@ -155,16 +156,12 @@ class Produto{
         }
 
         $query = "INSERT INTO PRODUTO (PRODUTO_NOME, PRODUTO_DESC, PRODUTO_PRECO, PRODUTO_DESCONTO, CATEGORIA_ID, PRODUTO_ATIVO) VALUES (:NOME, :DESC, :PRECO, :DESCONTO, :CATEGORIA, 1)";
-
-        //Tratando valores       
-        $preco = str_replace(',','.',$this->getPreco());
-        $desconto = str_replace(',','.',$this->getDesconto());
      
         $params = [
              ":NOME"=>$this->getNome(),
              ":DESC"=>$this->getDesc(),
-             ":PRECO"=>floatval($preco),
-             ":DESCONTO"=>floatval($desconto),
+             ":PRECO"=>$this->desmascararValor($this->getPreco()),
+             ":DESCONTO"=>$this->desmascararValor($this->getDesconto()),
              ":CATEGORIA"=>$this->getCategoria(),        
         ];
         
@@ -194,17 +191,13 @@ class Produto{
         $query = "  UPDATE PRODUTO 
                     SET PRODUTO_NOME = :NOME, PRODUTO_DESC = :DESC, PRODUTO_PRECO = :PRECO, PRODUTO_DESCONTO = :DESCONTO, CATEGORIA_ID = :CATEGORIA
                     WHERE PRODUTO_ID = :ID";
-       
-        //Tratando valores       
-        $preco = str_replace(',','.',$this->getPreco());
-        $desconto = str_replace(',','.',$this->getDesconto());
 
        $params = [
             ":ID"=>$this->getId(),
             ":NOME"=>$this->getNome(),
             ":DESC"=>$this->getDesc(),
-            ":PRECO"=>floatval($preco),
-            ":DESCONTO"=>floatval($desconto),
+            ":PRECO"=>$this->desmascararValor($this->getPreco()),
+            ":DESCONTO"=>$this->desmascararValor($this->getDesconto()),
             ":CATEGORIA"=>intval($this->getCategoria()),
         ];                  
            
@@ -266,12 +259,18 @@ class Produto{
             $response = ["status"=> 400, "title"=>"Dado inválido",  "message"=>"O campo de nome não foi preenchido."];
         } elseif ($this->getCategoria() == 0) {
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de categoria não foi preenchido."];
-        } elseif ($this->getPreco() == 0 ){
+        } elseif ($this->desmascararValor($this->getPreco()) == 0 ){
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"O campo de preço não foi preenchido."];
         } elseif(!$this->validarCategoriaExistente()){
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Categoria inválida ou inativa no sistema."];
         } elseif($this->validarProdutoExistente()){
             $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Já existe um produto cadastrado com este nome. Tente um nome diferente."];
+        } elseif($this->desmascararValor($this->getDesconto()) > $this->desmascararValor($this->getPreco())){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Não é permitido aplicar um desconto maior do que o preço do produto."];            
+        } elseif($this->desmascararValor($this->getPreco()) < 0){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Não é permitido informar valores negativos no preço."];            
+        } elseif($this->desmascararValor($this->getDesconto()) < 0){
+            $response = ["status"=> 400, "title"=>"Dado inválido", "message"=>"Não é permitido informar valores negativos no desconto."];            
         } else{
             $response = ["status"=> 200, "title"=>"Dado inválido", "message"=>"Ok"];
         }
@@ -308,6 +307,11 @@ class Produto{
 
         return($categoriaExistente);
     }
+
+    private function desmascararValor($valor):float{
+        return(floatval(str_replace(',', '.', str_replace('.', '', $valor))));
+    }
+
     public function __toString():string{
         return(json_encode([
             "PRODUTO_ID"=>$this->getId(),    

@@ -65,6 +65,7 @@
                                     <th>Estoque Atual</th>
                                     <th>Preço</th>
                                     <th>Desconto</th>
+                                    <th>Preço total</th>
                                     <th>Imagem Principal</th>
                                     <th>
                                         <a href="views\produtoDigitar.php" class="btn btn-success fw-bold btn-sm-custom">+ Incluir</a>
@@ -101,6 +102,7 @@
                                             <td class=\"textNumber\" decimalPlaces=\"0\">{$row["PRODUTO_QTD"]}</td>
                                             <td class=\"textNumber textMoneySymbol\">{$row["PRODUTO_PRECO"]}</td>
                                             <td class=\"textNumber textMoneySymbol\">{$row["PRODUTO_DESCONTO"]}</td>
+                                            <td class=\"textNumber textMoneySymbol\">{$row["PRODUTO_PRETOT"]}</td>
                                             <td>
                                                 <div class=\"btn  btn-sm-custom p-0\" id=\"btnZoomImage\">
                                                     <button class=\"btn btn-sm-custom\">

@@ -141,6 +141,8 @@ class ProdutoEstoque{
 
         if(!$this->validarProdutoExistente()){
             $response = ["status"=>400, "title"=>"Dado inválido", "message"=>"Produto informado não existe na base de dados ou não se encontra ativo."];
+        } elseif($this->getQuantidade() < 0){
+            $response = ["status"=>400, "title"=>"Dado inválido", "message"=>"Não é permitido informar valores negativos na qtd. em estoque."];
         } else{
             $response = ["status"=>200, "title"=>"Dado inválido", "message"=>"Ok"];
         }
