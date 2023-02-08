@@ -34,7 +34,6 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 
 * **Felipe Silva** - *Desenvolvedor e mentor* - [felipesilva15](https://github.com/felipesilva15)
 * **Ewerton Sobral** - *Desenvolvedor* - [EwertonSobral](https://github.com/EwertonSobral)
-* **Laysa Lacerda** - *Desenvolvedora* - [LaysaLacerda](https://github.com/LaysaLacerda)
 
 ## 📄 Licença
 
