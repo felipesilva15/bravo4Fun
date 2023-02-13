@@ -1,3 +1,4 @@
+
 <h1 align="center">
   <img alt="Bravo 4 Fun" width="300px" src="https://i.imgur.com/FQTGkuc.png" />
   <br>
@@ -12,7 +13,7 @@
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/felipesilva15/bravo4fun.svg">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/felipesilva15/bravo4fun.svg">
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/felipesilva15/bravo4fun.svg">
-  <a href="https://github.com/felipesilva15/bravo4fun/commits/master">
+  <a href="https://github.com/felipesilva15/bravo4fun/commits/main">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/felipesilva15/bravo4fun.svg">
   </a>
   <a href="https://github.com/felipesilva15/bravo4fun/issues">
@@ -40,16 +41,19 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 ### 🔧 Instalação
 
 1. Clone o projeto no diretório `C:\xampp\htdocs` utilizando o comando abaixo
-```bash
+
+``` bash
   git clone https://github.com/felipesilva15/bravo4Fun.git
 ```
 
-2. Acesse a pasta dos fonts deste projeto 
+2. Acesse a pasta dos fonts deste projeto
+
 ```bash
   cd bravo4Fun
 ```
 
-3. Instale as dependências do projeto 
+3. Instale as dependências do projeto
+
 ```bash
   npm install
 ```
