@@ -3,13 +3,11 @@ const buttonAnimate = {};
 buttonAnimate.config = {
     oldContent: "",
     oldWidth: "",
-    animation: ""
 };
 
 buttonAnimate.configurate = (elementTarget) => {
     buttonAnimate.config.oldContent = $(elementTarget).text();
     buttonAnimate.config.oldWidth = $(elementTarget).css('width');
-    buttonAnimate.config.animation = !buttonAnimate.config.animation ? 'default' : buttonAnimate.config.animation;
 }
 
 buttonAnimate.createAnimationElement = () => {
