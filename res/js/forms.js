@@ -6,6 +6,8 @@
 $("#btnOk").on("click", (e) => {
     e.preventDefault()
 
+    buttonAnimate.initAnimation($('#btnOk'));
+
     let form, data;
 
     form = document.querySelector("#form-js");
@@ -14,6 +16,8 @@ $("#btnOk").on("click", (e) => {
         e.stopPropagation();
 
         form.classList.add('was-validated');
+        buttonAnimate.releaseAnimation($('#btnOk'));
+
         return;
     }
 
@@ -41,5 +45,8 @@ $("#btnOk").on("click", (e) => {
             cfgModalError.body = err;
 
             modal.show(cfgModalError);
+        })
+        .finally(() => {
+            buttonAnimate.releaseAnimation($('#btnOk'));
         });
 });
