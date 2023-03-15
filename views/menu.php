@@ -234,7 +234,7 @@
     </div>
   </main>
   <?php
-        include_once("footerContent.php");
+        include_once("footerContent.html");
     ?>
   <script src="../node_modules/chart.js/dist/chart.min.js"></script>
   <script>

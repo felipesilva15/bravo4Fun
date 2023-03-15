@@ -67,7 +67,7 @@
         </div>
     </main>
     <?php
-        include_once("footerContent.php");
+        include_once("footerContent.html");
     ?>
 </body>
     <?php

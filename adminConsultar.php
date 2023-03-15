@@ -112,7 +112,7 @@
         </div>
     </main>
     <?php
-        include_once("views/footerContent.php");
+        include_once("views/footerContent.html");
     ?>
 </body>
     <?php
