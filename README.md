@@ -26,7 +26,7 @@
 
 Este é painel de administração de um e-commerce fictício de venda de ingressos, chamado Bravo 4 Fun.
 
-Este projeto foi implantado em uma instância EC2 da [AWS](https://aws.amazon.com/pt/), e está disponível através do link <http://34.234.10.187/bravo4Fun>
+Este projeto foi implantado em uma instância EC2 da [AWS](https://aws.amazon.com/pt/), e está disponível através do link <http://100.25.129.53/bravo4Fun/>
 
 ## 🚀 Rodando localmente
 

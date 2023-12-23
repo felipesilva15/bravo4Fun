@@ -46,30 +46,6 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="card-custom laysa">
-                            <div class="perfil">
-                                <div class="img2"><img src="../res/images/ImagesColaborators/laysa.jfif" alt="Layza Lacerda"></div>
-                                <div class="main-text">
-                                    <h2>Laysa Lacerda</h2>
-                                </div>
-                            </div>
-                            <div class="socials">
-                                <img src="../res/images/ImagesColaborators/qrcode-github-laysa.png" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <a href="https://github.com/LaysaLacerda" class="link-card-contribuitor"></a>
-                                </div>
-                                <img src="../res/images/ImagesColaborators/qrcode-linkedin-laysa.png" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <a href="https://www.linkedin.com/in/laysa-lacerda-7521491b4/" class="link-card-contribuitor"></a>
-                                </div>
-                                <img src="../res/images/ImagesColaborators/qrcode-email-laysa.png" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <a href="mailto:laysa.lacerda02@gmail.com" class="link-card-contribuitor"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
                         <div class="card-custom ewerton">
                             <div class="perfil">
                                 <div class="img2"><img src="../res/images/ImagesColaborators/ewerton.jpg" alt="Ewerton Sobral"></div>
