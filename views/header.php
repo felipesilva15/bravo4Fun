@@ -1,4 +1,6 @@
 <?php
+    error_reporting(E_ERROR | E_PARSE);
+
     header("Cache-control: no-cache, no-store, must-revalidate");
 ?>
 
