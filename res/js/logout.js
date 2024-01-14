@@ -9,16 +9,16 @@ function logout(){
     
         request
             .then((res) => {
-                window.location.href = "/bravo4Fun/views/login.html"
+                window.location.href = "/bravo4Fun/views/login.html";
             })
             .catch((err) => {
-                modal.close()
+                modal.close();
 
                 cfgModalError = modal.config();
 
-                cfgModalError.type = "confirmCustom";
-                cfgModalError.title = "Atenção";
-                cfgModalError.body = "Deseja mesmo fazer logout";
+                cfgModalError.type = "error";
+                cfgModalError.title = "Erro ao processar a solicitação";
+                cfgModalError.body = err;
 
                 modal.show(cfgModalError);
             });
