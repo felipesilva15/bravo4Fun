@@ -21,7 +21,7 @@
                 <li><a  href="adminConsultar.php">Administradores</a></li>
             </ul>
         </nav>
-        <a id="logo" href="/bravo4Fun/views/menu.html">Bravo4 Fun</a>
+        <a id="logo" href="/views/menu.html">Bravo4 Fun</a>
         <img id="semfoto" src="res/images/semfoto.png" width="50">
     </header>
     <main class="full-height">

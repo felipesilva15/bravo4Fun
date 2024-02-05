@@ -13,7 +13,7 @@ buttonAnimate.configurate = (elementTarget) => {
 buttonAnimate.createAnimationElement = () => {
     let element = $(document.createElement('img'))
     
-    element.prop('src', '/bravo4Fun/assets/Rolling-1s-200px.gif')
+    element.prop('src', '/assets/Rolling-1s-200px.gif')
     element.css('width', '20px')
     element.css('height', '20px')
 
