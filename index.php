@@ -2,6 +2,8 @@
 
 error_reporting(E_ERROR | E_PARSE);
 
+$isLogin = true;
+
 require_once("config.php");
 
 $data = json_decode(validarCredenciais(), true); 
