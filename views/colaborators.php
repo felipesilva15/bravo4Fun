@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="../res/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awsome/4.7.0/css/font-awsome.min.css">
-    <link rel="stylesheet" href="/bravo4Fun/res/css/global.css">
-    <link rel="stylesheet" href="/bravo4Fun/res/css/menu.css">
-    <link rel="stylesheet" href="/bravo4Fun/res/css/styleColaborators.css">
+    <link rel="stylesheet" href="/res/css/global.css">
+    <link rel="stylesheet" href="/res/css/menu.css">
+    <link rel="stylesheet" href="/res/css/styleColaborators.css">
     <title>Participantes - Bravo 4 Fun</title>
 </head>
 <body>

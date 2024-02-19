@@ -3,7 +3,7 @@ const api = {};
 let protocol = window.location.protocol;
 let host = window.location.hostname;
 let port = window.location.port && window.location.port != '' ? ':' + window.location.port : ''; 
-let urlBase = `${protocol}//${host}${port}/bravo4Fun/`;
+let urlBase = `${protocol}//${host}${port}/`;
 
 // Realiza uma requisição de um arquivo do projeto sem retornar um conjunto de dados
 api.request = (url, method, data) => {
@@ -38,7 +38,7 @@ api.request = (url, method, data) => {
 
                 // Inautorizado
                 if (res.status == 403 && !res.items["showError"]){
-                    window.location.href = "/bravo4Fun/views/login.html";
+                    window.location.href = "/views/login.html";
                 }
 
                 // Sucesso

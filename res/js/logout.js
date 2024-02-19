@@ -9,7 +9,7 @@ function logout(){
     
         request
             .then((res) => {
-                window.location.href = "/bravo4Fun/views/login.html";
+                window.location.href = "/views/login.html";
             })
             .catch((err) => {
                 modal.close();

@@ -19,8 +19,8 @@
     <link rel="shortcut icon" href="../res/images/logo.ico">
     <link rel="stylesheet" href="../res/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../res/css/global.css">
-    <link rel="stylesheet" href="/bravo4Fun/res/css/menu.css">
-    <link rel="stylesheet" href="/bravo4Fun/res/css/produtoOrdemImagem.css">
+    <link rel="stylesheet" href="/res/css/menu.css">
+    <link rel="stylesheet" href="/res/css/produtoOrdemImagem.css">
 </head>
 <body class="default-height-body">
     <?php
@@ -46,7 +46,7 @@
                                         <form action="" method="" id="formItemAdd">
                                             <label class="form-label-custom" for="inputFileUpload">
                                                 <div class="box box-none-border margin-0 item-add">
-                                                    <img draggable="false" src="/bravo4Fun/res/images/plus-symbol-button.png" alt="" height="auto" class="plus-button-icon">
+                                                    <img draggable="false" src="/res/images/plus-symbol-button.png" alt="" height="auto" class="plus-button-icon">
                                                 </div>
                                             </label>
                                             <input name="inputFileUpload" id="inputFileUpload" type="file" accept="image/*" class="form-control" placeholder="Digite...">
@@ -93,5 +93,5 @@
     <?php
         include_once("footer.html");
     ?>
-<script src="/bravo4Fun/res/js/produtoOrdemImagem.js"></script>
+<script src="/res/js/produtoOrdemImagem.js"></script>
 </html>

@@ -5,5 +5,5 @@ request
     .then((res) => {
     })
     .catch((err) => {
-        window.location.href = "/bravo4Fun/views/login.html"
+        window.location.href = "/views/login.html"
     });

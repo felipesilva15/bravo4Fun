@@ -23,13 +23,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bravo 4 Fun</title>
-    <link rel="shortcut icon" href="/bravo4Fun/res/images/logo.ico">
-    <link rel="stylesheet" href="/bravo4Fun/res/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/bravo4Fun/res/css/global.css">
-    <link rel="stylesheet" href="/bravo4Fun/res/css/menu.css">
-    <link rel="stylesheet" href="/bravo4Fun/node_modules/select2/dist/css/select2.min.css">
+    <link rel="shortcut icon" href="/res/images/logo.ico">
+    <link rel="stylesheet" href="/res/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/res/css/global.css">
+    <link rel="stylesheet" href="/res/css/menu.css">
+    <link rel="stylesheet" href="/node_modules/select2/dist/css/select2.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-    <link rel="stylesheet" href="/bravo4Fun/res/css/fixSelect2Theme.css">
+    <link rel="stylesheet" href="/res/css/fixSelect2Theme.css">
 </head>
 <body class="default-height-body">
     <?php

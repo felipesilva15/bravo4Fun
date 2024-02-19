@@ -84,7 +84,7 @@ btnOk.addEventListener("click", (e) => {
 
     request
         .then((res) => {
-            window.location.href = "/bravo4Fun/produtoConsultar.php";
+            window.location.href = "/produtoConsultar.php";
         })
         .catch((err) => {
             cfgModalError = modal.config();

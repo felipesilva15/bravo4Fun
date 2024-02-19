@@ -26,7 +26,7 @@
 
 Este é painel de administração de um e-commerce fictício de venda de ingressos, chamado Bravo 4 Fun.
 
-Este projeto foi implantado em uma instância EC2 da [AWS](https://aws.amazon.com/pt/), e está disponível através do link <http://100.25.129.53/bravo4Fun/>
+Este projeto foi implantado em uma instância EC2 da [AWS](https://aws.amazon.com/pt/), e está disponível através do link <http://195.35.40.172:9000>
 
 ## 🚀 Rodando localmente
 
@@ -59,7 +59,7 @@ Essas instruções permitirão que você obtenha uma cópia do projeto em opera�
 ```
 
 4. Abra o XAMPP e inicie o Apache
-5. Acesse o projeto através do link <http://localhost/bravo4Fun>
+5. Acesse o projeto através do link <http://localhost>
 6. Se logue com o e-mail **felipe@bravo4fun.com.br** e senha **123**
 
 ## 🛠️ Construído com
