@@ -14,9 +14,9 @@
     <title>Participantes - Bravo 4 Fun</title>
 </head>
 <body>
-        <?php
-            include_once("header.php");
-        ?>
+    <?php
+        include_once("header.php");
+    ?>
     <main>
         <div class="profile-area">
             <div class="container">
