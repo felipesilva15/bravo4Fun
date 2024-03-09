@@ -26,7 +26,7 @@
 
 Este é painel de administração de um e-commerce fictício de venda de ingressos, chamado Bravo 4 Fun.
 
-Este projeto foi implantado em uma VPS na [Hostinger](https://www.hostinger.com.br/), e está disponível através do link <http://195.35.40.172:9000>
+Este projeto foi implantado em uma VPS na [Hostinger](https://www.hostinger.com.br/), e está disponível através do link <https://bravo4fun.felipesilva15.com.br>
 
 ## 🚀 Rodando localmente
 
