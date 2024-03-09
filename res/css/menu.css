@@ -52,6 +52,16 @@ a:hover {
   border-radius: 50%;
 }
 
+.donut-chart {
+  min-width: 415px;
+  max-width: 600px;
+}
+
+.bar-chart {
+  min-width: 95%; 
+  max-width: 1000px;
+}
+
 @media (max-width: 1999px) {
   #menu {
     display: block;
@@ -131,6 +141,10 @@ a:hover {
   .login-footer{
     font-size: 0.9rem;
   }
+
+  .donut-chart {
+    min-width: 360px;
+  }
 }
 
 /* Tablet */
@@ -138,6 +152,11 @@ a:hover {
 	#menu{
     width: 50vw;
     right: 50%;
+  }
+
+  .bar-chart {
+    min-width: 100%; 
+    max-width: 1000px;
   }
 }
 

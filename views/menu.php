@@ -171,7 +171,7 @@
               <h4>Estoque por categoria de produto</h4>
             </div>
             <div class="full-height d-flex justify-content-center align-items-center">
-              <div class="m-5 mt-5 pb-1" style="min-width: 95%; max-width: 1000px;">
+              <div class="m-5 mt-5 pb-1 bar-chart">
                 <canvas id="storePerProductChart" width="82" height="50"></canvas>
               </div>
             </div>
@@ -183,7 +183,7 @@
               <h4>Quantidade de produtos por categoria</h4>
             </div>
             <div class="full-height d-flex justify-content-center align-items-center">
-              <div class="m-5 mt-5 pb-1" style="min-width: 415px; max-width: 600px;">
+              <div class="m-5 mt-5 pb-1 donut-chart">
                 <canvas id="productsPerCategoryChart" width="50" height="50"></canvas>
               </div>
             </div>
