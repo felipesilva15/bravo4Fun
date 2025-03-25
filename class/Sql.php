@@ -3,15 +3,15 @@
 class Sql extends PDO{
     private $conn;
 
-    // BD Senac
-    private $server = "144.22.244.104:3306";
-    private $user = "Bravo4Fun";
-    private $password = "Bravo4Fun";
-    private $db = "Bravo4Fun";
-
     // Método construtor para criar atributo de conexão da classe
     public function __construct(){
-        $this->conn = new PDO ("mysql:dbname={$this->db};host={$this->server}r", $this->user, $this->password);
+        $config = require __DIR__ . '/../config.env.php';
+
+        $this->conn = new PDO(
+            "mysql:dbname={$config['db']};host={$config['server']}",
+            $config['user'],
+            $config['password']
+        );
     }
 
     // Define um parâmetro da query com o bindValue
