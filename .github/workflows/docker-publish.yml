@@ -29,7 +29,7 @@ jobs:
       - name: Docker build
         working-directory: .
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/$(basename ${{ github.repository }}):latest \
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/bravo4fun:latest \
             --build-arg DB_HOST='${{ secrets.DB_HOST }}' \
             --build-arg DB_DATABASE='${{ secrets.DB_DATABASE }}' \
             --build-arg DB_USER='${{ secrets.DB_USER }}' \
