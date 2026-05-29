@@ -1,39 +1,43 @@
-# Baixa a imagem oficial do server Apache
-FROM php:8.2.0-apache
+# ─── Stage 1: Imagem final ───────────────────────────────────────────────────
+FROM php:8.2-apache
 
-# Define o diretório de trabalho no contêiner
+# Instala dependências do sistema e extensões PHP
+RUN apt-get update && apt-get install -y \
+    && docker-php-ext-install pdo pdo_mysql \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instala Node.js 20 LTS e dependências npm
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Habilita mod_rewrite
+RUN a2enmod rewrite
+
+# VirtualHost próprio
+COPY docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+# Configurações de PHP/OPcache
+COPY docker/php.ini /usr/local/etc/php/conf.d/custom.ini
+
 WORKDIR /var/www/html
 
-# Copia os arquivos do diretório atual para a pasta /var/www/html
-COPY . /var/www/html
+# Copia o código-fonte
+COPY . .
 
-# Instala a extensão pdo_mysql
-RUN docker-php-ext-install pdo_mysql
-
-# Instala o Node.js
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y nodejs
-
-# Executa o comando npm install para instalar as dependências do Node.js
+# Instala dependências do npm
 RUN npm install
 
-# Copia o arquivo env de exemplo
-COPY config.env.example.php config.env.php
+# Garante que os diretórios necessários existam com permissões corretas.
+RUN mkdir -p assets \
+    && chmod -R 755 assets
 
-# Define as variáveis de ambiente no Dockerfile
-ARG DB_HOST
-ARG DB_DATABASE
-ARG DB_USER
-ARG DB_PASSWORD
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Substitui as variáveis no arquivo .env pelas variáveis de ambiente
-RUN sed -i "s#DB_HOST#${DB_HOST}#" config.env.php \
-    && sed -i "s#DB_DATABASE#${DB_DATABASE}#" config.env.php \
-    && sed -i "s#DB_USER#${DB_USER}#" config.env.php \
-    && sed -i "s#DB_PASSWORD#${DB_PASSWORD}#" config.env.php
-
-# Expõe a porta 80 para acessar o servidor web
 EXPOSE 80
 
-# Executa o comando de inicialização do apache após a execução do contêiner
+# ENTRYPOINT roda o script de inicialização
+# CMD é passado como argumento para o entrypoint e pode ser sobrescrito
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["apache2-foreground"]

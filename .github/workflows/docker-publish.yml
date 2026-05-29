@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build and push Docker image
 
 on:
   push:
@@ -15,27 +15,32 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v3.0.0
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Docker build
-        working-directory: .
+      - name: Set image name
+        id: image_name
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/bravo4fun:latest \
-            --build-arg DB_HOST='${{ secrets.DB_HOST }}' \
-            --build-arg DB_DATABASE='${{ secrets.DB_DATABASE }}' \
-            --build-arg DB_USER='${{ secrets.DB_USER }}' \
-            --build-arg DB_PASSWORD='${{ secrets.DB_PASSWORD }}' \
-            .
+          REPO_NAME=$(echo "${{ github.repository }}" | awk -F '/' '{print tolower($2)}')
+          echo "name=${{ secrets.DOCKER_USERNAME }}/$REPO_NAME" >> $GITHUB_OUTPUT
 
-      - name: Push to Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/bravo4fun:latest
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.image_name.outputs.name }}:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
